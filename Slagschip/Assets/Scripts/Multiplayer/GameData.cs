@@ -8,9 +8,22 @@ namespace Multiplayer
 {
     public class GameData : NetworkBehaviour
     {
+        public static GameData instance;
         public NetworkVariable<ulong> currentPlayerTurn = new();
 
         [SerializeField] private InputAction _debugPlayerSwitch;
+
+        private void Awake()
+        {
+            if (instance == null)
+            {
+                instance = this;
+            }
+            else
+            {
+                Destroy(instance);
+            }
+        }
 
         private void Start()
         {
