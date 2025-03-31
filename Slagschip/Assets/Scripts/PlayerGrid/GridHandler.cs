@@ -1,23 +1,57 @@
+using Ships;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Assertions.Must;
-using UnityEngine.Rendering;
+using UnityEngine.Events;
+using UnityEngine.InputSystem;
 
 namespace PlayerGrid
 {
     public class GridHandler : MonoBehaviour
     {
         [SerializeField] private LayerMask interactionLayers;
-        [SerializeField] private GridShape shape;
+        [SerializeField] private ShipBehaviour ship;
+
+        public static GridHandler instance;
+
+        public UnityEvent<bool> onValidate;
+        public UnityEvent<Vector2> onMove;
+        public UnityEvent<bool> onHit;
 
         private const int _gridSize = 10;
         private GridCell[,] _grid;
         private GridCell _current;
 
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
-        void Start()
+        private InputAction _rotateLeft, _rotateRight;
+
+        private void Awake()
         {
+            if (instance == null)
+            {
+                instance = this;
+            }
+            else
+            {
+                Destroy(this);
+            }
+
             InitializeGrid();
+
+            InitializeInput();
+        }
+
+        private void InitializeInput()
+        {
+            _rotateLeft = InputSystem.actions.FindAction("RotateLeft");
+            _rotateRight = InputSystem.actions.FindAction("RotateRight");
+
+            _rotateLeft.started += context => {
+                ship.shape.RotateCounterClockwise();
+                onValidate.Invoke(IsValidPosition());
+            };
+            _rotateRight.started += context => {
+                ship.shape.RotateClockwise();
+                onValidate.Invoke(IsValidPosition());
+            };
         }
 
         private void InitializeGrid()
@@ -36,9 +70,11 @@ namespace PlayerGrid
         private void FixedUpdate()
         {
             RaycastHit hit;
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
             if (Physics.Raycast(ray, out hit, 100, interactionLayers))
             {
+                onHit.Invoke(true);
+
                 Vector3 gridPosition = hit.transform.position;
                 float gridScale = hit.transform.localScale.x;
                 float halfSize = _gridSize / 2 * gridScale;
@@ -58,38 +94,34 @@ namespace PlayerGrid
                 {
                     _current = _grid[indexX, indexY];
 
-                    IsValidPosition();
+                    onValidate.Invoke(IsValidPosition());
+                    onMove.Invoke(new Vector2(indexX, indexY) * gridScale);
                 }
             }
+            else
+            {
+                onHit.Invoke(false);
+            }
         }
 
-        void IsValidPosition()
+        private bool IsValidPosition()
         {
-            bool[] check = new bool[shape.offsets.Length];
-            for (int i = 0; i < shape.offsets.Length; i++)
+            bool[] check = new bool[ship.shape.offsets.Length];
+            for (int i = 0; i < ship.shape.offsets.Length; i++)
             {
-                bool yMin = _current.position.y + shape.offsets[i].y >= 0;
-                bool yMax = _current.position.y + shape.offsets[i].y < _gridSize;
+                int y = _current.position.y + ship.shape.offsets[i].y;
 
-                bool xMin = _current.position.x + shape.offsets[i].x >= 0;
-                bool xMax = _current.position.x + shape.offsets[i].x < _gridSize;
-                check[i] = yMin && yMax && xMin && xMax;
-                
-            }
-            Debug.Log(check.All(b => b));
-        }
+                int x = _current.position.x + ship.shape.offsets[i].x;
 
-        // Update is called once per frame
-        void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.Q))
-            {
-                shape.RotateCounterClockwise();
+                GridCell offsetCell = _current;
+                bool isOnGrid;
+                if (isOnGrid = x >= 0 && x < _gridSize && y >= 0 && y < _gridSize)
+                    offsetCell = _grid[x, y];
+
+                check[i] = isOnGrid && !offsetCell.isTaken;
             }
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                shape.RotateClockwise();
-            }
+
+            return check.All(b => b);
         }
     }
 }
