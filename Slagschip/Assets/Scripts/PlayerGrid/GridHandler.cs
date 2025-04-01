@@ -8,8 +8,7 @@ namespace PlayerGrid
 {
     public class GridHandler : MonoBehaviour
     {
-        [SerializeField] private LayerMask interactionLayers;
-        [SerializeField] private ShipBehaviour ship;
+        private ShipBehaviour _ship;
 
         public static GridHandler instance;
 
@@ -22,6 +21,20 @@ namespace PlayerGrid
         private GridCell _current;
 
         private InputAction _rotateLeft, _rotateRight;
+
+        [SerializeField] private LayerMask interactionLayers;
+
+        public ShipBehaviour Ship
+        {
+            private get 
+            { 
+                return _ship; 
+            }
+            set 
+            {
+                _ship = value;
+            }
+        }
 
         private void Awake()
         {
@@ -45,11 +58,13 @@ namespace PlayerGrid
             _rotateRight = InputSystem.actions.FindAction("RotateRight");
 
             _rotateLeft.started += context => {
-                ship.shape.RotateCounterClockwise();
+                if (_ship != null)
+                    _ship.shape.RotateCounterClockwise();
                 onValidate.Invoke(IsValidPosition());
             };
             _rotateRight.started += context => {
-                ship.shape.RotateClockwise();
+                if (_ship != null)
+                    _ship.shape.RotateClockwise();
                 onValidate.Invoke(IsValidPosition());
             };
         }
@@ -106,12 +121,14 @@ namespace PlayerGrid
 
         private bool IsValidPosition()
         {
-            bool[] check = new bool[ship.shape.offsets.Length];
-            for (int i = 0; i < ship.shape.offsets.Length; i++)
+            if (_ship == null)
+                return false;
+            bool[] check = new bool[_ship.shape.offsets.Length];
+            for (int i = 0; i < _ship.shape.offsets.Length; i++)
             {
-                int y = _current.position.y + ship.shape.offsets[i].y;
+                int y = _current.position.y + _ship.shape.offsets[i].y;
 
-                int x = _current.position.x + ship.shape.offsets[i].x;
+                int x = _current.position.x + _ship.shape.offsets[i].x;
 
                 GridCell offsetCell = _current;
                 bool isOnGrid;
@@ -122,6 +139,18 @@ namespace PlayerGrid
             }
 
             return check.All(b => b);
+        }
+
+        public void Place()
+        {
+            for (int i = 0; i < _ship.shape.offsets.Length; i++)
+            {
+                int y = _current.position.y + _ship.shape.offsets[i].y;
+
+                int x = _current.position.x + _ship.shape.offsets[i].x;
+
+                _grid[x, y].isTaken = true;
+            }
         }
     }
 }
