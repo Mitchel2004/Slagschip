@@ -11,7 +11,7 @@ namespace Multiplayer
         public static GameData instance;
         public NetworkVariable<ulong> currentPlayerTurn = new();
 
-        [SerializeField] private InputAction _debugPlayerSwitch;
+        [SerializeField] private InputAction debugPlayerSwitch;
 
         private void Awake()
         {
@@ -27,8 +27,8 @@ namespace Multiplayer
 
         private void Start()
         {
-            _debugPlayerSwitch.Enable();
-            _debugPlayerSwitch.performed += context => SwitchPlayerTurnRpc();
+            debugPlayerSwitch.Enable();
+            debugPlayerSwitch.performed += context => SwitchPlayerTurnRpc();
         }
 
         public override void OnNetworkSpawn()
