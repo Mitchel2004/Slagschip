@@ -160,9 +160,9 @@ namespace PlayerGrid
         {
             for (int i = 0; i < _requestedShip.shape.offsets.Length; i++)
             {
-                int y = _ship.position.y + _requestedShip.shape.offsets[i].y;
+                int y = _requestedShip.position.y + _requestedShip.shape.offsets[i].y;
 
-                int x = _ship.position.x + _requestedShip.shape.offsets[i].x;
+                int x = _requestedShip.position.x + _requestedShip.shape.offsets[i].x;
 
                 _grid[x, y].isTaken = false;
             }
