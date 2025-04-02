@@ -86,7 +86,7 @@ namespace PlayerGrid
         {
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
-            if (Physics.Raycast(ray, out hit, 100, interactionLayers))
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, interactionLayers))
             {
                 onHit.Invoke(true);
 
