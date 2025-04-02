@@ -10,6 +10,12 @@ namespace Ships
         public GridShape shape;
 
         public UnityEvent onPlace;
+        public UnityEvent onClick;
+        public UnityEvent onStartMove;
+
+        public UnityEvent<ShipBehaviour> onClear;
+
+        public Vector2Int position;
 
         private MeshRenderer _renderer;
         private Material _material;
@@ -19,8 +25,6 @@ namespace Ships
         private System.Action<InputAction.CallbackContext> _rotateLeftAction;
         private System.Action<InputAction.CallbackContext> _rotateRightAction;
 
-        [SerializeField] private UnityEvent onStartMove;
-        [SerializeField] private UnityEvent onClick;
 
         private void Start()
         {
@@ -101,9 +105,12 @@ namespace Ships
 
         private void Moveable()
         {
-            GridHandler.instance.Ship = this;
             onStartMove.Invoke();
             onStartMove.RemoveListener(ResetRotation);
+
+            GridHandler.instance.Ship = this;
+
+            onClear.Invoke(this);
 
             GridHandler.instance.onHit.AddListener(SetEnabled);
             GridHandler.instance.onMove.AddListener(MoveTo);
@@ -118,6 +125,8 @@ namespace Ships
         private void Placed()
         {
             onPlace.Invoke();
+                
+            GridHandler.instance.Ship = null;
 
             GridHandler.instance.onHit.RemoveListener(SetEnabled);
             GridHandler.instance.onMove.RemoveListener(MoveTo);
@@ -129,7 +138,7 @@ namespace Ships
             _rotateLeft.started -= _rotateLeftAction;
             _rotateRight.started -= _rotateRightAction;
 
-            _material.color =new Color(0.5f, 0.5f, 0.5f);  
+            _material.color = new Color(0.5f, 0.5f, 0.5f);  
         }    
     }
 }

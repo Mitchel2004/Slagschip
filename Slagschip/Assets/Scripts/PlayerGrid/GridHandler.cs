@@ -8,19 +8,19 @@ namespace PlayerGrid
 {
     public class GridHandler : MonoBehaviour
     {
-        private ShipBehaviour _ship;
-
         public static GridHandler instance;
 
         public UnityEvent<bool> onValidate;
         public UnityEvent<Vector2> onMove;
         public UnityEvent<bool> onHit;
 
-        private const int _gridSize = 10;
+        private const byte _gridSize = 10;
         private GridCell[,] _grid;
         private GridCell _current;
 
         private InputAction _rotateLeft, _rotateRight;
+
+        private ShipBehaviour _ship;
 
         [SerializeField] private LayerMask interactionLayers;
 
@@ -151,6 +151,23 @@ namespace PlayerGrid
 
                 _grid[x, y].isTaken = true;
             }
+
+            _ship.position = _current.position;
+            _ship.onClear.AddListener(Clear);
+        }
+
+        public void Clear(ShipBehaviour _requestedShip)
+        {
+            for (int i = 0; i < _requestedShip.shape.offsets.Length; i++)
+            {
+                int y = _ship.position.y + _requestedShip.shape.offsets[i].y;
+
+                int x = _ship.position.x + _requestedShip.shape.offsets[i].x;
+
+                _grid[x, y].isTaken = false;
+            }
+
+            _requestedShip.onClear.RemoveListener(Clear);
         }
     }
 }
