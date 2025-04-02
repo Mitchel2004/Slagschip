@@ -1,0 +1,49 @@
+#grid-container {
+    visibility: visible;
+    overflow: hidden;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    width: 250px;
+    height: 250px;
+}
+
+#horizontal-grid-container {
+    visibility: hidden;
+    overflow: hidden;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    width: 250px;
+    height: 250px;
+}
+
+#vertical-grid-container {
+    visibility: hidden;
+    overflow: hidden;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    width: 250px;
+    height: 250px;
+}
+
+.grid-button {
+    margin: 0;
+    padding: 0;
+    border-width: 0;
+}
+
+.horizontal-grid-button {
+    margin: 0;
+    padding: 0;
+    border-width: 0;
+    width: 50%;
+}
+
+.vertical-grid-button {
+    margin: 0;
+    padding: 0;
+    border-width: 0;
+    height: 50%;
+}
