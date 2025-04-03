@@ -28,8 +28,8 @@ namespace Ships
 
         private void Start()
         {
-            _renderer = transform.GetChild(0).gameObject.GetComponent<MeshRenderer>();
-            _material = _renderer.material;
+            //_renderer = transform.GetChild(0).gameObject.GetComponent<MeshRenderer>();
+            //_material = _renderer.material;
             InitializeEvents();
         }
 
@@ -50,7 +50,7 @@ namespace Ships
 
         private void SetEnabled(bool enabled)
         {
-            _renderer.enabled = enabled;
+            //_renderer.enabled = enabled;
         }
 
         private void MoveTo(Vector2 position)
@@ -71,14 +71,14 @@ namespace Ships
         {
             if (_isOnGrid)
             {
-                _material.color = Color.green;
+                //_material.color = Color.green;
 
                 onClick.RemoveListener(Placed);
                 onClick.AddListener(Placed);
             }
             else
             {
-                _material.color = Color.red;
+                //_material.color = Color.red;
                 onClick.RemoveListener(Placed);
             }
         }
@@ -138,7 +138,7 @@ namespace Ships
             _rotateLeft.started -= _rotateLeftAction;
             _rotateRight.started -= _rotateRightAction;
 
-            _material.color = new Color(0.5f, 0.5f, 0.5f);  
+            //_material.color = new Color(0.5f, 0.5f, 0.5f);  
         }    
     }
 }
