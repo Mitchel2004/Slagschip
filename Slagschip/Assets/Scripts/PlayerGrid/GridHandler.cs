@@ -153,7 +153,7 @@ namespace PlayerGrid
             }
 
             _ship.position = _current.position;
-            _ship.onClear.AddListener(Clear);
+            _ship.OnClear.AddListener(Clear);
         }
 
         public void Clear(ShipBehaviour _requestedShip)
@@ -167,7 +167,7 @@ namespace PlayerGrid
                 _grid[x, y].isTaken = false;
             }
 
-            _requestedShip.onClear.RemoveListener(Clear);
+            _requestedShip.OnClear.RemoveListener(Clear);
         }
     }
 }

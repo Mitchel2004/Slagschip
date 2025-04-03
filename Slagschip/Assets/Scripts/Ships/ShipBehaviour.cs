@@ -13,8 +13,6 @@ namespace Ships
         public UnityEvent onClick;
         public UnityEvent onStartMove;
 
-        public UnityEvent<ShipBehaviour> onClear;
-
         public Vector2Int position;
 
         private MeshRenderer _renderer;
@@ -25,6 +23,7 @@ namespace Ships
         private System.Action<InputAction.CallbackContext> _rotateLeftAction;
         private System.Action<InputAction.CallbackContext> _rotateRightAction;
 
+        public UnityEvent<ShipBehaviour> OnClear { get; set; }
 
         private void Start()
         {
@@ -110,7 +109,7 @@ namespace Ships
 
             GridHandler.instance.Ship = this;
 
-            onClear.Invoke(this);
+            OnClear.Invoke(this);
 
             GridHandler.instance.onHit.AddListener(SetEnabled);
             GridHandler.instance.onMove.AddListener(MoveTo);
