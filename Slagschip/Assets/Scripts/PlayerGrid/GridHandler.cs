@@ -1,20 +1,25 @@
 using Ships;
 using System.Linq;
+using TMPro;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 namespace PlayerGrid
 {
-    public class GridHandler : MonoBehaviour
+    public class GridHandler : NetworkBehaviour
     {
+        [SerializeField] private TextMeshProUGUI m_TextMeshProUGUI;
+
         public static GridHandler instance;
 
         public UnityEvent<bool> onValidate;
         public UnityEvent<Vector2> onMove;
         public UnityEvent<bool> onHit;
 
-        private const byte _gridSize = 10;
+        public const byte gridSize = 10;
+
         private GridCell[,] _grid;
         private GridCell _current;
 
@@ -71,17 +76,16 @@ namespace PlayerGrid
 
         private void InitializeGrid()
         {
-            _grid = new GridCell[_gridSize, _gridSize];
+            _grid = new GridCell[gridSize, gridSize];
 
-            for (int i = 0; i < _gridSize; i++)
+            for (int i = 0; i < gridSize; i++)
             {
-                for (int j = 0; j < _gridSize; j++)
+                for (int j = 0; j < gridSize; j++)
                 {
                     _grid[i, j] = new GridCell(new Vector2Int(i, j));
                 }
             }
         }
-
         private void FixedUpdate()
         {
             RaycastHit hit;
@@ -92,7 +96,7 @@ namespace PlayerGrid
 
                 Vector3 gridPosition = hit.transform.position;
                 float gridScale = hit.transform.localScale.x;
-                float halfSize = _gridSize / 2 * gridScale;
+                float halfSize = gridSize / 2 * gridScale;
 
                 float minX = gridPosition.x - halfSize;
                 float minY = gridPosition.z - halfSize;
@@ -103,8 +107,8 @@ namespace PlayerGrid
                 float xPercentage = (hit.point.x - minX) / (maxX - minX) * 100;
                 float yPercentage = (hit.point.z - minY) / (maxY - minY) * 100;
 
-                int indexX = Mathf.FloorToInt(xPercentage / _gridSize);
-                int indexY = Mathf.FloorToInt(yPercentage / _gridSize);
+                int indexX = Mathf.FloorToInt(xPercentage / gridSize);
+                int indexY = Mathf.FloorToInt(yPercentage / gridSize);
                 if (_current != _grid[indexX, indexY])
                 {
                     _current = _grid[indexX, indexY];
@@ -132,7 +136,7 @@ namespace PlayerGrid
 
                 GridCell offsetCell = _current;
                 bool isOnGrid;
-                if (isOnGrid = x >= 0 && x < _gridSize && y >= 0 && y < _gridSize)
+                if (isOnGrid = x >= 0 && x < gridSize && y >= 0 && y < gridSize)
                     offsetCell = _grid[x, y];
 
                 check[i] = isOnGrid && !offsetCell.isTaken;
@@ -168,6 +172,14 @@ namespace PlayerGrid
             }
 
             _requestedShip.onClear.RemoveListener(Clear);
+        }
+
+        [Rpc(SendTo.NotMe)]
+        public void CheckTargetCellRpc(byte _targetCell)
+        {
+            if (IsClient)
+                Debug.Log(_targetCell);
+                m_TextMeshProUGUI.text = _targetCell.ToString();
         }
     }
 }

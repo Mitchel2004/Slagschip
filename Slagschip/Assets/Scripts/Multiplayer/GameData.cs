@@ -10,6 +10,7 @@ namespace Multiplayer
     {
         public static GameData instance;
         public NetworkVariable<ulong> currentPlayerTurn = new();
+        public NetworkVariable<bool> isHostTurn = new();
 
         [SerializeField] private InputAction debugPlayerSwitch;
 
@@ -42,6 +43,7 @@ namespace Multiplayer
         private void InitializePlayerTurn()
         {
             currentPlayerTurn.Value = NetworkManager.ConnectedClientsIds[0];
+            isHostTurn.Value = true;
         }
 
         [Rpc(SendTo.Server)]
@@ -51,6 +53,7 @@ namespace Multiplayer
 
             if (IsServer)
                 currentPlayerTurn.Value = _connectedClientIds[currentPlayerTurn.Value == _connectedClientIds.Last() ? 0 : _connectedClientIds.ToList().IndexOf(currentPlayerTurn.Value) + 1];
+                isHostTurn.Value = !isHostTurn.Value;
         }
     }
 }

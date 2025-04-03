@@ -4,8 +4,8 @@
     flex-direction: row;
     flex-wrap: wrap;
     align-content: flex-start;
-    width: 250px;
-    height: 250px;
+    width: 500px;
+    height: 500px;
 }
 
 #horizontal-grid-container {
@@ -14,8 +14,8 @@
     flex-direction: row;
     flex-wrap: wrap;
     align-content: flex-start;
-    width: 250px;
-    height: 250px;
+    width: 500px;
+    height: 500px;
 }
 
 #vertical-grid-container {
@@ -24,14 +24,16 @@
     flex-direction: column;
     flex-wrap: wrap;
     align-content: flex-start;
-    width: 250px;
-    height: 250px;
+    width: 500px;
+    height: 500px;
 }
 
 .grid-button {
     margin: 0;
     padding: 0;
     border-width: 0;
+    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Opponent%20Dashboard%20and%20grid/OpponentGridTiles.png?fileID=2800000&guid=c39ac4ea74bb2a6459321d700228c3a9&type=3#OpponentGridTiles");
+    background-color: rgba(255, 255, 255, 0);
 }
 
 .horizontal-grid-button {
@@ -46,4 +48,12 @@
     padding: 0;
     border-width: 0;
     height: 50%;
+}
+
+.grid-button:hover {
+    margin: 0;
+    padding: 0;
+    border-width: 0;
+    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Opponent%20Dashboard%20and%20grid/Selected.png?fileID=2800000&guid=2b1a0e1b40d66e442b691293fd318252&type=3#Selected");
+    background-color: rgba(255, 255, 255, 0);
 }
