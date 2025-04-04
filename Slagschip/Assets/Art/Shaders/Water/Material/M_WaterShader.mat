@@ -90,7 +90,7 @@ Material:
     - _AlphaClip: 0
     - _AlphaToMask: 0
     - _AngleOffset: 1.91
-    - _AngleSpeed: 1.6
+    - _AngleSpeed: 0.602
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
     - _BumpScale: 1
@@ -124,7 +124,7 @@ Material:
     - _High_Frequency: 9.88
     - _Metallic: 0.63
     - _NORMAL_STRENTGH: 0
-    - _NormalStrength: 0.3
+    - _NormalStrength: 0.224
     - _Normal_Strength: 3.2
     - _OcclusionStrength: 1
     - _Parallax: 0.005
@@ -155,7 +155,7 @@ Material:
     - _Vornoi_Speed: 0.27
     - _VoronoiPower: 0
     - _VoronoiScale: 8.7
-    - _VoronoiSpeed: 0.1
+    - _VoronoiSpeed: 0.249
     - _Voronoi_Amount: 1
     - _Voronoi_Power: 0.8
     - _Voronoi_Scale: 3
@@ -183,13 +183,13 @@ Material:
     - _voronoi_speed: 1
     - _waterdeph: 16.64
     m_Colors:
-    - _AngleSpeed: {r: 1, g: 5, b: 0, a: 0}
+    - _AngleSpeed: {r: 1, g: 9, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _DEEP_WATER: {r: 0, g: 0.06144456, b: 0.5169811, a: 1}
     - _DeepWater: {r: 0.1971415, g: 0.1924456, b: 0.6754716, a: 0.5294118}
     - _Deep_Water: {r: 0.1971415, g: 0.1924456, b: 0.6754716, a: 0.68235296}
-    - _Direction: {r: 0, g: 1, b: 0, a: 0}
+    - _Direction: {r: 1, g: 0, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _FOAM_COLOR: {r: 1, g: 1, b: 1, a: 1}
     - _FoamColor: {r: 1, g: 1, b: 1, a: 1}
@@ -197,6 +197,7 @@ Material:
     - _NoiseOffset: {r: 0, g: 5, b: 0, a: 0}
     - _NormalSpeed: {r: 0, g: 5, b: 0, a: 0}
     - _Normal_Speed: {r: 0.2, g: 0.2, b: 0, a: 0}
+    - _RefractionScale_1: {r: 0, g: 5, b: 0, a: 0}
     - _SHALLOW_WATER: {r: 0.025311343, g: 0.6447831, b: 0.89433956, a: 1}
     - _ShallowWater: {r: 0.39648986, g: 0.7998229, b: 0.8792453, a: 1}
     - _Shallow_Water: {r: 0.39648986, g: 0.7998229, b: 0.8792453, a: 1}
@@ -204,7 +205,7 @@ Material:
     - _TilingNoise: {r: 2, g: 2, b: 0, a: 0}
     - _Tiling_Noise: {r: 1, g: 1, b: 0, a: 0}
     - _VoronoiColor: {r: 0, g: 0.37089652, b: 0.3886792, a: 1}
-    - _VoronoiOffset: {r: 0, g: 5, b: 0, a: 0}
+    - _VoronoiOffset: {r: 2, g: 2, b: 0, a: 0}
     - _Voronoi_Color: {r: 0, g: 0.30882674, b: 0.37358475, a: 1}
     - _Voronoi_Speed: {r: 0.2, g: 0.2, b: 0, a: 0}
     - _Voronoi_Tilling: {r: 3, g: 3, b: 0, a: 0}
