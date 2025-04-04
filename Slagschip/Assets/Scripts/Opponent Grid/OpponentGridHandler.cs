@@ -1,4 +1,5 @@
 using PlayerGrid;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -27,6 +28,7 @@ namespace OpponentGrid
                 _gridButton.style.height = new StyleLength(new Length(100 / _gridSize, LengthUnit.Percent));
 
                 _gridButton.RegisterCallbackOnce<ClickEvent, byte>(SetTargetCell, i);
+                _gridButton.RegisterCallbackOnce<ClickEvent, Button>(SetSelectedCell, _gridButton);
 
                 _document.rootVisualElement.Query("grid-container").First().Add(_gridButton);
             }
@@ -43,7 +45,10 @@ namespace OpponentGrid
                 _verticalGridButton.style.width = new StyleLength(new Length(100 / _gridSize, LengthUnit.Percent));
 
                 _horizontalGridButton.RegisterCallbackOnce<ClickEvent, byte>(SetTargetCell, (byte)(_gridSize * _gridSize + i));
+                _horizontalGridButton.RegisterCallbackOnce<ClickEvent, Button>(SetSelectedCell, _horizontalGridButton);
+
                 _verticalGridButton.RegisterCallbackOnce<ClickEvent, byte>(SetTargetCell, (byte)(_gridSize * _gridSize + _gridSize * 2 + i));
+                _verticalGridButton.RegisterCallbackOnce<ClickEvent, Button>(SetSelectedCell, _verticalGridButton);
 
                 _document.rootVisualElement.Query("horizontal-grid-container").First().Add(_horizontalGridButton);
                 _document.rootVisualElement.Query("vertical-grid-container").First().Add(_verticalGridButton);
@@ -53,6 +58,11 @@ namespace OpponentGrid
         private void SetTargetCell(ClickEvent _event, byte _targetCell)
         {
             _gridHandler.CheckTargetCellRpc(_targetCell);
+        }
+
+        private void SetSelectedCell(ClickEvent _event, Button _button)
+        {
+            _button.AddToClassList("missed-grid-button");
         }
     }
 }
