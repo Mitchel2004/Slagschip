@@ -1,17 +1,20 @@
 using PlayerGrid;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace OpponentGrid
 {
     [RequireComponent(typeof(UIDocument))]
-    public class OpponentGridHandler : MonoBehaviour
+    public class OpponentGridHandler : NetworkBehaviour
     {
         private UIDocument _document;
 
         [SerializeField] private GridHandler _gridHandler;
 
         private const byte _gridSize = GridHandler.gridSize;
+
+        private Button[] _gridButtons = new Button[_gridSize * _gridSize];
 
         private void Awake()
         {
@@ -29,6 +32,8 @@ namespace OpponentGrid
                 _gridButton.RegisterCallbackOnce<ClickEvent, byte>(SetTargetCell, i);
 
                 _document.rootVisualElement.Query("grid-container").First().Add(_gridButton);
+
+                _gridButtons[i] = _gridButton;
             }
 
             for(byte i = 1; i <= _gridSize * 2; i++)
@@ -47,12 +52,36 @@ namespace OpponentGrid
 
                 _document.rootVisualElement.Query("horizontal-grid-container").First().Add(_horizontalGridButton);
                 _document.rootVisualElement.Query("vertical-grid-container").First().Add(_verticalGridButton);
+
+                _gridButtons[_gridSize * _gridSize + i] = _horizontalGridButton;
+                _gridButtons[_gridSize * _gridSize + _gridSize * 2 + i] = _verticalGridButton;
             }
         }
 
         private void SetTargetCell(ClickEvent _event, byte _targetCell)
         {
             _gridHandler.CheckTargetCellRpc(_targetCell);
+        }
+
+        private Button GetCellButton(byte _targetCell)
+        {
+            return _gridButtons[_targetCell];
+        }
+
+        [Rpc(SendTo.NotMe)]
+        public void OnHitRpc(byte _targetCell)
+        {
+            if (IsClient)
+                GetCellButton(_targetCell).AddToClassList("hitted-grid-button");
+                GetCellButton(_targetCell).RemoveFromClassList("grid-button");
+        }
+
+        [Rpc(SendTo.NotMe)]
+        public void OnMissRpc(byte _targetCell)
+        {
+            if (IsClient)
+                GetCellButton(_targetCell).AddToClassList("missed-grid-button");
+                GetCellButton(_targetCell).RemoveFromClassList("grid-button");
         }
     }
 }

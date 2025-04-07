@@ -1,6 +1,6 @@
+using OpponentGrid;
 using Ships;
 using System.Linq;
-using TMPro;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Events;
@@ -10,9 +10,9 @@ namespace PlayerGrid
 {
     public class GridHandler : NetworkBehaviour
     {
-        [SerializeField] private TextMeshProUGUI m_TextMeshProUGUI;
-
         public static GridHandler instance;
+
+        [SerializeField] private OpponentGridHandler _opponentGridHandler;
 
         public UnityEvent<bool> onValidate;
         public UnityEvent<Vector2> onMove;
@@ -174,12 +174,18 @@ namespace PlayerGrid
             _requestedShip.onClear.RemoveListener(Clear);
         }
 
+        // TODO: Check incoming target cell whether it is a hit or miss
         [Rpc(SendTo.NotMe)]
         public void CheckTargetCellRpc(byte _targetCell)
         {
             if (IsClient)
                 Debug.Log(_targetCell);
-                m_TextMeshProUGUI.text = _targetCell.ToString();
+
+                // if hit:
+                _opponentGridHandler.OnHitRpc(_targetCell);
+
+                // if miss:
+                _opponentGridHandler.OnMissRpc(_targetCell);
         }
     }
 }

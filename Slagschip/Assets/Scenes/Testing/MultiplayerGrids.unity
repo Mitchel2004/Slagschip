@@ -1713,6 +1713,8 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   currentPlayerTurn:
     m_InternalValue: 0
+  isHostTurn:
+    m_InternalValue: 0
   debugPlayerSwitch:
     m_Name: Debug Player Switch
     m_Type: 0
@@ -3264,7 +3266,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  m_TextMeshProUGUI: {fileID: 1582054031}
+  _opponentGridHandler: {fileID: 1115713589}
   onValidate:
     m_PersistentCalls:
       m_Calls: []
@@ -3274,8 +3276,6 @@ MonoBehaviour:
   onHit:
     m_PersistentCalls:
       m_Calls: []
-  targetCell:
-    m_InternalValue: 0
   interactionLayers:
     serializedVersion: 2
     m_Bits: 8
