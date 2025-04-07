@@ -1,4 +1,5 @@
 using PlayerGrid;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -13,8 +14,6 @@ namespace Ships
         public UnityEvent onClick;
         public UnityEvent onStartMove;
 
-        public UnityEvent<ShipBehaviour> onClear;
-
         public Vector2Int position;
 
         private MeshRenderer _renderer;
@@ -25,6 +24,7 @@ namespace Ships
         private System.Action<InputAction.CallbackContext> _rotateLeftAction;
         private System.Action<InputAction.CallbackContext> _rotateRightAction;
 
+        public UnityEvent<ShipBehaviour> OnClear { get; set; }
 
         private void Start()
         {
@@ -44,6 +44,8 @@ namespace Ships
             _rotateRightAction += context => {
                 Rotate(new Vector3(0, 90, 0));
             };
+
+            OnClear = new UnityEvent<ShipBehaviour>();  
 
             Selectable();
         }
@@ -97,20 +99,22 @@ namespace Ships
             onStartMove.AddListener(ResetRotation);
 
             onClick.RemoveListener(Selectable);
-            onClick.AddListener(Moveable);
+            onClick.AddListener(TryMove);
 
             _rotateLeft.started -= _rotateLeftAction;
             _rotateRight.started -= _rotateRightAction;
         }
 
-        private void Moveable()
+        private void TryMove()
+        {
+            GridHandler.instance.Ship = this;
+        }
+        public void Moveable()
         {
             onStartMove.Invoke();
             onStartMove.RemoveListener(ResetRotation);
 
-            GridHandler.instance.Ship = this;
-
-            onClear.Invoke(this);
+            OnClear.Invoke(this);
 
             GridHandler.instance.onHit.AddListener(SetEnabled);
             GridHandler.instance.onMove.AddListener(MoveTo);
@@ -119,7 +123,7 @@ namespace Ships
             _rotateLeft.started += _rotateLeftAction;
             _rotateRight.started += _rotateRightAction;
 
-            onClick.RemoveListener(Moveable);
+            onClick.RemoveListener(TryMove);
         }
 
         private void Placed()
@@ -133,7 +137,7 @@ namespace Ships
             GridHandler.instance.onValidate.RemoveListener(Validate);
 
             onClick.RemoveListener(Placed);
-            onClick.AddListener(Moveable);
+            onClick.AddListener(TryMove);
 
             _rotateLeft.started -= _rotateLeftAction;
             _rotateRight.started -= _rotateRightAction;

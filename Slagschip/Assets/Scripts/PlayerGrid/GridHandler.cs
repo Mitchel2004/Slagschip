@@ -32,7 +32,13 @@ namespace PlayerGrid
             }
             set 
             {
+                if (_ship != null)
+                    return;
+
                 _ship = value;
+
+                if (value != null)
+                    _ship.Moveable();
             }
         }
 
@@ -84,6 +90,11 @@ namespace PlayerGrid
 
         private void FixedUpdate()
         {
+            MoveOnGrid();
+        }
+
+        private void MoveOnGrid()
+        {
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, interactionLayers))
@@ -109,9 +120,9 @@ namespace PlayerGrid
                 {
                     _current = _grid[indexX, indexY];
 
-                    onValidate.Invoke(IsValidPosition());
                     onMove.Invoke(new Vector2(indexX, indexY) * gridScale);
                 }
+                onValidate.Invoke(IsValidPosition());
             }
             else
             {
@@ -153,7 +164,8 @@ namespace PlayerGrid
             }
 
             _ship.position = _current.position;
-            _ship.onClear.AddListener(Clear);
+            _ship.OnClear.AddListener(Clear);
+            _ship = null;
         }
 
         public void Clear(ShipBehaviour _requestedShip)
@@ -167,7 +179,7 @@ namespace PlayerGrid
                 _grid[x, y].isTaken = false;
             }
 
-            _requestedShip.onClear.RemoveListener(Clear);
+            _requestedShip.OnClear.RemoveListener(Clear);
         }
     }
 }
