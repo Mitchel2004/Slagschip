@@ -32,7 +32,13 @@ namespace PlayerGrid
             }
             set 
             {
+                if (_ship != null)
+                    return;
+
                 _ship = value;
+
+                if (value != null)
+                    _ship.Moveable();
             }
         }
 
@@ -83,6 +89,11 @@ namespace PlayerGrid
         }
 
         private void FixedUpdate()
+        {
+            MoveOnGrid();
+        }
+
+        private void MoveOnGrid()
         {
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
@@ -154,6 +165,7 @@ namespace PlayerGrid
 
             _ship.position = _current.position;
             _ship.OnClear.AddListener(Clear);
+            _ship = null;
         }
 
         public void Clear(ShipBehaviour _requestedShip)
