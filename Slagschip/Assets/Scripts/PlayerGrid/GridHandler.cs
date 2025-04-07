@@ -120,9 +120,9 @@ namespace PlayerGrid
                 {
                     _current = _grid[indexX, indexY];
 
-                    onValidate.Invoke(IsValidPosition());
                     onMove.Invoke(new Vector2(indexX, indexY) * gridScale);
                 }
+                onValidate.Invoke(IsValidPosition());
             }
             else
             {
