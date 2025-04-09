@@ -1,0 +1,28 @@
+#start-screen {
+    flex-grow: 1;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+
+#menu-buttons {
+    width: 25%;
+    display: flex;
+}
+
+#play-code-input {
+    margin: 0;
+    width: 50%;
+}
+
+#play-code-button {
+    width: 50%;
+}
+
+.menu-button {
+    margin: 0;
+}
+
+#settings-screen {
+
+}
