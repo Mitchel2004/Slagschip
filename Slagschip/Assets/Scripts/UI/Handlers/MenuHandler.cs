@@ -1,5 +1,6 @@
 using SceneManagement;
 using System;
+using System.Text.RegularExpressions;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
@@ -52,9 +53,16 @@ namespace UIHandlers
 
         private void OnPlayCodeInputChanged(InputEvent _event)
         {
-            playCodeInputField.text = _event.newData;
+            TextField _playCodeTextField = (TextField)_document.rootVisualElement.Query("play-code-input").First();
 
-            _document.rootVisualElement.Query("play-code-button").First().SetEnabled(!_event.newData.IsNullOrEmpty());
+            _playCodeTextField.value = _event.newData.ToUpper();
+
+            if (!Regex.IsMatch(_playCodeTextField.value, @"^[A-Z0-9]*$"))
+                _playCodeTextField.value = _event.previousData;
+
+            playCodeInputField.text = _playCodeTextField.value;
+
+            _document.rootVisualElement.Query("play-code-button").First().SetEnabled(!_playCodeTextField.value.IsNullOrEmpty());
         }
 
         private void OnPlayCodeInputSubmitted(ClickEvent _event)

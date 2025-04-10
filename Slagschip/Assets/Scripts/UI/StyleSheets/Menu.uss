@@ -6,13 +6,15 @@
 }
 
 #menu-buttons {
-    width: 25%;
+    width: 50%;
     display: flex;
 }
 
 #play-code-input {
     margin: 0;
     width: 50%;
+    -unity-font-definition: url("project://database/Assets/Art/Fonts/XXII%20Army%20Straight.ttf?fileID=12800000&guid=97ce381991fe74e4797189af75c08ac9&type=3#XXII Army Straight");
+    font-size: 200%;
 }
 
 #play-code-button {
@@ -21,6 +23,8 @@
 
 .menu-button {
     margin: 0;
+    -unity-font-definition: url("project://database/Assets/Art/Fonts/XXII%20Army%20Straight.ttf?fileID=12800000&guid=97ce381991fe74e4797189af75c08ac9&type=3#XXII Army Straight");
+    font-size: 200%;
 }
 
 #settings-screen {
