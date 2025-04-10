@@ -1,8 +1,8 @@
 #start-screen {
+    display: flex;
     flex-grow: 1;
     align-items: center;
     justify-content: center;
-    display: flex;
 }
 
 #menu-buttons {
@@ -24,5 +24,11 @@
 }
 
 #settings-screen {
+    display: none;
+    flex-grow: 1;
+}
 
+#credits-screen {
+    display: none;
+    flex-grow: 1;
 }

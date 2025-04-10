@@ -1,18 +1,22 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/Scripts/UI/StyleSheets/Menu.uss?fileID=7433441132597879392&amp;guid=472b280304f275a45ad0f7de17ce8d08&amp;type=3#Menu" />
-    <ui:VisualElement name="start-screen" style="display: flex;">
+    <ui:VisualElement name="start-screen">
         <ui:VisualElement name="menu-buttons">
-            <ui:Button text="Maak Sessie" class="menu-button" />
+            <ui:Button text="Maak Sessie" name="make-session-button" class="menu-button" />
             <ui:Button text="Snel Spelen" name="quick-play-button" class="menu-button" />
             <ui:VisualElement style="flex-direction: row;">
                 <ui:TextField placeholder-text="Speelcode" name="play-code-input" />
                 <ui:Button text="Speel met Code" enabled="false" name="play-code-button" class="menu-button" />
             </ui:VisualElement>
-            <ui:Button text="Credits" class="menu-button" />
+            <ui:Button text="Credits" name="credits-button" class="menu-button" />
             <ui:Button text="Afsluiten" name="quit-button" class="menu-button" />
         </ui:VisualElement>
     </ui:VisualElement>
-    <ui:VisualElement name="settings-screen" style="display: flex;">
+    <ui:VisualElement name="settings-screen">
         <ui:Button text="Start Sessie" name="start-session-button" class="menu-button" />
+        <ui:Button text="Annuleer" name="cancel-button" class="menu-button" />
+    </ui:VisualElement>
+    <ui:VisualElement name="credits-screen">
+        <ui:Button text="Terug" name="back-button" class="menu-button" />
     </ui:VisualElement>
 </ui:UXML>
