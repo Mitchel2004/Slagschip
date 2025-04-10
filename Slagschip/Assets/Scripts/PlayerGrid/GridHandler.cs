@@ -5,6 +5,8 @@ using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using Utilities;
+using static UnityEngine.Rendering.DebugUI.Table;
 
 namespace PlayerGrid
 {
@@ -14,9 +16,13 @@ namespace PlayerGrid
 
         [SerializeField] private OpponentGridHandler _opponentGridHandler;
 
+        private float _gridScale => transform.localScale.x;
+
         public UnityEvent<bool> onValidate;
         public UnityEvent<Vector2> onMove;
         public UnityEvent<bool> onHit;
+
+        public UnityEvent<Vector3> onAttacked;
 
         public const byte gridSize = 10;
 
@@ -84,11 +90,21 @@ namespace PlayerGrid
         {
             _grid = new GridCell[gridSize, gridSize];
 
+            float startX = -gridSize / 2f + _gridScale / 2f;
+            float startZ = gridSize / 2f - _gridScale / 2f;
+
             for (int i = 0; i < gridSize; i++)
             {
                 for (int j = 0; j < gridSize; j++)
                 {
-                    _grid[i, j] = new GridCell(new Vector2Int(i, j));
+
+                    float localX = startX + j * _gridScale;
+                    float localZ = startZ - i * _gridScale;
+
+                    Vector3 localPos = new Vector3(localX, 0, localZ);
+                    Vector3 worldPos = transform.TransformPoint(localPos);
+
+                    _grid[i, j] = new GridCell(new Vector2Int(i, j), worldPos);
                 }
             }
         }
@@ -106,8 +122,7 @@ namespace PlayerGrid
                 onHit.Invoke(true);
 
                 Vector3 gridPosition = hit.transform.position;
-                float gridScale = hit.transform.localScale.x;
-                float halfSize = gridSize / 2 * gridScale;
+                float halfSize = gridSize / 2 * _gridScale;
 
                 float minX = gridPosition.x - halfSize;
                 float minY = gridPosition.z - halfSize;
@@ -124,7 +139,7 @@ namespace PlayerGrid
                 {
                     _current = _grid[indexX, indexY];
 
-                    onMove.Invoke(new Vector2(indexX, indexY) * gridScale);
+                    onMove.Invoke(new Vector2(indexX, indexY) * _gridScale);
                 }
                 onValidate.Invoke(IsValidPosition());
             }
@@ -141,7 +156,7 @@ namespace PlayerGrid
             bool[] check = new bool[_ship.shape.offsets.Length];
             for (int i = 0; i < _ship.shape.offsets.Length; i++)
             {
-                int y = _current.position.y + _ship.shape.offsets[i].y;
+                int y = _current.position.y - _ship.shape.offsets[i].y;
 
                 int x = _current.position.x + _ship.shape.offsets[i].x;
 
@@ -160,7 +175,7 @@ namespace PlayerGrid
         {
             for (int i = 0; i < _ship.shape.offsets.Length; i++)
             {
-                int y = _current.position.y + _ship.shape.offsets[i].y;
+                int y = _current.position.y - _ship.shape.offsets[i].y;
 
                 int x = _current.position.x + _ship.shape.offsets[i].x;
 
@@ -176,7 +191,7 @@ namespace PlayerGrid
         {
             for (int i = 0; i < _requestedShip.shape.offsets.Length; i++)
             {
-                int y = _requestedShip.position.y + _requestedShip.shape.offsets[i].y;
+                int y = _requestedShip.position.y - _requestedShip.shape.offsets[i].y;
 
                 int x = _requestedShip.position.x + _requestedShip.shape.offsets[i].x;
 
@@ -191,13 +206,19 @@ namespace PlayerGrid
         public void CheckTargetCellRpc(byte _targetCell)
         {
             if (IsClient)
-                Debug.Log(_targetCell);
+            {
+                if (_targetCell <= 100)
+                {
+                    Vector2Int pos = CellUnpacker.CellPosition(_targetCell);
+                    onAttacked.Invoke(_grid[pos.x, pos.y].worldPosition);
+                }
 
                 // if hit:
                 _opponentGridHandler.OnHitRpc(_targetCell);
 
                 // if miss:
                 _opponentGridHandler.OnMissRpc(_targetCell);
+            }
         }
     }
 }
