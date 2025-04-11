@@ -22,6 +22,9 @@ namespace Editors
                 
                 _sceneLoader.isNetworked = EditorGUILayout.Toggle("Is Networked", _sceneLoader.isNetworked);
 
+                if (_sceneLoader.isNetworked)
+                    _sceneLoader.fallbackScene = (SceneAsset)EditorGUILayout.ObjectField("Fallback Scene", _sceneLoader.fallbackScene, typeof(SceneAsset), true);
+
                 _sceneLoader.loadDelay = EditorGUILayout.FloatField("Load Delay", _sceneLoader.loadDelay);
             }
 

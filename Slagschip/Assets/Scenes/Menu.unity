@@ -2156,6 +2156,7 @@ MonoBehaviour:
   loadOnStart: 0
   sceneToLoad: {fileID: 0}
   isNetworked: 0
+  fallbackScene: {fileID: 0}
   loadDelay: 0
 --- !u!4 &1395624747
 Transform:

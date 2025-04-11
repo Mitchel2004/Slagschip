@@ -57,7 +57,7 @@ namespace UIHandlers
 
             _playCodeTextField.value = _event.newData.ToUpper();
 
-            if (!Regex.IsMatch(_playCodeTextField.value, @"^[A-Z0-9]*$"))
+            if (!Regex.IsMatch(_playCodeTextField.value, @"^[346-9A-HJ-NP-RTW-Y]*$"))
                 _playCodeTextField.value = _event.previousData;
 
             playCodeInputField.text = _playCodeTextField.value;

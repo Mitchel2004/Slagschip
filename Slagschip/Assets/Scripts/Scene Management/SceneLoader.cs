@@ -1,8 +1,6 @@
-using System;
 using System.Collections;
 using Unity.Netcode;
 using UnityEditor;
-using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -15,11 +13,12 @@ namespace SceneManagement
         public bool loadOnStart;
         public SceneAsset sceneToLoad;
         public bool isNetworked;
+        public SceneAsset fallbackScene;
         public float loadDelay;
 
         private void Awake()
         {
-            if (instance == null)
+            if(instance == null)
             {
                 instance = this;
             }
@@ -38,8 +37,15 @@ namespace SceneManagement
         private IEnumerator LoadNetworkedScene(string _sceneName)
         {
             yield return new WaitForSeconds(loadDelay);
-            
-            LoadNetworkedSceneRpc(_sceneName);
+
+            if (NetworkManager.LocalClientId == 0 == IsOwner)
+            {
+                LoadNetworkedSceneRpc(_sceneName);
+            }
+            else
+            {
+                LoadScene(fallbackScene.name, false);
+            }
         }
 
         [Rpc(SendTo.Server)]
