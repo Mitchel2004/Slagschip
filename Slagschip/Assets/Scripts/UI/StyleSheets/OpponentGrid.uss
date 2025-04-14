@@ -61,7 +61,7 @@
     margin: 0;
     padding: 0;
     border-width: 0;
-    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Markers/HitMarker.png?fileID=2800000&guid=d4d94e060af71cc4e9cde72d06c61911&type=3#HitMarker");
+    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Markers/HitMarker.png?fileID=2800000&guid=6d8e8acd3c2af9141a0ca61b739211e6&type=3#HitMarker");
     background-color: rgba(255, 255, 255, 0);
 }
 
@@ -69,6 +69,6 @@
     margin: 0;
     padding: 0;
     border-width: 0;
-    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Markers/MissMarker.png?fileID=2800000&guid=4cd7074c038944442aee8a3e3cb8a164&type=3#MissMarker");
+    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Markers/MissMarker.png?fileID=2800000&guid=0e56800226aec7d44a849b0322278d7c&type=3#MissMarker");
     background-color: rgba(255, 255, 255, 0);
 }

@@ -6,7 +6,7 @@ namespace Utilities
     {
         public static Vector2Int CellPosition(byte cell)
         {
-            float d = (cell - 1) / 10f;
+            float d = cell / 10f;
             int x = Mathf.FloorToInt(d);
             float y = (d - x) * 10;
 

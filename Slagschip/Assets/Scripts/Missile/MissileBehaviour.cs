@@ -1,9 +1,6 @@
 using Missile.Data;
-using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.UIElements;
-using static UnityEngine.GraphicsBuffer;
 
 namespace Missile
 {
@@ -27,11 +24,29 @@ namespace Missile
 
         private void Start()
         {
+            Calculate2DSpace();
+        }
+
+        private void Calculate2DSpace()
+        {
             _normal = (_data.EndPos - _data.StartPos).normalized;
             _length = Mathf.Sqrt(Mathf.Pow(_data.EndPos.x - _data.StartPos.x, 2) + Mathf.Pow(_data.EndPos.z - _data.StartPos.z, 2));
         }
 
         private void Update()
+        {
+            Move();
+
+            if (_time >= 1 || (_data.hit && _time >= hitDistance))
+            {
+                hit.Invoke();
+                Destroy(gameObject);
+            }
+
+            Rotate();
+        }
+
+        private void Move()
         {
             float x = Mathf.Lerp(0, _length, _time);
             float y = _data.heightCurve.Evaluate(_time);
@@ -40,14 +55,10 @@ namespace Missile
 
             _time += Time.deltaTime * _data.speed;
             _time = Mathf.Clamp01(_time);
+        }
 
-            if (_time >= 1 || (_data.hit && _time >= hitDistance))
-            {
-                hit.Invoke();
-                Destroy(gameObject);
-                return;
-            }
-
+        private void Rotate()
+        {
             float x1 = Mathf.Lerp(0, _length, _time);
             float y1 = _data.heightCurve.Evaluate(_time);
             Vector3 rotated1 = new Vector3(x1 * _normal.x, y1 * _data.heightMultiplier, x1 * _normal.z);

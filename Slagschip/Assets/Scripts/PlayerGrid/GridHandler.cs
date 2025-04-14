@@ -98,7 +98,6 @@ namespace PlayerGrid
             {
                 for (int i = 0; i < gridSize; i++)
                 {
-
                     float localX = startX + i * _gridScale;
                     float localZ = startZ + j * _gridScale;
 
