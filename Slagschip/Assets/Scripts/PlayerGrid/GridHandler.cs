@@ -19,7 +19,7 @@ namespace PlayerGrid
         private float _gridScale => transform.localScale.x;
 
         public UnityEvent<bool> onValidate;
-        public UnityEvent<Vector2> onMove;
+        public UnityEvent<Vector3> onMove;
         public UnityEvent<bool> onHit;
 
         public UnityEvent<Vector3, bool> onAttacked;
@@ -92,15 +92,15 @@ namespace PlayerGrid
             _grid = new GridCell[gridSize, gridSize];
 
             float startX = -gridSize / 2f + _gridScale / 2f;
-            float startZ = gridSize / 2f - _gridScale / 2f;
+            float startZ = -gridSize / 2f + _gridScale / 2f;
 
-            for (int i = 0; i < gridSize; i++)
+            for (int j = 0; j < gridSize; j++)
             {
-                for (int j = 0; j < gridSize; j++)
+                for (int i = 0; i < gridSize; i++)
                 {
 
-                    float localX = startX + j * _gridScale;
-                    float localZ = startZ - i * _gridScale;
+                    float localX = startX + i * _gridScale;
+                    float localZ = startZ + j * _gridScale;
 
                     Vector3 localPos = new Vector3(localX, 0, localZ);
                     Vector3 worldPos = transform.TransformPoint(localPos);
@@ -140,7 +140,7 @@ namespace PlayerGrid
                 {
                     _current = _grid[indexX, indexY];
 
-                    onMove.Invoke(new Vector2(indexX, indexY) * _gridScale);
+                    onMove.Invoke(_grid[indexX, indexY].worldPosition);
                 }
                 onValidate.Invoke(IsValidPosition());
             }
