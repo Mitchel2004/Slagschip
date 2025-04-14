@@ -8,6 +8,7 @@ namespace Missile.Data
         public AnimationCurve heightCurve;
         public float heightMultiplier;
         public float speed;
+        public bool hit;
         [SerializeField] private Vector3 startPos;
 
         public Vector3 StartPos
@@ -21,11 +22,12 @@ namespace Missile.Data
             set;
         }
 
-        public MissileData(MissileData _original, Vector3 _endPos)
+        public MissileData(MissileData _original, Vector3 _endPos, bool _hit)
         {
             heightCurve = _original.heightCurve;
             heightMultiplier = _original.heightMultiplier;
             speed = _original.speed;
+            hit = _hit;
             startPos = _original.startPos;
 
             EndPos = _endPos;

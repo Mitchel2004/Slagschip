@@ -1,6 +1,7 @@
 using Missile.Data;
 using System.Security.Cryptography;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UIElements;
 using static UnityEngine.GraphicsBuffer;
 
@@ -8,6 +9,10 @@ namespace Missile
 {
     public class MissileBehaviour : MonoBehaviour
     {
+        [SerializeField][Range(0f, 1f)] private float hitDistance = 0.9f;
+
+        public UnityEvent hit;
+
         private Vector3 _normal;
         private float _length;
         private float _time;
@@ -16,7 +21,7 @@ namespace Missile
 
         public MissileData MissileData
         { 
-            get => _data; 
+            private get => _data; 
             set => _data = value; 
         }
 
@@ -36,8 +41,9 @@ namespace Missile
             _time += Time.deltaTime * _data.speed;
             _time = Mathf.Clamp01(_time);
 
-            if (_time >= 1)
+            if (_time >= 1 || (_data.hit && _time >= hitDistance))
             {
+                hit.Invoke();
                 Destroy(gameObject);
                 return;
             }

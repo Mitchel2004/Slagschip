@@ -14,10 +14,10 @@ namespace Missile
             GridHandler.instance.onAttacked.AddListener(Test);
         }
 
-        private void Test(Vector3 pos)
+        private void Test(Vector3 pos, bool hit)
         {
             MissileBehaviour m = Instantiate(missileObject, missileData.StartPos, Quaternion.identity);
-            m.MissileData = new MissileData(missileData, pos);
+            m.MissileData = new MissileData(missileData, pos, hit);
         }
     }
 }

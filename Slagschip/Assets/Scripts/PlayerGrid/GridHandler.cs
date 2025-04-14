@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using Utilities;
-using static UnityEngine.Rendering.DebugUI.Table;
+using Uitilities.Generic;
 
 namespace PlayerGrid
 {
@@ -22,7 +22,7 @@ namespace PlayerGrid
         public UnityEvent<Vector2> onMove;
         public UnityEvent<bool> onHit;
 
-        public UnityEvent<Vector3> onAttacked;
+        public UnityEvent<Vector3, bool> onAttacked;
 
         public const byte gridSize = 10;
 
@@ -32,6 +32,7 @@ namespace PlayerGrid
         private InputAction _rotateLeft, _rotateRight;
 
         private ShipBehaviour _ship;
+        private UniqueList<ShipBehaviour> _ships = new UniqueList<ShipBehaviour>();
 
         [SerializeField] private LayerMask interactionLayers;
 
@@ -182,8 +183,10 @@ namespace PlayerGrid
                 _grid[x, y].isTaken = true;
             }
 
+            _ships.Add(_ship);
             _ship.position = _current.position;
             _ship.OnClear.AddListener(Clear);
+
             _ship = null;
         }
 
@@ -197,7 +200,6 @@ namespace PlayerGrid
 
                 _grid[x, y].isTaken = false;
             }
-
             _requestedShip.OnClear.RemoveListener(Clear);
         }
 
@@ -210,7 +212,7 @@ namespace PlayerGrid
                 if (_targetCell <= 100)
                 {
                     Vector2Int pos = CellUnpacker.CellPosition(_targetCell);
-                    onAttacked.Invoke(_grid[pos.x, pos.y].worldPosition);
+                    onAttacked.Invoke(_grid[pos.x, pos.y].worldPosition, _grid[pos.x, pos.y].isTaken);
                 }
 
                 // if hit:
