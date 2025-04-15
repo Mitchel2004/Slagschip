@@ -55,9 +55,9 @@ namespace Ships
             //_renderer.enabled = enabled;
         }
 
-        private void MoveTo(Vector2 position)
+        private void MoveTo(Vector3 position)
         {
-            transform.position = new Vector3(position.x, 0, position.y);
+            transform.position = new Vector3(position.x, 0, position.z);
         }
 
         private void Rotate(Vector3 rotation)

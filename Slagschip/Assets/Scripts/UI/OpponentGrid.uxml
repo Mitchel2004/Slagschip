@@ -1,8 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/Scripts/UI/StyleSheets/OpponentGrid.uss?fileID=7433441132597879392&amp;guid=2b82aa7426e41f742a50ecfb83b639cc&amp;type=3#OpponentGrid" />
+    <ui:VisualElement name="grid-container" style="top: auto; left: auto; right: 125px; bottom: 125px; position: absolute; flex-direction: column-reverse;" />
     <ui:VisualElement name="horizontal-grid-container" style="top: auto; left: auto; right: 125px; bottom: 125px; position: absolute;" />
     <ui:VisualElement name="vertical-grid-container" style="top: auto; left: auto; right: 125px; bottom: 125px; position: absolute;" />
-    <ui:VisualElement style="flex-grow: 1; overflow: hidden; width: 500px; height: 500px; position: absolute; right: 0; bottom: 100px; background-image: url(&quot;project://database/Assets/Art/UI/Opponent%20Grid/Opponent%20Dashboard%20and%20grid/OpponentGridDashboard.png?fileID=2800000&amp;guid=21aeff29aa88b20468c3854f01d3ee09&amp;type=3#OpponentGridDashboard&quot;);">
-        <ui:VisualElement name="grid-container" style="top: auto; left: auto; right: 33px; bottom: 66px; position: absolute; width: 375px; height: 375px;" />
-    </ui:VisualElement>
 </ui:UXML>
