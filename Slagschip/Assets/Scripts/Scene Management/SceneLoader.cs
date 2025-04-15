@@ -36,10 +36,10 @@ namespace SceneManagement
 
         private IEnumerator LoadNetworkedScene(string _sceneName)
         {
+            yield return new WaitForSeconds(loadDelay);
+
             if (NetworkManager.LocalClientId == 0 == IsOwner)
             {
-                yield return new WaitForSeconds(loadDelay);
-
                 LoadNetworkedSceneRpc(_sceneName);
             }
             else
@@ -96,6 +96,11 @@ namespace SceneManagement
             {
                 StartCoroutine(LoadLocalScene(_sceneName, _loadDelay));
             }
+        }
+
+        public void LoadScene(SceneAsset _scene)
+        {
+            StartCoroutine(LoadLocalScene(_scene.name));
         }
     }
 }
