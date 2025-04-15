@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using Utilities;
-using Uitilities.Generic;
+using Utilities.Generic;
 
 namespace PlayerGrid
 {
