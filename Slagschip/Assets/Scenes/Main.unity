@@ -1185,6 +1185,9 @@ MonoBehaviour:
   onHit:
     m_PersistentCalls:
       m_Calls: []
+  onAttacked:
+    m_PersistentCalls:
+      m_Calls: []
   interactionLayers:
     serializedVersion: 2
     m_Bits: 8
