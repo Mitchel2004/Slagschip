@@ -11,13 +11,13 @@ namespace Missile
 
         private void Start()
         {
-            GridHandler.instance.onAttacked.AddListener(Test);
+            GridHandler.instance.onAttacked.AddListener(AttackCell);
         }
 
-        private void Test(Vector3 pos, bool hit)
+        private void AttackCell(Vector3 pos, bool hit)
         {
-            MissileBehaviour m = Instantiate(missileObject, missileData.StartPos, Quaternion.identity);
-            m.MissileData = new MissileData(missileData, pos, hit);
+            MissileBehaviour missile = Instantiate(missileObject, missileData.StartPos, Quaternion.identity);
+            missile.MissileData = new MissileData(missileData, pos, hit);
         }
     }
 }
