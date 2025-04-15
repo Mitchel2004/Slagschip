@@ -36,6 +36,7 @@ namespace UIHandlers
             _document.rootVisualElement.Query("start-session-button").First().RegisterCallback<ClickEvent>(OnStartSession);
             _document.rootVisualElement.Query("cancel-button").First().RegisterCallback<ClickEvent>(OnCancel);
             _document.rootVisualElement.Query("back-button").First().RegisterCallback<ClickEvent>(OnBack);
+            _document.rootVisualElement.Query("ok-button").First().RegisterCallback<ClickEvent>(TogglePlayCodeError);
         }
 
         private void OnMakeSession(ClickEvent _event)
@@ -102,6 +103,16 @@ namespace UIHandlers
         {
             _document.rootVisualElement.Query("credits-screen").First().style.display = DisplayStyle.None;
             _document.rootVisualElement.Query("start-screen").First().style.display = DisplayStyle.Flex;
+        }
+
+        public void TogglePlayCodeError(bool _isVisible)
+        {
+            _document.rootVisualElement.Query("error-screen").First().style.display = _isVisible ? DisplayStyle.Flex : DisplayStyle.None;
+        }
+
+        private void TogglePlayCodeError(ClickEvent _event)
+        {
+            _document.rootVisualElement.Query("error-screen").First().style.display = DisplayStyle.None;
         }
     }
 }

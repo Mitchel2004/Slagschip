@@ -19,4 +19,8 @@
     <ui:VisualElement name="credits-screen">
         <ui:Button text="Terug" name="back-button" class="menu-button" />
     </ui:VisualElement>
+    <ui:VisualElement name="error-screen">
+        <ui:Label text="Speelcode bestaat niet!" style="margin: 0; padding: 0; -unity-font-definition: url(&quot;project://database/Assets/Art/Fonts/XXII%20Army%20Straight.ttf?fileID=12800000&amp;guid=97ce381991fe74e4797189af75c08ac9&amp;type=3#XXII Army Straight&quot;); font-size: 32px; -unity-text-align: middle-center; color: rgb(255, 255, 255); flex-grow: 1;" />
+        <ui:Button text="OK" name="ok-button" class="menu-button" />
+    </ui:VisualElement>
 </ui:UXML>

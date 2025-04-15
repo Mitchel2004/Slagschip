@@ -36,15 +36,15 @@ namespace SceneManagement
 
         private IEnumerator LoadNetworkedScene(string _sceneName)
         {
-            yield return new WaitForSeconds(loadDelay);
-
             if (NetworkManager.LocalClientId == 0 == IsOwner)
             {
+                yield return new WaitForSeconds(loadDelay);
+
                 LoadNetworkedSceneRpc(_sceneName);
             }
             else
             {
-                LoadScene(fallbackScene.name, false);
+                LoadScene(fallbackScene.name, false, 0);
             }
         }
 
@@ -57,6 +57,16 @@ namespace SceneManagement
         private IEnumerator LoadLocalScene(string _sceneName)
         {
             yield return new WaitForSeconds(loadDelay);
+
+            AsyncOperation _asyncLoad = SceneManager.LoadSceneAsync(_sceneName);
+
+            while(!_asyncLoad.isDone)
+                yield return null;
+        }
+
+        private IEnumerator LoadLocalScene(string _sceneName, float _loadDelay)
+        {
+            yield return new WaitForSeconds(_loadDelay);
 
             AsyncOperation _asyncLoad = SceneManager.LoadSceneAsync(_sceneName);
 
@@ -73,6 +83,18 @@ namespace SceneManagement
             else
             {
                 StartCoroutine(LoadLocalScene(_sceneName));
+            }
+        }
+
+        public void LoadScene(string _sceneName, bool _isNetworked, float _loadDelay)
+        {
+            if(_isNetworked)
+            {
+                StartCoroutine(LoadNetworkedScene(_sceneName));
+            }
+            else
+            {
+                StartCoroutine(LoadLocalScene(_sceneName, _loadDelay));
             }
         }
     }
