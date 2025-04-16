@@ -208,7 +208,7 @@ namespace PlayerGrid
         {
             if (IsClient)
             {
-                if (_targetCell <= 100)
+                if (_targetCell < 100)
                 {
                     Vector2Int pos = CellUnpacker.CellPosition(_targetCell);
                     onAttacked.Invoke(_grid[pos.x, pos.y].worldPosition, _grid[pos.x, pos.y].isTaken);
