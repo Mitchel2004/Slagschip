@@ -1,31 +1,67 @@
+#dashboard {
+    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Opponent%20Dashboard%20and%20grid/OpponentGridDashboard.png?fileID=2800000&guid=21aeff29aa88b20468c3854f01d3ee09&type=3#OpponentGridDashboard");
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    right: 0;
+}
+
 #grid-container {
-    visibility: visible;
     overflow: hidden;
-    flex-direction: row;
+    flex-direction: column-reverse;
     flex-wrap: wrap;
     align-content: flex-start;
-    width: 500px;
-    height: 500px;
+    width: 375px;
+    height: 375px;
+    left: 87px;
+    top: 55px;
+    position: absolute;
 }
 
-#horizontal-grid-container {
+#horizontal-lr-grid-container {
     visibility: hidden;
-    overflow: hidden;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-content: flex-start;
-    width: 500px;
-    height: 500px;
+    width: 187px;
+    height: 375px;
+    left: 87px;
+    top: 55px;
+    position: absolute;
 }
 
-#vertical-grid-container {
+#horizontal-rl-grid-container {
     visibility: hidden;
-    overflow: hidden;
-    flex-direction: column;
-    flex-wrap: wrap;
-    align-content: flex-start;
-    width: 500px;
-    height: 500px;
+    width: 187px;
+    height: 375px;
+    left: 274px;
+    top: 55px;
+    position: absolute;
+}
+
+#horizontal-rl-grid-container:hover {
+    align-items: flex-end;
+}
+
+#vertical-tb-grid-container {
+    visibility: hidden;
+    width: 375px;
+    height: 187px;
+    left: 87px;
+    top: 55px;
+    position: absolute;
+    flex-direction: row;
+}
+
+#vertical-bt-grid-container {
+    visibility: hidden;
+    width: 375px;
+    height: 187px;
+    left: 87px;
+    top: 242px;
+    position: absolute;
+    flex-direction: row;
+}
+
+#vertical-bt-grid-container:hover {
+    align-items: flex-end;
 }
 
 .grid-button {
@@ -36,24 +72,24 @@
     background-color: rgba(255, 255, 255, 0);
 }
 
+.grid-button:hover {
+    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Grid%20Icons/Selected.png?fileID=2800000&guid=a3e7cabf2c21c5141aedda060e450f3c&type=3#Selected");
+    background-color: rgba(255, 255, 255, 0);
+}
+
 .horizontal-grid-button {
     margin: 0;
     padding: 0;
+    width: 200%;
     border-width: 0;
-    width: 50%;
     background-color: rgba(255, 255, 255, 0);
 }
 
 .vertical-grid-button {
     margin: 0;
     padding: 0;
+    height: 200%;
     border-width: 0;
-    height: 50%;
-    background-color: rgba(255, 255, 255, 0);
-}
-
-.grid-button:hover {
-    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Grid%20Icons/Selected.png?fileID=2800000&guid=a3e7cabf2c21c5141aedda060e450f3c&type=3#Selected");
     background-color: rgba(255, 255, 255, 0);
 }
 
@@ -71,4 +107,117 @@
     border-width: 0;
     background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Grid%20Icons/MissMarker.png?fileID=2800000&guid=0e56800226aec7d44a849b0322278d7c&type=3#MissMarker");
     background-color: rgba(255, 255, 255, 0);
+}
+
+#horizontal-lr-grid-container .horizontal-grid-button:hover {
+    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Grid%20Icons/HorizontalTorpedoSelected.png?fileID=2800000&guid=88eec7743382b084188f59899177f233&type=3#HorizontalTorpedoSelected");
+    background-color: rgba(255, 255, 255, 0);
+    background-repeat: round no-repeat;
+    background-size: contain;
+    background-position-x: right 0;
+}
+
+#horizontal-rl-grid-container .horizontal-grid-button:hover {
+    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Grid%20Icons/HorizontalTorpedoSelected.png?fileID=2800000&guid=88eec7743382b084188f59899177f233&type=3#HorizontalTorpedoSelected");
+    background-color: rgba(255, 255, 255, 0);
+    background-repeat: round no-repeat;
+    background-size: contain;
+    background-position-x: left 0;
+    scale: -1 1;
+}
+
+#vertical-tb-grid-container .vertical-grid-button:hover {
+    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Grid%20Icons/VerticalTorpedoSelected.png?fileID=2800000&guid=305418762b196ef4a83b8923084c5419&type=3#VerticalTorpedoSelected");
+    background-color: rgba(255, 255, 255, 0);
+    background-size: contain;
+    background-position-y: bottom 0;
+    background-repeat: no-repeat round;
+}
+
+#vertical-bt-grid-container .vertical-grid-button:hover {
+    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Grid%20Icons/VerticalTorpedoSelected.png?fileID=2800000&guid=305418762b196ef4a83b8923084c5419&type=3#VerticalTorpedoSelected");
+    background-color: rgba(255, 255, 255, 0);
+    background-size: contain;
+    background-position-y: bottom 0;
+    background-repeat: no-repeat round;
+    scale: 1 -1;
+}
+
+#attack-button {
+    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Buttons/AttackButton.png?fileID=367398710&guid=4dd918dd566a2cc4eb326b769c124f46&type=3#AttackButton_0");
+    width: 100px;
+    height: 109px;
+    display: none;
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    background-color: rgba(0, 0, 0, 0);
+    -unity-text-outline-color: rgba(0, 0, 0, 0);
+}
+
+#attack-button:active {
+    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Buttons/AttackButtonPressed.png?fileID=1102495899&guid=25d44e4de6fdfa9468ac72b1b92f4d7b&type=3#AttackButtonPressed_0");
+    -unity-text-outline-color: rgba(0, 0, 0, 0);
+    background-color: rgba(0, 0, 0, 0);
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+}
+
+#sea-mine-button {
+    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Buttons/SeaMineButton.png?fileID=-1748097259&guid=3acf8cd83bf90c74a81a23c19a6cf09a&type=3#SeaMineButton_0");
+    width: 100px;
+    height: 109px;
+    display: flex;
+    padding-bottom: 16px;
+    -unity-text-align: lower-left;
+    font-size: 16px;
+    -unity-text-outline-color: rgba(0, 0, 0, 0);
+    background-color: rgba(0, 0, 0, 0);
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+}
+
+#sea-mine-button:active {
+    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Buttons/SeaMineButtonPressed.png?fileID=760942414&guid=7e5552311fba8d14097ac9b96117faf5&type=3#SeaMineButtonPressed_0");
+    padding-top: 3px;
+    padding-bottom: 13px;
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    -unity-text-outline-color: rgba(0, 0, 0, 0);
+    background-color: rgba(0, 0, 0, 0);
+}
+
+#torpedo-button {
+    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Buttons/TorpedoButton.png?fileID=-10070716&guid=a88edb017e4319d4ea52144b339d0c19&type=3#TorpedoButton_0");
+    width: 100px;
+    height: 109px;
+    display: none;
+    -unity-text-align: lower-left;
+    font-size: 16px;
+    padding-bottom: 16px;
+    background-color: rgba(0, 0, 0, 0);
+    -unity-text-outline-color: rgba(0, 0, 0, 0);
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+}
+
+#torpedo-button:active {
+    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Buttons/TorpedoButtonPressed.png?fileID=2004213573&guid=8dc5be68b75f09444a0faaf860bbbb71&type=3#TorpedoButtonPressed_0");
+    padding-top: 3px;
+    padding-bottom: 13px;
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    background-color: rgba(0, 0, 0, 0);
+    -unity-text-outline-color: rgba(0, 0, 0, 0);
 }

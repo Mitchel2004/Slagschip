@@ -36,25 +36,37 @@ namespace OpponentGrid
                 _gridButtons[i] = _gridButton;
             }
 
-            for(byte i = 0; i < _gridSize * 2; i++)
+            for (byte i = 0; i < _gridSize; i++)
             {
-                Button _horizontalGridButton = new();
-                Button _verticalGridButton = new();
+                Button _horizontalLRGridButton = new();
+                Button _horizontalRLGridButton = new();
+                Button _verticalTBGridButton = new();
+                Button _verticalBTGridButton = new();
 
-                _horizontalGridButton.AddToClassList("horizontal-grid-button");
-                _verticalGridButton.AddToClassList("vertical-grid-button");
+                _horizontalLRGridButton.AddToClassList("horizontal-grid-button");
+                _horizontalRLGridButton.AddToClassList("horizontal-grid-button");
+                _verticalTBGridButton.AddToClassList("vertical-grid-button");
+                _verticalBTGridButton.AddToClassList("vertical-grid-button");
 
-                _horizontalGridButton.style.height = new StyleLength(new Length(100 / _gridSize, LengthUnit.Percent));
-                _verticalGridButton.style.width = new StyleLength(new Length(100 / _gridSize, LengthUnit.Percent));
+                _horizontalLRGridButton.style.height = new StyleLength(new Length(100 / _gridSize, LengthUnit.Percent));
+                _horizontalRLGridButton.style.height = new StyleLength(new Length(100 / _gridSize, LengthUnit.Percent));
+                _verticalTBGridButton.style.width = new StyleLength(new Length(100 / _gridSize, LengthUnit.Percent));
+                _verticalBTGridButton.style.width = new StyleLength(new Length(100 / _gridSize, LengthUnit.Percent));
 
-                _horizontalGridButton.RegisterCallbackOnce<ClickEvent, byte>(SetTargetCell, (byte)(_gridSize * _gridSize + i));
-                _verticalGridButton.RegisterCallbackOnce<ClickEvent, byte>(SetTargetCell, (byte)(_gridSize * (_gridSize + 2) + i));
+                _horizontalLRGridButton.RegisterCallbackOnce<ClickEvent, byte>(SetTargetCell, (byte)(_gridSize * _gridSize + i));
+                _horizontalRLGridButton.RegisterCallbackOnce<ClickEvent, byte>(SetTargetCell, (byte)(_gridSize * (_gridSize + 1) + i));
+                _verticalTBGridButton.RegisterCallbackOnce<ClickEvent, byte>(SetTargetCell, (byte)(_gridSize * (_gridSize + 2) + i));
+                _verticalBTGridButton.RegisterCallbackOnce<ClickEvent, byte>(SetTargetCell, (byte)(_gridSize * (_gridSize + 3) + i));
 
-                _document.rootVisualElement.Query("horizontal-grid-container").First().Add(_horizontalGridButton);
-                _document.rootVisualElement.Query("vertical-grid-container").First().Add(_verticalGridButton);
+                _document.rootVisualElement.Query("horizontal-lr-grid-container").First().Add(_horizontalLRGridButton);
+                _document.rootVisualElement.Query("horizontal-rl-grid-container").First().Add(_horizontalRLGridButton);
+                _document.rootVisualElement.Query("vertical-tb-grid-container").First().Add(_verticalTBGridButton);
+                _document.rootVisualElement.Query("vertical-bt-grid-container").First().Add(_verticalBTGridButton);
 
-                _gridButtons[_gridSize * _gridSize + i] = _horizontalGridButton;
-                _gridButtons[_gridSize * (_gridSize + 2) + i] = _verticalGridButton;
+                _gridButtons[_gridSize * _gridSize + i] = _horizontalLRGridButton;
+                _gridButtons[_gridSize * (_gridSize + 1) + i] = _horizontalRLGridButton;
+                _gridButtons[_gridSize * (_gridSize + 2) + i] = _verticalTBGridButton;
+                _gridButtons[_gridSize * (_gridSize + 3) + i] = _verticalBTGridButton;
             }
         }
 

@@ -1,6 +1,15 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/Scripts/UI/StyleSheets/OpponentGrid.uss?fileID=7433441132597879392&amp;guid=2b82aa7426e41f742a50ecfb83b639cc&amp;type=3#OpponentGrid" />
-    <ui:VisualElement name="grid-container" style="top: auto; left: auto; right: 125px; bottom: 125px; position: absolute; flex-direction: column-reverse;" />
-    <ui:VisualElement name="horizontal-grid-container" style="top: auto; left: auto; right: 125px; bottom: 125px; position: absolute;" />
-    <ui:VisualElement name="vertical-grid-container" style="top: auto; left: auto; right: 125px; bottom: 125px; position: absolute;" />
+    <ui:VisualElement name="dashboard">
+        <ui:VisualElement name="grid-container" />
+        <ui:VisualElement name="horizontal-lr-grid-container" />
+        <ui:VisualElement name="horizontal-rl-grid-container" />
+        <ui:VisualElement name="vertical-tb-grid-container" />
+        <ui:VisualElement name="vertical-bt-grid-container" />
+        <ui:VisualElement style="flex-direction: row; bottom: -45px; position: absolute; align-self: center; width: 100%; justify-content: space-evenly;">
+            <ui:Button name="attack-button" />
+            <ui:Button text="0" name="sea-mine-button" />
+            <ui:Button text="0" name="torpedo-button" />
+        </ui:VisualElement>
+    </ui:VisualElement>
 </ui:UXML>
