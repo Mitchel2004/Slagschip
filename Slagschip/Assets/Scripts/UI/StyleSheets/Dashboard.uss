@@ -1,9 +1,10 @@
 #dashboard {
-    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Opponent%20Dashboard%20and%20grid/OpponentGridDashboard.png?fileID=2800000&guid=21aeff29aa88b20468c3854f01d3ee09&type=3#OpponentGridDashboard");
+    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Opponent%20Dashboard%20and%20grid/OpponentGridDashboard.png?fileID=1881719252&guid=21aeff29aa88b20468c3854f01d3ee09&type=3#OpponentGridDashboard_0");
     position: absolute;
-    width: 500px;
-    height: 500px;
+    width: 424px;
+    height: 471px;
     right: 0;
+    top: 95px;
 }
 
 #grid-container {
@@ -11,28 +12,35 @@
     flex-direction: column-reverse;
     flex-wrap: wrap;
     align-content: flex-start;
-    width: 375px;
-    height: 375px;
-    left: 87px;
-    top: 55px;
+    width: 350px;
+    height: 350px;
+    left: auto;
+    top: 53px;
     position: absolute;
+    right: 22px;
+    visibility: visible;
+    transition-property: opacity;
+    transition-duration: 1s;
+    transition-timing-function: linear;
+    opacity: 1;
+    transition-delay: 1s;
 }
 
 #horizontal-lr-grid-container {
     visibility: hidden;
-    width: 187px;
-    height: 375px;
-    left: 87px;
-    top: 55px;
+    width: 175px;
+    height: 350px;
+    left: 52px;
+    top: 53px;
     position: absolute;
 }
 
 #horizontal-rl-grid-container {
     visibility: hidden;
-    width: 187px;
-    height: 375px;
-    left: 274px;
-    top: 55px;
+    width: 175px;
+    height: 350px;
+    left: 227px;
+    top: 53px;
     position: absolute;
 }
 
@@ -42,20 +50,20 @@
 
 #vertical-tb-grid-container {
     visibility: hidden;
-    width: 375px;
-    height: 187px;
-    left: 87px;
-    top: 55px;
+    width: 350px;
+    height: 175px;
+    left: 52px;
+    top: 53px;
     position: absolute;
     flex-direction: row;
 }
 
 #vertical-bt-grid-container {
     visibility: hidden;
-    width: 375px;
-    height: 187px;
-    left: 87px;
-    top: 242px;
+    width: 350px;
+    height: 175px;
+    left: 52px;
+    top: 228px;
     position: absolute;
     flex-direction: row;
 }
@@ -73,6 +81,11 @@
 }
 
 .grid-button:hover {
+    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Grid%20Icons/Selected.png?fileID=2800000&guid=a3e7cabf2c21c5141aedda060e450f3c&type=3#Selected");
+    background-color: rgba(255, 255, 255, 0);
+}
+
+.selected-grid-button {
     background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Grid%20Icons/Selected.png?fileID=2800000&guid=a3e7cabf2c21c5141aedda060e450f3c&type=3#Selected");
     background-color: rgba(255, 255, 255, 0);
 }
@@ -143,11 +156,42 @@
     scale: 1 -1;
 }
 
+#menu-button {
+    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Buttons/MenuButton.png?fileID=1063743818&guid=814066d230b5e5d4aafd4062b1957ce3&type=3#MenuButton_5");
+    background-color: rgba(0, 0, 0, 0);
+    -unity-text-outline-color: rgba(0, 0, 0, 0);
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    font-size: 32px;
+    -unity-font-definition: url("project://database/Assets/Art/Fonts/XXII%20Army%20Straight.ttf?fileID=12800000&guid=97ce381991fe74e4797189af75c08ac9&type=3#XXII Army Straight");
+    top: -34px;
+    align-self: center;
+    padding-right: 32px;
+    padding-left: 32px;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    position: absolute;
+}
+
+#menu-button:active {
+    padding-top: 19px;
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    -unity-text-outline-color: rgba(0, 0, 0, 0);
+    background-color: rgba(0, 0, 0, 0);
+    padding-bottom: 13px;
+    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Buttons/MenuButtonPressed.png?fileID=-105710934&guid=9525cda0323c688479c89948c18df623&type=3#MenuButtonPressed_5");
+}
+
 #attack-button {
     background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Buttons/AttackButton.png?fileID=367398710&guid=4dd918dd566a2cc4eb326b769c124f46&type=3#AttackButton_0");
     width: 100px;
     height: 109px;
-    display: none;
+    display: flex;
     border-left-color: rgba(0, 0, 0, 0);
     border-right-color: rgba(0, 0, 0, 0);
     border-top-color: rgba(0, 0, 0, 0);
@@ -170,7 +214,7 @@
     background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Buttons/SeaMineButton.png?fileID=-1748097259&guid=3acf8cd83bf90c74a81a23c19a6cf09a&type=3#SeaMineButton_0");
     width: 100px;
     height: 109px;
-    display: flex;
+    display: none;
     padding-bottom: 16px;
     -unity-text-align: lower-left;
     font-size: 16px;
@@ -198,7 +242,7 @@
     background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Buttons/TorpedoButton.png?fileID=-10070716&guid=a88edb017e4319d4ea52144b339d0c19&type=3#TorpedoButton_0");
     width: 100px;
     height: 109px;
-    display: none;
+    display: flex;
     -unity-text-align: lower-left;
     font-size: 16px;
     padding-bottom: 16px;

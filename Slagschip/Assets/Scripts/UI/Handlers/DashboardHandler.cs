@@ -1,4 +1,7 @@
+using Multiplayer;
 using PlayerGrid;
+using System;
+using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -10,16 +13,26 @@ namespace OpponentGrid
     {
         private UIDocument _document;
 
+        [SerializeField] private GameData _gameData;
         [SerializeField] private GridHandler _gridHandler;
 
         private const byte _gridSize = GridHandler.gridSize;
 
         private Button[] _gridButtons = new Button[_gridSize * (_gridSize + 4)];
 
+        private byte _targetCell;
+
         private void Awake()
         {
+            _gameData.currentPlayerTurn.OnValueChanged += OnPlayerTurnChange;
+
             _document = GetComponent<UIDocument>();
-        
+
+            _document.rootVisualElement.Query("grid-container").First().RegisterCallback<TransitionEndEvent>(OnGridFadeOut);
+            _document.rootVisualElement.Query("menu-button").First().RegisterCallback<ClickEvent>(OnMenu);
+            _document.rootVisualElement.Query("attack-button").First().RegisterCallback<ClickEvent>(OnAttack);
+            _document.rootVisualElement.Query("torpedo-button").First().RegisterCallback<ClickEvent>(OnTorpedo);
+
             for (byte i = 0; i < _gridSize * _gridSize; i++)
             {
                 Button _gridButton = new();
@@ -29,7 +42,7 @@ namespace OpponentGrid
                 _gridButton.style.width = new StyleLength(new Length(100 / _gridSize, LengthUnit.Percent));
                 _gridButton.style.height = new StyleLength(new Length(100 / _gridSize, LengthUnit.Percent));
 
-                _gridButton.RegisterCallbackOnce<ClickEvent, byte>(SetTargetCell, i);
+                _gridButton.RegisterCallback<ClickEvent, byte>(SetTargetCell, i);
 
                 _document.rootVisualElement.Query("grid-container").First().Add(_gridButton);
 
@@ -53,10 +66,10 @@ namespace OpponentGrid
                 _verticalTBGridButton.style.width = new StyleLength(new Length(100 / _gridSize, LengthUnit.Percent));
                 _verticalBTGridButton.style.width = new StyleLength(new Length(100 / _gridSize, LengthUnit.Percent));
 
-                _horizontalLRGridButton.RegisterCallbackOnce<ClickEvent, byte>(SetTargetCell, (byte)(_gridSize * _gridSize + i));
-                _horizontalRLGridButton.RegisterCallbackOnce<ClickEvent, byte>(SetTargetCell, (byte)(_gridSize * (_gridSize + 1) + i));
-                _verticalTBGridButton.RegisterCallbackOnce<ClickEvent, byte>(SetTargetCell, (byte)(_gridSize * (_gridSize + 2) + i));
-                _verticalBTGridButton.RegisterCallbackOnce<ClickEvent, byte>(SetTargetCell, (byte)(_gridSize * (_gridSize + 3) + i));
+                _horizontalLRGridButton.RegisterCallback<ClickEvent, byte>(SetTargetCell, (byte)(_gridSize * _gridSize + i));
+                _horizontalRLGridButton.RegisterCallback<ClickEvent, byte>(SetTargetCell, (byte)(_gridSize * (_gridSize + 1) + i));
+                _verticalTBGridButton.RegisterCallback<ClickEvent, byte>(SetTargetCell, (byte)(_gridSize * (_gridSize + 2) + i));
+                _verticalBTGridButton.RegisterCallback<ClickEvent, byte>(SetTargetCell, (byte)(_gridSize * (_gridSize + 3) + i));
 
                 _document.rootVisualElement.Query("horizontal-lr-grid-container").First().Add(_horizontalLRGridButton);
                 _document.rootVisualElement.Query("horizontal-rl-grid-container").First().Add(_horizontalRLGridButton);
@@ -70,9 +83,61 @@ namespace OpponentGrid
             }
         }
 
-        private void SetTargetCell(ClickEvent _event, byte _targetCell)
+        public override void OnNetworkSpawn()
+        {
+            base.OnNetworkSpawn();
+
+            if (!IsHost)
+            {
+                _document.rootVisualElement.Query("grid-container").First().style.visibility = Visibility.Hidden;
+                _document.rootVisualElement.Query("grid-container").First().style.opacity = 0;
+            }
+        }
+
+        private void OnGridFadeOut(TransitionEndEvent _event)
+        {
+            IStyle _gridStyle = _document.rootVisualElement.Query("grid-container").First().style;
+
+            if (_gridStyle.opacity == 0)
+                _gridStyle.visibility = Visibility.Hidden;
+        }
+
+        private void OnPlayerTurnChange(ulong _previousValue, ulong _newValue)
+        {
+            if (NetworkManager.Singleton.LocalClientId == _newValue)
+            {
+                _document.rootVisualElement.Query("grid-container").First().style.visibility = Visibility.Visible;
+                _document.rootVisualElement.Query("grid-container").First().style.opacity = 1;
+            }
+            else
+            {
+                _document.rootVisualElement.Query("grid-container").First().style.opacity = 0;
+            }
+        }
+
+        private void OnMenu(ClickEvent _event)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void OnAttack(ClickEvent _event)
         {
             _gridHandler.CheckTargetCellRpc(_targetCell);
+            _document.rootVisualElement.Query("attack-button").First().SetEnabled(false);
+            GetCellButton(_targetCell).UnregisterCallback<ClickEvent, byte>(SetTargetCell);
+        }
+
+        private void OnTorpedo(ClickEvent _event)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void SetTargetCell(ClickEvent _event, byte _targetCell)
+        {
+            GetCellButton(this._targetCell).RemoveFromClassList("selected-grid-button");
+            this._targetCell = _targetCell;
+            GetCellButton(_targetCell).AddToClassList("selected-grid-button");
+            _document.rootVisualElement.Query("attack-button").First().SetEnabled(true);
         }
 
         private Button GetCellButton(byte _targetCell)

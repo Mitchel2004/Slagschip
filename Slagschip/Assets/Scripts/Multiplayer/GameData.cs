@@ -28,7 +28,9 @@ namespace Multiplayer
             base.OnNetworkSpawn();
             
             if (IsServer)
+            {
                 NetworkManager.OnServerStarted += InitializePlayerTurn;
+            }
         }
         
         private void InitializePlayerTurn()
