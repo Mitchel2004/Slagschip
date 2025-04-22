@@ -208,17 +208,24 @@ namespace PlayerGrid
         {
             if (IsClient)
             {
+                bool isHit = false;
                 if (_targetCell <= 100)
                 {
                     Vector2Int pos = CellUnpacker.CellPosition(_targetCell);
-                    onAttacked.Invoke(_grid[pos.x, pos.y].worldPosition, _grid[pos.x, pos.y].isTaken);
+                    isHit = _grid[pos.x, pos.y].isTaken;
+                    onAttacked.Invoke(_grid[pos.x, pos.y].worldPosition, isHit);
                 }
 
-                // if hit:
-                _opponentGridHandler.OnHitRpc(_targetCell);
+                //TODO: Torpedo hit check with correct target cell
 
-                // if miss:
-                _opponentGridHandler.OnMissRpc(_targetCell);
+                if (isHit)
+                {
+                    _opponentGridHandler.OnHitRpc(_targetCell);
+                }
+                else
+                {
+                    _opponentGridHandler.OnMissRpc(_targetCell);
+                }
             }
         }
     }
