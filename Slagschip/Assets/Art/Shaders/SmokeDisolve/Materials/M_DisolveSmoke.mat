@@ -20,8 +20,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: DisolveSmoke_M
-  m_Shader: {fileID: -6465566751694194690, guid: 3a8355e408070634899441840b8ff40d, type: 3}
+  m_Name: M_DisolveSmoke
+  m_Shader: {fileID: -6465566751694194690, guid: b463db26ac113f34ca4f29c13cc9d8d0, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
