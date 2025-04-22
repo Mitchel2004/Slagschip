@@ -5,7 +5,6 @@ using UnityEngine.Events;
 namespace FX
 {
     using Enumeration;
-    using Unity.Android.Gradle.Manifest;
 
     public class FXSystem : MonoBehaviour
     {
@@ -14,7 +13,7 @@ namespace FX
         private int _effectItteration = 0;
         private Queue<UnityAction> _queue = new Queue<UnityAction>();
 
-        void Awake()
+        private void Awake()
         {
             FillQueue();
             InitializeEffects();
@@ -44,9 +43,9 @@ namespace FX
                     List<Effect> batchCopy = new List<Effect>(currentBatch);
                     _queue.Enqueue(() => {
                         _effectCount = batchCopy.Count;
-                        foreach (Effect e in batchCopy)
+                        foreach (Effect effect in batchCopy)
                         {
-                            e.Play();
+                            effect.Play();
                         }
                     });
 
@@ -60,9 +59,9 @@ namespace FX
                 List<Effect> batchCopy = new List<Effect>(currentBatch);
                 _queue.Enqueue(() => {
                     _effectCount = batchCopy.Count;
-                    foreach (Effect e in batchCopy)
+                    foreach (Effect effect in batchCopy)
                     {
-                        e.Play();
+                        effect.Play();
                     }
                 });
             }

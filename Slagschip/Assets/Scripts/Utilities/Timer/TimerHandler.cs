@@ -21,7 +21,7 @@ namespace Utilities.Timer
             }
         }
 
-        void Update()
+        private void Update()
         {
             onTick.Invoke(Time.deltaTime);
         }
