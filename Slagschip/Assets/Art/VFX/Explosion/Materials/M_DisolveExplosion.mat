@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: DisolveExplosion_M
+  m_Name: M_DisolveExplosion
   m_Shader: {fileID: -6465566751694194690, guid: 9c40cb941f3e6ae4aade6852ef8259d5, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
