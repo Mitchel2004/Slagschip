@@ -14,7 +14,7 @@ namespace PlayerGrid
     {
         public static GridHandler instance;
 
-        [SerializeField] private OpponentGridHandler _opponentGridHandler;
+        [SerializeField] private DashboardHandler _dashboardHandler;
 
         private float _gridScale => transform.localScale.x;
 
@@ -220,11 +220,11 @@ namespace PlayerGrid
 
                 if (isHit)
                 {
-                    _opponentGridHandler.OnHitRpc(_targetCell);
+                    _dashboardHandler.OnHitRpc(_targetCell);
                 }
                 else
                 {
-                    _opponentGridHandler.OnMissRpc(_targetCell);
+                    _dashboardHandler.OnMissRpc(_targetCell);
                 }
             }
         }

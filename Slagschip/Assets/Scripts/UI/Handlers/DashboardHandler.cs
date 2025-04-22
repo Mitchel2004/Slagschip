@@ -9,7 +9,7 @@ using UnityEngine.UIElements;
 namespace OpponentGrid
 {
     [RequireComponent(typeof(UIDocument))]
-    public class OpponentGridHandler : NetworkBehaviour
+    public class DashboardHandler : NetworkBehaviour
     {
         private UIDocument _document;
 
