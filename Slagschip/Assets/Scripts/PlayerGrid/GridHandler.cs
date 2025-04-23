@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using Utilities;
-using Uitilities.Generic;
+using Utilities.Generic;
 
 namespace PlayerGrid
 {
@@ -14,7 +14,7 @@ namespace PlayerGrid
     {
         public static GridHandler instance;
 
-        [SerializeField] private OpponentGridHandler _opponentGridHandler;
+        [SerializeField] private DashboardHandler _dashboardHandler;
 
         private float _gridScale => transform.localScale.x;
 
@@ -208,17 +208,24 @@ namespace PlayerGrid
         {
             if (IsClient)
             {
+                bool isHit = false;
                 if (_targetCell <= 100)
                 {
                     Vector2Int pos = CellUnpacker.CellPosition(_targetCell);
-                    onAttacked.Invoke(_grid[pos.x, pos.y].worldPosition, _grid[pos.x, pos.y].isTaken);
+                    isHit = _grid[pos.x, pos.y].isTaken;
+                    onAttacked.Invoke(_grid[pos.x, pos.y].worldPosition, isHit);
                 }
 
-                // if hit:
-                _opponentGridHandler.OnHitRpc(_targetCell);
+                //TODO: Torpedo hit check with correct target cell
 
-                // if miss:
-                _opponentGridHandler.OnMissRpc(_targetCell);
+                if (isHit)
+                {
+                    _dashboardHandler.OnHitRpc(_targetCell);
+                }
+                else
+                {
+                    _dashboardHandler.OnMissRpc(_targetCell);
+                }
             }
         }
     }
