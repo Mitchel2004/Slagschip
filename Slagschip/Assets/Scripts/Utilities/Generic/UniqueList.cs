@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEditor.ShaderGraph.Serialization;
 
-namespace Uitilities.Generic
+namespace Utilities.Generic
 {
     public class UniqueList<T>
     {
