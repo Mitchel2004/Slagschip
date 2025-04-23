@@ -68,8 +68,6 @@ namespace UIHandlers
 
         private void OnPlayCodeInputSubmitted(ClickEvent _event)
         {
-            sceneLoader.LoadScene(loadingScene.name, false);
-
             playCodeButton.onClick.Invoke();
         }
 
