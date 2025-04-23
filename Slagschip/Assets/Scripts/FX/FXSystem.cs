@@ -9,6 +9,7 @@ namespace FX
     public class FXSystem : MonoBehaviour
     {
         [SerializeField] private List<Effect> effects;
+        [SerializeField] private bool playOnStart;
         private int _effectCount = 0;
         private int _effectItteration = 0;
         private Queue<UnityAction> _queue = new Queue<UnityAction>();
@@ -21,7 +22,8 @@ namespace FX
 
         private void Start()
         {
-            Play();
+            if (playOnStart)
+                Play();
         }
 
         public void Play()

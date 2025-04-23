@@ -1,3 +1,4 @@
+using FX;
 using PlayerGrid;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -23,6 +24,8 @@ namespace Ships
 
         private System.Action<InputAction.CallbackContext> _rotateLeftAction;
         private System.Action<InputAction.CallbackContext> _rotateRightAction;
+
+        [SerializeField] private FXSystem[] effects;
 
         public UnityEvent<ShipBehaviour> OnClear { get; set; }
 
