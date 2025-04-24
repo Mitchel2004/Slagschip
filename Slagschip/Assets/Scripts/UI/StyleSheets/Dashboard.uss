@@ -167,7 +167,7 @@
     border-top-color: rgba(0, 0, 0, 0);
     border-bottom-color: rgba(0, 0, 0, 0);
     font-size: 32px;
-    -unity-font-definition: url("project://database/Assets/Art/Fonts/XXII%20Army%20Straight.ttf?fileID=12800000&guid=97ce381991fe74e4797189af75c08ac9&type=3#XXII Army Straight");
+    -unity-font-definition: url("project://database/Assets/Art/Fonts/Pulse%20Rifle.ttf?fileID=12800000&guid=3921b8da77362b541b6dbaab39532451&type=3#Pulse Rifle");
     top: -34px;
     align-self: center;
     padding-right: 32px;
@@ -226,6 +226,7 @@
     border-right-color: rgba(0, 0, 0, 0);
     border-top-color: rgba(0, 0, 0, 0);
     border-bottom-color: rgba(0, 0, 0, 0);
+    -unity-font-definition: url("project://database/Assets/Art/Fonts/Seven%20Segment.ttf?fileID=12800000&guid=d50cfcbf6199f4449a2f67056ef83161&type=3#Seven Segment");
 }
 
 #sea-mine-button:active {
@@ -254,6 +255,7 @@
     border-right-color: rgba(0, 0, 0, 0);
     border-top-color: rgba(0, 0, 0, 0);
     border-bottom-color: rgba(0, 0, 0, 0);
+    -unity-font-definition: url("project://database/Assets/Art/Fonts/Seven%20Segment.ttf?fileID=12800000&guid=d50cfcbf6199f4449a2f67056ef83161&type=3#Seven Segment");
 }
 
 #torpedo-button:active {
