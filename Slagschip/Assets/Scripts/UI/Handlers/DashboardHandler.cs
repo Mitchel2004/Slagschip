@@ -1,7 +1,6 @@
 using Multiplayer;
 using PlayerGrid;
 using System;
-using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -28,7 +27,8 @@ namespace OpponentGrid
 
             _document = GetComponent<UIDocument>();
 
-            _document.rootVisualElement.Query("grid-container").First().RegisterCallback<TransitionEndEvent>(OnGridFadeOut);
+            _document.rootVisualElement.Query("your-turn").First().RegisterCallback<TransitionEndEvent>(TurnFadeOut);
+            _document.rootVisualElement.Query("their-turn").First().RegisterCallback<TransitionEndEvent>(TurnFadeOut);
             _document.rootVisualElement.Query("menu-button").First().RegisterCallback<ClickEvent>(OnMenu);
             _document.rootVisualElement.Query("attack-button").First().RegisterCallback<ClickEvent>(OnAttack);
             _document.rootVisualElement.Query("torpedo-button").First().RegisterCallback<ClickEvent>(OnTorpedo);
@@ -83,35 +83,40 @@ namespace OpponentGrid
             }
         }
 
+        private void TurnFadeOut(TransitionEndEvent _event)
+        {
+            if (_document.rootVisualElement.Query("your-turn").First().style.opacity == 0)
+            {
+                _document.rootVisualElement.Query("turn-screen").First().style.display = DisplayStyle.None;
+            }
+            else
+            {
+                _document.rootVisualElement.Query("your-turn").First().style.opacity = 0;
+                _document.rootVisualElement.Query("their-turn").First().style.opacity = 0;
+            }
+        }
+
         public override void OnNetworkSpawn()
         {
             base.OnNetworkSpawn();
 
             if (!IsHost)
-            {
-                _document.rootVisualElement.Query("grid-container").First().style.visibility = Visibility.Hidden;
-                _document.rootVisualElement.Query("grid-container").First().style.opacity = 0;
-            }
-        }
-
-        private void OnGridFadeOut(TransitionEndEvent _event)
-        {
-            IStyle _gridStyle = _document.rootVisualElement.Query("grid-container").First().style;
-
-            if (_gridStyle.opacity == 0)
-                _gridStyle.visibility = Visibility.Hidden;
+                _document.rootVisualElement.Query("grid-cover").First().style.visibility = Visibility.Visible;
         }
 
         private void OnPlayerTurnChange(ulong _previousValue, ulong _newValue)
         {
             if (NetworkManager.Singleton.LocalClientId == _newValue)
             {
-                _document.rootVisualElement.Query("grid-container").First().style.visibility = Visibility.Visible;
-                _document.rootVisualElement.Query("grid-container").First().style.opacity = 1;
+                _document.rootVisualElement.Query("grid-cover").First().style.visibility = Visibility.Hidden;
+                _document.rootVisualElement.Query("turn-screen").First().style.display = DisplayStyle.Flex;
+                _document.rootVisualElement.Query("your-turn").First().style.opacity = 1;
             }
             else
             {
-                _document.rootVisualElement.Query("grid-container").First().style.opacity = 0;
+                _document.rootVisualElement.Query("grid-cover").First().style.visibility = Visibility.Visible;
+                _document.rootVisualElement.Query("turn-screen").First().style.display = DisplayStyle.Flex;
+                _document.rootVisualElement.Query("their-turn").First().style.opacity = 1;
             }
         }
 

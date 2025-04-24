@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 97ce381991fe74e4797189af75c08ac9
+guid: 3921b8da77362b541b6dbaab39532451
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - XXII Army
+  - Pulse Rifle
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0
