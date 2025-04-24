@@ -2,7 +2,6 @@ using SceneManagement;
 using System;
 using System.Text.RegularExpressions;
 using TMPro;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 using WebSocketSharp;
@@ -15,7 +14,7 @@ namespace UIHandlers
         private UIDocument _document;
 
         [SerializeField] private SceneLoader sceneLoader;
-        [SerializeField] private SceneAsset loadingScene;
+        [SerializeField] private string loadingScene;
 
         [SerializeField] private UnityEngine.UI.Button quickPlayButton;
         [SerializeField] private TMP_InputField playCodeInputField;
@@ -47,7 +46,7 @@ namespace UIHandlers
 
         private void OnQuickPlay(ClickEvent _event)
         {
-            sceneLoader.LoadScene(loadingScene.name, false);
+            sceneLoader.LoadScene(loadingScene, false);
 
             quickPlayButton.onClick.Invoke();
         }
@@ -58,7 +57,7 @@ namespace UIHandlers
 
             _playCodeTextField.value = _event.newData.ToUpper();
 
-            if (!Regex.IsMatch(_playCodeTextField.value, @"^[346-9A-HJ-NP-RTW-Y]*$"))
+            if (!Regex.IsMatch(_playCodeTextField.value, @"^[346-9A-HJ-NP-RTW-Y]{0,6}$"))
                 _playCodeTextField.value = _event.previousData;
 
             playCodeInputField.text = _playCodeTextField.value;
@@ -86,7 +85,7 @@ namespace UIHandlers
         {
             startSessionInputField.text = Guid.NewGuid().ToString();
 
-            sceneLoader.LoadScene(loadingScene.name, false);
+            sceneLoader.LoadScene(loadingScene, false);
 
             startSessionButton.onClick.Invoke();
         }

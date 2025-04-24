@@ -416,6 +416,7 @@ GameObject:
   - component: {fileID: 467757424}
   - component: {fileID: 467757423}
   - component: {fileID: 467757422}
+  - component: {fileID: 467757425}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -468,7 +469,7 @@ MonoBehaviour:
   NetworkConfig:
     ProtocolVersion: 0
     NetworkTransport: {fileID: 467757422}
-    PlayerPrefab: {fileID: 0}
+    PlayerPrefab: {fileID: 5647488715093325502, guid: f70e451ee8ab9054f800b385809df50d, type: 3}
     Prefabs:
       NetworkPrefabsLists:
       - {fileID: 11400000, guid: d7e0170874332914285037694bf951f8, type: 2}
@@ -510,6 +511,36 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &467757425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 467757421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &531688433
 GameObject:
   m_ObjectHideFlags: 0
@@ -780,13 +811,13 @@ MonoBehaviour:
       - m_Target: {fileID: 1395624746}
         m_TargetAssemblyTypeName: SceneManagement.SceneLoader, Assembly-CSharp
         m_MethodName: LoadScene
-        m_Mode: 2
+        m_Mode: 5
         m_Arguments:
-          m_ObjectArgument: {fileID: 102900000, guid: 59fb58b39e15a1a4baecf64a4dbcc8be, type: 3}
-          m_ObjectArgumentAssemblyTypeName: UnityEditor.SceneAsset, UnityEditor.CoreModule
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: LoadingMain
           m_BoolArgument: 0
         m_CallState: 2
   FailedToJoinSession:
@@ -2300,9 +2331,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
   loadOnStart: 0
-  sceneToLoad: {fileID: 0}
+  sceneToLoad: 
   isNetworked: 0
-  fallbackScene: {fileID: 0}
+  fallbackScene: 
   loadDelay: 0
 --- !u!4 &1395624747
 Transform:
@@ -2530,7 +2561,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneLoader: {fileID: 1395624746}
-  loadingScene: {fileID: 102900000, guid: 59fb58b39e15a1a4baecf64a4dbcc8be, type: 3}
+  loadingScene: LoadingMain
   quickPlayButton: {fileID: 801041813}
   playCodeInputField: {fileID: 726599057}
   playCodeButton: {fileID: 1631452431}
@@ -2953,7 +2984,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2082274946}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
   m_Name: 
