@@ -17,11 +17,11 @@ namespace FX
         private void Awake()
         {
             FillQueue();
-            InitializeEffects();
         }
 
         private void Start()
         {
+            InitializeEffects();
             if (playOnStart)
                 Play();
         }

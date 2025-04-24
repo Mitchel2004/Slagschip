@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: M_DisolveExplosion
-  m_Shader: {fileID: -6465566751694194690, guid: 3a8355e408070634899441840b8ff40d, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 51e1be4b7ec284144b0a8b9738aaa319, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []

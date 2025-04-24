@@ -22,7 +22,7 @@ namespace PlayerGrid
         public UnityEvent<Vector3> onMove;
         public UnityEvent<bool> onHit;
 
-        public UnityEvent<Vector3, bool> onAttacked;
+        public UnityEvent<GridCell, bool> onAttacked;
 
         public const byte gridSize = 10;
 
@@ -156,9 +156,9 @@ namespace PlayerGrid
             bool[] check = new bool[_ship.shape.offsets.Length];
             for (int i = 0; i < _ship.shape.offsets.Length; i++)
             {
-                int y = _current.position.y - _ship.shape.offsets[i].y;
+                int y = _current.position.y + _ship.shape.offsets[i].y;
 
-                int x = _current.position.x + _ship.shape.offsets[i].x;
+                int x = _current.position.x - _ship.shape.offsets[i].x;
 
                 GridCell offsetCell = _current;
                 bool isOnGrid;
@@ -175,9 +175,9 @@ namespace PlayerGrid
         {
             for (int i = 0; i < _ship.shape.offsets.Length; i++)
             {
-                int y = _current.position.y - _ship.shape.offsets[i].y;
+                int y = _current.position.y + _ship.shape.offsets[i].y;
 
-                int x = _current.position.x + _ship.shape.offsets[i].x;
+                int x = _current.position.x - _ship.shape.offsets[i].x;
 
                 _grid[x, y].isTaken = true;
             }
@@ -193,9 +193,9 @@ namespace PlayerGrid
         {
             for (int i = 0; i < _requestedShip.shape.offsets.Length; i++)
             {
-                int y = _requestedShip.position.y - _requestedShip.shape.offsets[i].y;
+                int y = _requestedShip.position.y + _requestedShip.shape.offsets[i].y;
 
-                int x = _requestedShip.position.x + _requestedShip.shape.offsets[i].x;
+                int x = _requestedShip.position.x - _requestedShip.shape.offsets[i].x;
 
                 _grid[x, y].isTaken = false;
             }
@@ -213,7 +213,7 @@ namespace PlayerGrid
                 {
                     Vector2Int pos = CellUnpacker.CellPosition(_targetCell);
                     isHit = _grid[pos.x, pos.y].isTaken;
-                    onAttacked.Invoke(_grid[pos.x, pos.y].worldPosition, isHit);
+                    onAttacked.Invoke(_grid[pos.x, pos.y], isHit);
                 }
 
                 //TODO: Torpedo hit check with correct target cell
@@ -227,6 +227,16 @@ namespace PlayerGrid
                     _dashboardHandler.OnMissRpc(_targetCell);
                 }
             }
+        }
+
+        public ShipBehaviour ShipFromCell(GridCell _cell)
+        {
+            for (int i = 0; i < _ships.Count; i++)
+            {
+                if (_ships[i].shape.ContainsOffset(_cell.position - _ships[i].position))
+                    return _ships[i];
+            }
+            return null;
         }
     }
 }

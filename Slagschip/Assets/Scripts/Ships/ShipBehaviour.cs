@@ -1,6 +1,5 @@
 using FX;
 using PlayerGrid;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -17,9 +16,6 @@ namespace Ships
 
         public Vector2Int position;
 
-        private MeshRenderer _renderer;
-        private Material _material;
-
         private InputAction _rotateLeft, _rotateRight;
 
         private System.Action<InputAction.CallbackContext> _rotateLeftAction;
@@ -31,8 +27,6 @@ namespace Ships
 
         private void Start()
         {
-            //_renderer = transform.GetChild(0).gameObject.GetComponent<MeshRenderer>();
-            //_material = _renderer.material;
             InitializeEvents();
         }
 
@@ -146,6 +140,11 @@ namespace Ships
             _rotateRight.started -= _rotateRightAction;
 
             //_material.color = new Color(0.5f, 0.5f, 0.5f);  
-        }    
+        }
+        
+        public FXSystem FindEffectOnOffset(Vector2Int _offset)
+        {
+            return effects[shape[_offset]];
+        }
     }
 }

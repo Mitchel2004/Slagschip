@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3853e15f9cfec1443aec37aa56d61c2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitDistance: 0.9
+  hitDistance: 1
   hit:
     m_PersistentCalls:
       m_Calls: []

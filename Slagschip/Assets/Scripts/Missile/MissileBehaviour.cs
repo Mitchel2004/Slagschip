@@ -37,7 +37,7 @@ namespace Missile
         {
             Move();
 
-            if (_time >= 1 || (_data.hit && _time >= hitDistance))
+            if (_time >= 1 || (_data.Hit && _time >= hitDistance))
             {
                 hit.Invoke();
                 Destroy(gameObject);
