@@ -12,5 +12,6 @@
             <ui:Button text="0" name="sea-mine-button" />
             <ui:Button text="0" name="torpedo-button" />
         </ui:VisualElement>
+        <ui:VisualElement name="grid-cover" />
     </ui:VisualElement>
 </ui:UXML>
