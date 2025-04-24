@@ -1,3 +1,4 @@
+using Multiplayer;
 using OpponentGrid;
 using Ships;
 using System.Linq;
@@ -15,7 +16,7 @@ namespace PlayerGrid
         public static GridHandler instance;
 
         [SerializeField] private DashboardHandler _dashboardHandler;
-
+        [SerializeField] private GameData gameData;
         private float _gridScale => transform.localScale.x;
 
         public UnityEvent<bool> onValidate;
@@ -72,8 +73,9 @@ namespace PlayerGrid
 
         private void InitializeInput()
         {
-            _rotateLeft = InputSystem.actions.FindAction("RotateLeft");
-            _rotateRight = InputSystem.actions.FindAction("RotateRight");
+            InputActionAsset actions = FindFirstObjectByType<PlayerInput>().actions;
+            _rotateLeft = actions.FindAction("RotateLeft");
+            _rotateRight = actions.FindAction("RotateRight");
 
             _rotateLeft.started += context => {
                 if (_ship != null)
@@ -225,6 +227,7 @@ namespace PlayerGrid
                 else
                 {
                     _dashboardHandler.OnMissRpc(_targetCell);
+                    gameData.SwitchPlayerTurnRpc();
                 }
             }
         }

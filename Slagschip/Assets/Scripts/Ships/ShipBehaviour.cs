@@ -3,6 +3,7 @@ using PlayerGrid;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 namespace Ships
 {
@@ -32,8 +33,9 @@ namespace Ships
 
         private void InitializeEvents()
         {
-            _rotateLeft = InputSystem.actions.FindAction("RotateLeft");
-            _rotateRight = InputSystem.actions.FindAction("RotateRight");
+            InputActionAsset actions = FindFirstObjectByType<PlayerInput>().actions;
+            _rotateLeft = actions.FindAction("RotateLeft");
+            _rotateRight = actions.FindAction("RotateRight");       
 
             _rotateLeftAction += context => {
                 Rotate(new Vector3(0, -90, 0));
