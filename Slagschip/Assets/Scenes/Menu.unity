@@ -2408,7 +2408,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneLoader: {fileID: 1395624746}
-  loadingScene: {fileID: 102900000, guid: 59fb58b39e15a1a4baecf64a4dbcc8be, type: 3}
+  loadingScene: LoadingMain
   quickPlayButton: {fileID: 801041813}
   playCodeInputField: {fileID: 726599057}
   playCodeButton: {fileID: 1631452431}
