@@ -1,6 +1,5 @@
 using System.Collections;
 using Unity.Netcode;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -11,9 +10,9 @@ namespace SceneManagement
         public static SceneLoader instance;
 
         public bool loadOnStart;
-        public SceneAsset sceneToLoad;
+        public string sceneToLoad;
         public bool isNetworked;
-        public SceneAsset fallbackScene;
+        public string fallbackScene;
         public float loadDelay;
 
         private void Awake()
@@ -31,7 +30,7 @@ namespace SceneManagement
         private void Start()
         {
             if (loadOnStart)
-                LoadScene(sceneToLoad.name, isNetworked);
+                LoadScene(sceneToLoad, isNetworked);
         }
 
         private IEnumerator LoadNetworkedScene(string _sceneName)
@@ -44,7 +43,7 @@ namespace SceneManagement
             }
             else
             {
-                LoadScene(fallbackScene.name, false, 0);
+                LoadScene(fallbackScene, false, 0);
             }
         }
 
@@ -98,9 +97,9 @@ namespace SceneManagement
             }
         }
 
-        public void LoadScene(SceneAsset _scene)
+        public void LoadScene(string _scene)
         {
-            StartCoroutine(LoadLocalScene(_scene.name));
+            StartCoroutine(LoadLocalScene(_scene));
         }
     }
 }

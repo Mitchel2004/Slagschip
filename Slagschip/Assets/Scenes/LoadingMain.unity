@@ -503,9 +503,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
   loadOnStart: 1
-  sceneToLoad: {fileID: 102900000, guid: 99c9720ab356a0642a771bea13969a05, type: 3}
+  sceneToLoad: Main
   isNetworked: 1
-  fallbackScene: {fileID: 102900000, guid: 2898f648c21ae3b41890e31bccbd993e, type: 3}
+  fallbackScene: Menu
   loadDelay: 3
 --- !u!114 &1727611150
 MonoBehaviour:
