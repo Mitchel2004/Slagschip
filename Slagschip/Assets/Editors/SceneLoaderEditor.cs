@@ -4,6 +4,7 @@ using UnityEditor;
 #if UNITY_EDITOR
 namespace Editors
 {
+#if UNITY_EDITOR
     [CustomEditor(typeof(SceneLoader))]
     public class SceneLoaderEditor : Editor
     {
@@ -40,5 +41,6 @@ namespace Editors
             serializedObject.ApplyModifiedProperties();
         }
     }
+#endif
 }
 #endif

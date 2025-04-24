@@ -1,8 +1,9 @@
+using FX;
 using PlayerGrid;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 namespace Ships
 {
@@ -16,27 +17,25 @@ namespace Ships
 
         public Vector2Int position;
 
-        private MeshRenderer _renderer;
-        private Material _material;
-
         private InputAction _rotateLeft, _rotateRight;
 
         private System.Action<InputAction.CallbackContext> _rotateLeftAction;
         private System.Action<InputAction.CallbackContext> _rotateRightAction;
 
+        [SerializeField] private FXSystem[] effects;
+
         public UnityEvent<ShipBehaviour> OnClear { get; set; }
 
         private void Start()
         {
-            //_renderer = transform.GetChild(0).gameObject.GetComponent<MeshRenderer>();
-            //_material = _renderer.material;
             InitializeEvents();
         }
 
         private void InitializeEvents()
         {
-            _rotateLeft = InputSystem.actions.FindAction("RotateLeft");
-            _rotateRight = InputSystem.actions.FindAction("RotateRight");
+            InputActionAsset actions = FindFirstObjectByType<PlayerInput>().actions;
+            _rotateLeft = actions.FindAction("RotateLeft");
+            _rotateRight = actions.FindAction("RotateRight");       
 
             _rotateLeftAction += context => {
                 Rotate(new Vector3(0, -90, 0));
@@ -143,6 +142,11 @@ namespace Ships
             _rotateRight.started -= _rotateRightAction;
 
             //_material.color = new Color(0.5f, 0.5f, 0.5f);  
-        }    
+        }
+        
+        public FXSystem FindEffectOnOffset(Vector2Int _offset)
+        {
+            return effects[shape[_offset]];
+        }
     }
 }
