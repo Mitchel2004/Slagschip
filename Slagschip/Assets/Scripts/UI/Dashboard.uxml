@@ -15,7 +15,6 @@
         <ui:VisualElement name="grid-cover" />
     </ui:VisualElement>
     <ui:VisualElement name="turn-screen">
-        <ui:VisualElement name="your-turn" />
-        <ui:VisualElement name="their-turn" />
+        <ui:VisualElement name="turn-information" />
     </ui:VisualElement>
 </ui:UXML>
