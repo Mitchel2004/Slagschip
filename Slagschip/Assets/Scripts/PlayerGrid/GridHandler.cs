@@ -27,6 +27,7 @@ namespace PlayerGrid
         public UnityEvent<GridCell, bool> onAttacked;
 
         public const byte gridSize = 10;
+        private const byte _maxShips = 5;
 
         private GridCell[,] _grid;
         private GridCell _current;
@@ -156,7 +157,7 @@ namespace PlayerGrid
 
         private void CheckReadiness()
         {
-            if (_ships.Count == 5 && !_placing)
+            if (_ships.Count == _maxShips && !_placing)
             {
                 onIsReady.Invoke(true);
             }

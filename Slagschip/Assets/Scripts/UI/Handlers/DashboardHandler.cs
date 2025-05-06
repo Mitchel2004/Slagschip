@@ -22,6 +22,7 @@ namespace OpponentGrid
         private NetworkVariable<List<byte>> _readyPlayers = new();
 
         private const byte _gridSize = GridHandler.gridSize;
+        private const byte _playerCount = 2;
 
         private Button[] _gridButtons = new Button[_gridSize * (_gridSize + 4)];
 
@@ -181,7 +182,7 @@ namespace OpponentGrid
         {
             _readyPlayers.Value.Add(1);
 
-            if (_readyPlayers.Value.Count == 2)
+            if (_readyPlayers.Value.Count == _playerCount)
             {
                 StartGameRpc();
             }
