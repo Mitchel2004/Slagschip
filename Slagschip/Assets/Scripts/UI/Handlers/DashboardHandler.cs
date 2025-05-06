@@ -3,6 +3,7 @@ using PlayerGrid;
 using System;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UIElements;
 
 namespace OpponentGrid
@@ -10,6 +11,8 @@ namespace OpponentGrid
     [RequireComponent(typeof(UIDocument))]
     public class DashboardHandler : NetworkBehaviour
     {
+        public UnityEvent onReady;
+
         private UIDocument _document;
 
         [SerializeField] private GameData _gameData;
@@ -32,6 +35,9 @@ namespace OpponentGrid
             _document.rootVisualElement.Query("menu-button").First().RegisterCallback<ClickEvent>(OnMenu);
             _document.rootVisualElement.Query("attack-button").First().RegisterCallback<ClickEvent>(OnAttack);
             _document.rootVisualElement.Query("torpedo-button").First().RegisterCallback<ClickEvent>(OnTorpedo);
+            _document.rootVisualElement.Query("ready-button").First().RegisterCallback<ClickEvent>(Ready);
+
+            _gridHandler.onIsReady.AddListener(IsReady);
 
             for (byte i = 0; i < _gridSize * _gridSize; i++)
             {
@@ -148,6 +154,19 @@ namespace OpponentGrid
         private Button GetCellButton(byte _targetCell)
         {
             return _gridButtons[_targetCell];
+        }
+
+        private void Ready(ClickEvent _event)
+        {
+            onReady.Invoke();
+            _document.rootVisualElement.Query("pregame-buttons").First().style.display = DisplayStyle.None;
+            _document.rootVisualElement.Query("game-buttons").First().style.display = DisplayStyle.Flex;
+        }
+
+        public void IsReady(bool _ready)
+        {
+            Button readyButton = (Button)_document.rootVisualElement.Query("ready-button");
+            readyButton.SetEnabled(_ready);
         }
 
         [Rpc(SendTo.NotMe)]

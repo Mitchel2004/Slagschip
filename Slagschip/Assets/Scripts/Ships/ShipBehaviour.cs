@@ -143,6 +143,11 @@ namespace Ships
 
             //_material.color = new Color(0.5f, 0.5f, 0.5f);  
         }
+
+        public void Lock()
+        {
+            onClick.RemoveAllListeners();
+        }
         
         public FXSystem FindEffectOnOffset(Vector2Int _offset)
         {
