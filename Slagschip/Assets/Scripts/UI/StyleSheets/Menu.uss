@@ -72,11 +72,6 @@
     border-bottom-color: rgba(0, 0, 0, 0);
 }
 
-#settings-screen {
-    display: none;
-    flex-grow: 1;
-}
-
 #credits-screen {
     display: none;
     flex-grow: 1;
