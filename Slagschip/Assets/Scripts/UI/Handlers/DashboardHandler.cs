@@ -1,6 +1,7 @@
 using Multiplayer;
 using PlayerGrid;
 using System;
+using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Events;
@@ -18,6 +19,8 @@ namespace OpponentGrid
         [SerializeField] private GameData _gameData;
         [SerializeField] private GridHandler _gridHandler;
 
+        private NetworkVariable<List<byte>> _readyPlayers = new();
+
         private const byte _gridSize = GridHandler.gridSize;
 
         private Button[] _gridButtons = new Button[_gridSize * (_gridSize + 4)];
@@ -26,6 +29,8 @@ namespace OpponentGrid
 
         private void Awake()
         {
+            _readyPlayers.Value = new();
+
             _gameData.currentPlayerTurn.OnValueChanged += OnPlayerTurnChange;
 
             _document = GetComponent<UIDocument>();
@@ -159,8 +164,27 @@ namespace OpponentGrid
         private void Ready(ClickEvent _event)
         {
             onReady.Invoke();
+            SetPlayerReadyRpc();
+            Button readyButton = (Button)_document.rootVisualElement.Query("ready-button");
+            readyButton.SetEnabled(false);
+        }
+
+        [Rpc(SendTo.Everyone)]
+        private void StartGameRpc()
+        {
             _document.rootVisualElement.Query("pregame-buttons").First().style.display = DisplayStyle.None;
             _document.rootVisualElement.Query("game-buttons").First().style.display = DisplayStyle.Flex;
+        }
+
+        [Rpc(SendTo.Server)]
+        private void SetPlayerReadyRpc()
+        {
+            _readyPlayers.Value.Add(1);
+
+            if (_readyPlayers.Value.Count == 2)
+            {
+                StartGameRpc();
+            }
         }
 
         public void IsReady(bool _ready)
