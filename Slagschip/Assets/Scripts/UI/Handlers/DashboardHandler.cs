@@ -27,8 +27,7 @@ namespace OpponentGrid
 
             _document = GetComponent<UIDocument>();
 
-            _document.rootVisualElement.Query("your-turn").First().RegisterCallback<TransitionEndEvent>(TurnFadeOut);
-            _document.rootVisualElement.Query("their-turn").First().RegisterCallback<TransitionEndEvent>(TurnFadeOut);
+            _document.rootVisualElement.Query("turn-information").First().RegisterCallback<TransitionEndEvent>(TurnFadeOut);
             _document.rootVisualElement.Query("menu-button").First().RegisterCallback<ClickEvent>(OnMenu);
             _document.rootVisualElement.Query("attack-button").First().RegisterCallback<ClickEvent>(OnAttack);
             _document.rootVisualElement.Query("torpedo-button").First().RegisterCallback<ClickEvent>(OnTorpedo);
@@ -85,14 +84,13 @@ namespace OpponentGrid
 
         private void TurnFadeOut(TransitionEndEvent _event)
         {
-            if (_document.rootVisualElement.Query("your-turn").First().style.opacity == 0)
+            if (_document.rootVisualElement.Query("turn-information").First().style.opacity == 0)
             {
                 _document.rootVisualElement.Query("turn-screen").First().style.display = DisplayStyle.None;
             }
             else
             {
-                _document.rootVisualElement.Query("your-turn").First().style.opacity = 0;
-                _document.rootVisualElement.Query("their-turn").First().style.opacity = 0;
+                _document.rootVisualElement.Query("turn-information").First().style.opacity = 0;
             }
         }
 

@@ -280,9 +280,8 @@
     justify-content: center;
 }
 
-#your-turn {
+#turn-information {
     position: absolute;
-    background-image: url("project://database/Assets/Art/UI/Information/Turn%20Indication/YourTurnIndication.png?fileID=2800000&guid=43138bdeeca902d478e29de12a57943d&type=3#YourTurnIndication");
     left: 0;
     right: 0;
     height: 245px;
@@ -293,15 +292,10 @@
     transition-delay: 1s;
 }
 
-#their-turn {
-    position: absolute;
+.your-turn {
+    background-image: url("project://database/Assets/Art/UI/Information/Turn%20Indication/YourTurnIndication.png?fileID=2800000&guid=43138bdeeca902d478e29de12a57943d&type=3#YourTurnIndication");
+}
+
+.their-turn {
     background-image: url("project://database/Assets/Art/UI/Information/Turn%20Indication/theirTurnIndication.png?fileID=2800000&guid=8ff31f1edf1472645ac09a0a702c869b&type=3#theirTurnIndication");
-    left: 0;
-    right: 0;
-    height: 245px;
-    transition-property: opacity;
-    transition-duration: 1s;
-    transition-timing-function: linear;
-    opacity: 0;
-    transition-delay: 1s;
 }
