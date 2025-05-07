@@ -4,8 +4,11 @@ using System;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Unity.Services.Multiplayer;
+using System.Collections.Generic;
+using TMPro;
 
-namespace OpponentGrid
+namespace UIHandlers
 {
     [RequireComponent(typeof(UIDocument))]
     public class DashboardHandler : NetworkBehaviour
@@ -14,6 +17,7 @@ namespace OpponentGrid
 
         [SerializeField] private GameData _gameData;
         [SerializeField] private GridHandler _gridHandler;
+        [SerializeField] private TMP_Text _sessionCodeText;
 
         private const byte _gridSize = GridHandler.gridSize;
 
@@ -100,6 +104,19 @@ namespace OpponentGrid
 
             if (!IsHost)
                 _document.rootVisualElement.Query("grid-cover").First().style.visibility = Visibility.Visible;
+
+            SetPlayCode();
+        }
+
+        private async void SetPlayCode()
+        {
+            List<string> _joinedSessions = await MultiplayerService.Instance.GetJoinedSessionIdsAsync();
+
+            foreach(ISession _session in MultiplayerService.Instance.Sessions.Values)
+            {
+                if(_joinedSessions.Count == 1 && _session.Id == _joinedSessions[0])
+                    _sessionCodeText.text = _session.Code;
+            }
         }
 
         private void OnPlayerTurnChange(ulong _previousValue, ulong _newValue)
