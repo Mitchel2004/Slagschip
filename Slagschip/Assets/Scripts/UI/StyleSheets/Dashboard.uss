@@ -1,3 +1,9 @@
+#dashboard-holder {
+    flex-grow: 1;
+    justify-content: center;
+    align-self: auto;
+}
+
 #dashboard {
     background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Opponent%20Dashboard%20and%20grid/OpponentGridDashboard.png?fileID=1881719252&guid=21aeff29aa88b20468c3854f01d3ee09&type=3#OpponentGridDashboard_0");
     position: absolute;
@@ -189,6 +195,22 @@
     background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Buttons/MenuButtonPressed.png?fileID=-105710934&guid=9525cda0323c688479c89948c18df623&type=3#MenuButtonPressed_5");
 }
 
+#game-buttons {
+    bottom: -55px;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-self: center;
+    width: 100%;
+}
+
+#pregame-buttons {
+    bottom: -55px;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-self: center;
+    width: 100%;
+}
+
 #attack-button {
     background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Buttons/AttackButton.png?fileID=367398710&guid=4dd918dd566a2cc4eb326b769c124f46&type=3#AttackButton_0");
     width: 100px;
@@ -227,6 +249,7 @@
     border-top-color: rgba(0, 0, 0, 0);
     border-bottom-color: rgba(0, 0, 0, 0);
     -unity-font-definition: url("project://database/Assets/Art/Fonts/Seven%20Segment.ttf?fileID=12800000&guid=d50cfcbf6199f4449a2f67056ef83161&type=3#Seven Segment");
+    left: 15px;
 }
 
 #sea-mine-button:active {
@@ -268,6 +291,28 @@
     border-bottom-color: rgba(0, 0, 0, 0);
     background-color: rgba(0, 0, 0, 0);
     -unity-text-outline-color: rgba(0, 0, 0, 0);
+}
+
+#ready-button {
+    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Buttons/EmptyButton.png?fileID=430277337&guid=ff7992968b1f57a488a3532787968185&type=3#EmptyButton_0");
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    background-color: rgba(0, 0, 0, 0);
+    -unity-font-definition: url("project://database/Assets/Art/Fonts/Pulse%20Rifle.ttf?fileID=12800000&guid=3921b8da77362b541b6dbaab39532451&type=3#Pulse Rifle");
+    background-size: 100% 100%;
+    flex-grow: 0;
+    left: 0;
+    width: 150px;
+    font-size: 25px;
+}
+
+#ready-button:active {
+    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Buttons/EmptyButtonPressed.png?fileID=-336603769&guid=15490286b6d453c47aee6c54b33fd5e7&type=3#EmptyButtonPressed_0");
+    padding-top: 19px;
+    padding-bottom: 13px;
 }
 
 #turn-screen {

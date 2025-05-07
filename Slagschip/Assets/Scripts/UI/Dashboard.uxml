@@ -1,21 +1,26 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/Scripts/UI/StyleSheets/Dashboard.uss?fileID=7433441132597879392&amp;guid=2b82aa7426e41f742a50ecfb83b639cc&amp;type=3#Dashboard" />
-    <ui:VisualElement name="dashboard">
-        <ui:Button text="Menu" name="menu-button" />
-        <ui:VisualElement name="grid-container" />
-        <ui:VisualElement name="horizontal-lr-grid-container" />
-        <ui:VisualElement name="horizontal-rl-grid-container" />
-        <ui:VisualElement name="vertical-tb-grid-container" />
-        <ui:VisualElement name="vertical-bt-grid-container" />
-        <ui:VisualElement style="flex-direction: row; bottom: -51px; position: absolute; align-self: center; width: 100%; justify-content: space-evenly;">
-            <ui:Button name="attack-button" enabled="false" />
-            <ui:Button text="0" name="sea-mine-button" />
-            <ui:Button text="0" name="torpedo-button" />
-        </ui:VisualElement>
-        <ui:VisualElement name="grid-cover" />
-    </ui:VisualElement>
     <ui:VisualElement name="turn-screen">
         <ui:VisualElement name="turn-information" />
+    </ui:VisualElement>
+    <ui:VisualElement name="dashboard-holder">
+        <ui:VisualElement name="dashboard" style="position: relative; align-self: flex-end; top: 0;">
+            <ui:Button text="Menu" name="menu-button" />
+            <ui:VisualElement name="grid-container" />
+            <ui:VisualElement name="horizontal-lr-grid-container" />
+            <ui:VisualElement name="horizontal-rl-grid-container" />
+            <ui:VisualElement name="vertical-tb-grid-container" />
+            <ui:VisualElement name="vertical-bt-grid-container" />
+            <ui:VisualElement name="game-buttons" style="position: absolute; display: none;">
+                <ui:Button name="attack-button" enabled="false" />
+                <ui:Button text="0" name="torpedo-button" />
+            </ui:VisualElement>
+            <ui:VisualElement name="pregame-buttons" style="position: absolute; display: flex;">
+                <ui:Button text="0" name="sea-mine-button" style="display: flex;" />
+                <ui:Button text="Klaar" name="ready-button" enabled="false" style="-unity-text-align: middle-center;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="grid-cover" />
+        </ui:VisualElement>
     </ui:VisualElement>
     <ui:Button text="------" name="play-code" />
 </ui:UXML>
