@@ -3,7 +3,7 @@
     <ui:VisualElement name="turn-screen">
         <ui:VisualElement name="turn-information" />
     </ui:VisualElement>
-    <ui:VisualElement name="dashboard-holder" style="flex-grow: 1; justify-content: center;">
+    <ui:VisualElement name="dashboard-holder">
         <ui:VisualElement name="dashboard" style="position: relative; align-self: flex-end; top: 0;">
             <ui:Button text="Menu" name="menu-button" />
             <ui:VisualElement name="grid-container" />
@@ -11,11 +11,11 @@
             <ui:VisualElement name="horizontal-rl-grid-container" />
             <ui:VisualElement name="vertical-tb-grid-container" />
             <ui:VisualElement name="vertical-bt-grid-container" />
-            <ui:VisualElement name="game-buttons" style="flex-direction: row; bottom: -51px; position: absolute; align-self: center; width: 100%; justify-content: space-evenly; display: none;">
+            <ui:VisualElement name="game-buttons" style="position: absolute; display: none;">
                 <ui:Button name="attack-button" enabled="false" />
                 <ui:Button text="0" name="torpedo-button" />
             </ui:VisualElement>
-            <ui:VisualElement name="pregame-buttons" style="flex-direction: row; bottom: -51px; position: absolute; align-self: center; width: 100%; justify-content: space-evenly; display: flex;">
+            <ui:VisualElement name="pregame-buttons" style="position: absolute; display: flex;">
                 <ui:Button text="0" name="sea-mine-button" style="display: flex;" />
                 <ui:Button text="Klaar" name="ready-button" enabled="false" style="-unity-text-align: middle-center;" />
             </ui:VisualElement>

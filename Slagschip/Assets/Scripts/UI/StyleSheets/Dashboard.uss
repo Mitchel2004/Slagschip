@@ -1,3 +1,9 @@
+#dashboard-holder {
+    flex-grow: 1;
+    justify-content: center;
+    align-self: auto;
+}
+
 #dashboard {
     background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Opponent%20Dashboard%20and%20grid/OpponentGridDashboard.png?fileID=1881719252&guid=21aeff29aa88b20468c3854f01d3ee09&type=3#OpponentGridDashboard_0");
     position: absolute;
@@ -187,6 +193,22 @@
     background-color: rgba(0, 0, 0, 0);
     padding-bottom: 13px;
     background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Buttons/MenuButtonPressed.png?fileID=-105710934&guid=9525cda0323c688479c89948c18df623&type=3#MenuButtonPressed_5");
+}
+
+#game-buttons {
+    bottom: -55px;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-self: center;
+    width: 100%;
+}
+
+#pregame-buttons {
+    bottom: -55px;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-self: center;
+    width: 100%;
 }
 
 #attack-button {
