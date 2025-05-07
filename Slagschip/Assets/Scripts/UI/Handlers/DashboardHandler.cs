@@ -18,6 +18,7 @@ namespace UIHandlers
         [SerializeField] private GameData _gameData;
         [SerializeField] private GridHandler _gridHandler;
         [SerializeField] private TMP_Text _sessionCodeText;
+        [SerializeField] private UnityEngine.UI.Button _copySessionCode;
 
         private const byte _gridSize = GridHandler.gridSize;
 
@@ -35,6 +36,7 @@ namespace UIHandlers
             _document.rootVisualElement.Query("menu-button").First().RegisterCallback<ClickEvent>(OnMenu);
             _document.rootVisualElement.Query("attack-button").First().RegisterCallback<ClickEvent>(OnAttack);
             _document.rootVisualElement.Query("torpedo-button").First().RegisterCallback<ClickEvent>(OnTorpedo);
+            _document.rootVisualElement.Query("play-code").First().RegisterCallback<ClickEvent>(OnPlayCode);
 
             for (byte i = 0; i < _gridSize * _gridSize; i++)
             {
@@ -86,6 +88,11 @@ namespace UIHandlers
             }
         }
 
+        private void OnPlayCode(ClickEvent _event)
+        {
+            _copySessionCode.onClick.Invoke();
+        }
+
         private void TurnFadeOut(TransitionEndEvent _event)
         {
             if (_document.rootVisualElement.Query("turn-information").First().style.opacity == 0)
@@ -117,6 +124,8 @@ namespace UIHandlers
                 if(_joinedSessions.Count == 1 && _session.Id == _joinedSessions[0])
                     _sessionCodeText.text = _session.Code;
             }
+
+            _document.rootVisualElement.Query<Button>("play-code").First().text = _sessionCodeText.text;
         }
 
         private void OnPlayerTurnChange(ulong _previousValue, ulong _newValue)

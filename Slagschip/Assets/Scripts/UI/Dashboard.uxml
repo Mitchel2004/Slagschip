@@ -17,4 +17,5 @@
     <ui:VisualElement name="turn-screen">
         <ui:VisualElement name="turn-information" />
     </ui:VisualElement>
+    <ui:Button text="------" name="play-code" />
 </ui:UXML>

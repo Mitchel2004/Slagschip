@@ -1648,6 +1648,8 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   _gameData: {fileID: 1729439125}
   _gridHandler: {fileID: 820298679}
+  _sessionCodeText: {fileID: 1057508723}
+  _copySessionCode: {fileID: 1829504318}
 --- !u!114 &1286696012
 MonoBehaviour:
   m_ObjectHideFlags: 0
