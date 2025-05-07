@@ -155,6 +155,7 @@ GameObject:
   - component: {fileID: 1675110597602725732}
   - component: {fileID: 4217564232557394082}
   - component: {fileID: 300011969522124229}
+  - component: {fileID: -7549734477977867810}
   m_Layer: 0
   m_Name: Schiedam
   m_TagString: Untagged
@@ -230,6 +231,28 @@ MonoBehaviour:
   effects:
   - {fileID: 5225124368443090354}
   - {fileID: 1525635377735102588}
+--- !u!95 &-7549734477977867810
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7930470697246618941}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e53f1b0e7f394eb4091c5be598ff22b5, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &2473644569123824410
 PrefabInstance:
   m_ObjectHideFlags: 0
