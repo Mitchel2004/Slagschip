@@ -1247,6 +1247,9 @@ MonoBehaviour:
   onHit:
     m_PersistentCalls:
       m_Calls: []
+  onIsReady:
+    m_PersistentCalls:
+      m_Calls: []
   onAttacked:
     m_PersistentCalls:
       m_Calls: []
@@ -1646,6 +1649,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
+  onReady:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 820298679}
+        m_TargetAssemblyTypeName: PlayerGrid.GridHandler, Assembly-CSharp
+        m_MethodName: LockGrid
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _gameData: {fileID: 1729439125}
   _gridHandler: {fileID: 820298679}
   _sessionCodeText: {fileID: 1057508723}
