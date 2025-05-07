@@ -3,7 +3,6 @@ using PlayerGrid;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
 
 namespace Ships
 {

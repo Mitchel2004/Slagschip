@@ -149,7 +149,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: SeaMineButton_0
+      name: NavalMineButton_0
       rect:
         serializedVersion: 2
         x: 0
@@ -157,7 +157,7 @@ TextureImporter:
         width: 165
         height: 184
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 25, y: 40, z: 25, w: 25}
       customData: 
       outline: []
@@ -184,7 +184,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      SeaMineButton_0: -1748097259
+      NavalMineButton_0: -1748097259
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

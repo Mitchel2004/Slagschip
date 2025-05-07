@@ -9,7 +9,7 @@
         <ui:VisualElement name="vertical-bt-grid-container" />
         <ui:VisualElement style="flex-direction: row; bottom: -51px; position: absolute; align-self: center; width: 100%; justify-content: space-evenly;">
             <ui:Button name="attack-button" enabled="false" />
-            <ui:Button text="0" name="sea-mine-button" />
+            <ui:Button text="0" name="naval-mine-button" />
             <ui:Button text="0" name="torpedo-button" />
         </ui:VisualElement>
         <ui:VisualElement name="grid-cover" />
