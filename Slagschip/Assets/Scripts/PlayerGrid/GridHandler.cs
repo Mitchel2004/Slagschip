@@ -67,7 +67,10 @@ namespace PlayerGrid
             }
 
             InitializeGrid();
+        }
 
+        private void Start()
+        {
             InitializeInput();
         }
 
@@ -77,16 +80,19 @@ namespace PlayerGrid
             _rotateLeft = actions.FindAction("RotateLeft");
             _rotateRight = actions.FindAction("RotateRight");
 
-            _rotateLeft.started += context => {
-                if (_ship != null)
-                    _ship.shape.RotateCounterClockwise();
-                onValidate.Invoke(IsValidPosition());
-            };
-            _rotateRight.started += context => {
-                if (_ship != null)
-                    _ship.shape.RotateClockwise();
-                onValidate.Invoke(IsValidPosition());
-            };
+            if (IsClient)
+            {
+                _rotateLeft.started += context => {
+                    if (_ship != null)
+                        _ship.shape.RotateCounterClockwise();
+                    onValidate.Invoke(IsValidPosition());
+                };
+                _rotateRight.started += context => {
+                    if (_ship != null)
+                        _ship.shape.RotateClockwise();
+                    onValidate.Invoke(IsValidPosition());
+                };
+            }
         }
 
         private void InitializeGrid()
@@ -227,6 +233,7 @@ namespace PlayerGrid
                 else
                 {
                     _dashboardHandler.OnMissRpc(_targetCell);
+
                     gameData.SwitchPlayerTurnRpc();
                 }
             }
