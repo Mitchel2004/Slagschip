@@ -234,36 +234,6 @@
     border-bottom-color: rgba(0, 0, 0, 0);
 }
 
-#sea-mine-button {
-    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Buttons/SeaMineButton.png?fileID=-1748097259&guid=3acf8cd83bf90c74a81a23c19a6cf09a&type=3#SeaMineButton_0");
-    width: 100px;
-    height: 109px;
-    display: none;
-    padding-bottom: 16px;
-    -unity-text-align: lower-left;
-    font-size: 16px;
-    -unity-text-outline-color: rgba(0, 0, 0, 0);
-    background-color: rgba(0, 0, 0, 0);
-    border-left-color: rgba(0, 0, 0, 0);
-    border-right-color: rgba(0, 0, 0, 0);
-    border-top-color: rgba(0, 0, 0, 0);
-    border-bottom-color: rgba(0, 0, 0, 0);
-    -unity-font-definition: url("project://database/Assets/Art/Fonts/Seven%20Segment.ttf?fileID=12800000&guid=d50cfcbf6199f4449a2f67056ef83161&type=3#Seven Segment");
-    left: 15px;
-}
-
-#sea-mine-button:active {
-    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Buttons/SeaMineButtonPressed.png?fileID=760942414&guid=7e5552311fba8d14097ac9b96117faf5&type=3#SeaMineButtonPressed_0");
-    padding-top: 3px;
-    padding-bottom: 13px;
-    border-left-color: rgba(0, 0, 0, 0);
-    border-right-color: rgba(0, 0, 0, 0);
-    border-top-color: rgba(0, 0, 0, 0);
-    border-bottom-color: rgba(0, 0, 0, 0);
-    -unity-text-outline-color: rgba(0, 0, 0, 0);
-    background-color: rgba(0, 0, 0, 0);
-}
-
 #torpedo-button {
     background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Buttons/TorpedoButton.png?fileID=-10070716&guid=a88edb017e4319d4ea52144b339d0c19&type=3#TorpedoButton_0");
     width: 100px;
@@ -291,6 +261,64 @@
     border-bottom-color: rgba(0, 0, 0, 0);
     background-color: rgba(0, 0, 0, 0);
     -unity-text-outline-color: rgba(0, 0, 0, 0);
+}
+
+#sea-mine-button {
+    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Buttons/SeaMineButton.png?fileID=-1748097259&guid=3acf8cd83bf90c74a81a23c19a6cf09a&type=3#SeaMineButton_0");
+    width: 100px;
+    height: 109px;
+    display: flex;
+    padding-bottom: 16px;
+    -unity-text-align: lower-left;
+    font-size: 16px;
+    -unity-text-outline-color: rgba(0, 0, 0, 0);
+    background-color: rgba(0, 0, 0, 0);
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    -unity-font-definition: url("project://database/Assets/Art/Fonts/Seven%20Segment.ttf?fileID=12800000&guid=d50cfcbf6199f4449a2f67056ef83161&type=3#Seven Segment");
+    left: 15px;
+}
+
+#sea-mine-button:active {
+    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Buttons/SeaMineButtonPressed.png?fileID=760942414&guid=7e5552311fba8d14097ac9b96117faf5&type=3#SeaMineButtonPressed_0");
+    padding-top: 3px;
+    padding-bottom: 13px;
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    -unity-text-outline-color: rgba(0, 0, 0, 0);
+    background-color: rgba(0, 0, 0, 0);
+}
+
+#naval-mine-attack-button {
+    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Buttons/AttackButton.png?fileID=367398710&guid=4dd918dd566a2cc4eb326b769c124f46&type=3#AttackButton_0");
+    width: 100px;
+    height: 109px;
+    display: none;
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    background-color: rgba(0, 0, 0, 0);
+    -unity-text-outline-color: rgba(0, 0, 0, 0);
+    left: 15px;
+}
+
+#naval-mine-attack-button:active {
+    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Buttons/AttackButton.png?fileID=367398710&guid=4dd918dd566a2cc4eb326b769c124f46&type=3#AttackButton_0");
+    width: 100px;
+    height: 109px;
+    display: none;
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    background-color: rgba(0, 0, 0, 0);
+    -unity-text-outline-color: rgba(0, 0, 0, 0);
+    left: 15px;
 }
 
 #ready-button {
