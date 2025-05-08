@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2544436897743242287}
   - component: {fileID: 658927862629103914}
   m_Layer: 0
-  m_Name: ExplosionEffect2
+  m_Name: ExplosionEffect1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -145,10 +145,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shape:
     offsets:
-    - {x: 0, y: 2}
     - {x: 0, y: 1}
     - {x: 0, y: 0}
     - {x: 0, y: -1}
+    - {x: 0, y: -2}
   onPlace:
     m_PersistentCalls:
       m_Calls: []
@@ -160,10 +160,10 @@ MonoBehaviour:
       m_Calls: []
   position: {x: 0, y: 0}
   effects:
-  - {fileID: 8910679184527661000}
-  - {fileID: 814766334566721274}
-  - {fileID: 658927862629103914}
   - {fileID: 875202678190012988}
+  - {fileID: 658927862629103914}
+  - {fileID: 814766334566721274}
+  - {fileID: 8910679184527661000}
 --- !u!1 &3211285416220005793
 GameObject:
   m_ObjectHideFlags: 0
@@ -175,7 +175,7 @@ GameObject:
   - component: {fileID: 1446265431536689905}
   - component: {fileID: 8910679184527661000}
   m_Layer: 0
-  m_Name: ExplosionEffect
+  m_Name: ExplosionEffect3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -247,7 +247,7 @@ GameObject:
   - component: {fileID: 6891450227631507380}
   - component: {fileID: 875202678190012988}
   m_Layer: 0
-  m_Name: ExplosionEffect3
+  m_Name: ExplosionEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -319,7 +319,7 @@ GameObject:
   - component: {fileID: 2563322236246021775}
   - component: {fileID: 814766334566721274}
   m_Layer: 0
-  m_Name: ExplosionEffect1
+  m_Name: ExplosionEffect2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

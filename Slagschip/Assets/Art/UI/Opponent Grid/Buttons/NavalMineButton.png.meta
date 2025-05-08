@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 7e5552311fba8d14097ac9b96117faf5
+guid: 3acf8cd83bf90c74a81a23c19a6cf09a
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -149,23 +149,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: SeaMineButtonPressed_0
+      name: NavalMineButton_0
       rect:
         serializedVersion: 2
-        x: 1
+        x: 0
         y: 0
         width: 165
-        height: 183
+        height: 184
       alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 25, y: 40, z: 25, w: 30}
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 25, y: 40, z: 25, w: 25}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4a0f021dc17ad7b49ae42efb3cca6bd9
-      internalID: 760942414
+      spriteID: 65d459178cacb4044adcb4de7e1bdbb3
+      internalID: -1748097259
       vertices: []
       indices: 
       edges: []
@@ -174,7 +174,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 45d9f51c6a16c644da0331d7a12bb2df
+    spriteID: 0d17c59fce401b44a83fdf8bb3be6f2a
     internalID: 0
     vertices: []
     indices: 
@@ -184,7 +184,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      SeaMineButtonPressed_0: 760942414
+      NavalMineButton_0: -1748097259
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
