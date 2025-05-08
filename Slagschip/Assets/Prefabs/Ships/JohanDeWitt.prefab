@@ -155,6 +155,7 @@ GameObject:
   - component: {fileID: 8555367840163286666}
   - component: {fileID: 1500569173189864942}
   - component: {fileID: 5824756649779264065}
+  - component: {fileID: 2459759356572330108}
   m_Layer: 0
   m_Name: JohanDeWitt
   m_TagString: Untagged
@@ -239,6 +240,28 @@ MonoBehaviour:
   - {fileID: 4489738503237049022}
   - {fileID: 5535192772205996218}
   - {fileID: 4652169775237332695}
+--- !u!95 &2459759356572330108
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2849392732881552703}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 651d3bdf659dd5e4a846442771c6b56a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &4320266341956344311
 GameObject:
   m_ObjectHideFlags: 0
