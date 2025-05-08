@@ -17,7 +17,6 @@ namespace Missile
 
         private void AttackCell(GridCell _cell, bool _hit)
         {
-            Debug.Log(_cell.worldPosition);
             MissileBehaviour missile = Instantiate(missileObject, missileData.StartPos, Quaternion.identity);
             missile.MissileData = new MissileData(missileData, _cell.worldPosition, _hit);
 

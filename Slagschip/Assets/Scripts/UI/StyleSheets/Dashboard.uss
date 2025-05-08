@@ -213,7 +213,7 @@
 }
 
 #naval-mine-button {
-    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Buttons/SeaMineButton.png?fileID=-1748097259&guid=3acf8cd83bf90c74a81a23c19a6cf09a&type=3#NavalMineButton_0");
+    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Buttons/NavalMineButton.png?fileID=-1748097259&guid=3acf8cd83bf90c74a81a23c19a6cf09a&type=3#NavalMineButton_0");
     width: 100px;
     height: 109px;
     display: none;
@@ -230,7 +230,7 @@
 }
 
 #naval-mine-button:active {
-    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Buttons/SeaMineButtonPressed.png?fileID=760942414&guid=7e5552311fba8d14097ac9b96117faf5&type=3#NavalMineButtonPressed_0");
+    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Buttons/NavalMineButtonPressed.png?fileID=760942414&guid=7e5552311fba8d14097ac9b96117faf5&type=3#NavalMineButtonPressed_0");
     padding-top: 3px;
     padding-bottom: 13px;
     border-left-color: rgba(0, 0, 0, 0);
