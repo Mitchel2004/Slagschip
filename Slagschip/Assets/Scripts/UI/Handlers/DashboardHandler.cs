@@ -141,18 +141,22 @@ namespace UIHandlers
 
         private void OnPlayerTurnChange(ulong _previousValue, ulong _newValue)
         {
-            if (NetworkManager.Singleton.LocalClientId == _newValue)
+            _document.rootVisualElement.Query("turn-screen").First().style.display = DisplayStyle.Flex;
+
+            if(NetworkManager.Singleton.LocalClientId == _newValue)
             {
                 _document.rootVisualElement.Query("grid-cover").First().style.visibility = Visibility.Hidden;
-                _document.rootVisualElement.Query("turn-screen").First().style.display = DisplayStyle.Flex;
-                _document.rootVisualElement.Query("your-turn").First().style.opacity = 1;
+                _document.rootVisualElement.Query("turn-information").First().RemoveFromClassList("their-turn");
+                _document.rootVisualElement.Query("turn-information").First().AddToClassList("your-turn");
             }
             else
             {
                 _document.rootVisualElement.Query("grid-cover").First().style.visibility = Visibility.Visible;
-                _document.rootVisualElement.Query("turn-screen").First().style.display = DisplayStyle.Flex;
-                _document.rootVisualElement.Query("their-turn").First().style.opacity = 1;
+                _document.rootVisualElement.Query("turn-information").First().RemoveFromClassList("your-turn");
+                _document.rootVisualElement.Query("turn-information").First().AddToClassList("their-turn");
             }
+
+            _document.rootVisualElement.Query("turn-information").First().style.opacity = 1;
         }
 
         private void OnMenu(ClickEvent _event)
