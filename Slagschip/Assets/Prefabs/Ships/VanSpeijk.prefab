@@ -83,6 +83,7 @@ GameObject:
   - component: {fileID: 7517173894613510098}
   - component: {fileID: 726089176661566618}
   - component: {fileID: 2372674582860178574}
+  - component: {fileID: 8225307874856202469}
   m_Layer: 0
   m_Name: VanSpeijk
   m_TagString: Untagged
@@ -161,6 +162,28 @@ MonoBehaviour:
   - {fileID: 6163070983240368877}
   - {fileID: 6678116436496058812}
   - {fileID: 7788283765186754230}
+--- !u!95 &8225307874856202469
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2458933282116653889}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f58a0a96081b82e4db93a8be378876d3, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &4692462068179369206
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,11 +1,12 @@
 using Multiplayer;
 using PlayerGrid;
 using System;
+using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UIElements;
 using Unity.Services.Multiplayer;
-using System.Collections.Generic;
 using TMPro;
 
 namespace UIHandlers
@@ -13,6 +14,8 @@ namespace UIHandlers
     [RequireComponent(typeof(UIDocument))]
     public class DashboardHandler : NetworkBehaviour
     {
+        public UnityEvent onReady;
+
         private UIDocument _document;
 
         [SerializeField] private GameData _gameData;
@@ -20,7 +23,10 @@ namespace UIHandlers
         [SerializeField] private TMP_Text _sessionCodeText;
         [SerializeField] private UnityEngine.UI.Button _copySessionCode;
 
+        private NetworkVariable<List<byte>> _readyPlayers = new();
+
         private const byte _gridSize = GridHandler.gridSize;
+        private const byte _playerCount = 2;
 
         private Button[] _gridButtons = new Button[_gridSize * (_gridSize + 4)];
 
@@ -28,6 +34,8 @@ namespace UIHandlers
 
         private void Awake()
         {
+            _readyPlayers.Value = new();
+
             _gameData.currentPlayerTurn.OnValueChanged += OnPlayerTurnChange;
 
             _document = GetComponent<UIDocument>();
@@ -36,8 +44,11 @@ namespace UIHandlers
             _document.rootVisualElement.Query("menu-button").First().RegisterCallback<ClickEvent>(OnMenu);
             _document.rootVisualElement.Query("attack-button").First().RegisterCallback<ClickEvent>(OnAttack);
             _document.rootVisualElement.Query("torpedo-button").First().RegisterCallback<ClickEvent>(OnTorpedo);
+            _document.rootVisualElement.Query("ready-button").First().RegisterCallback<ClickEvent>(Ready);
             _document.rootVisualElement.Query("play-code").First().RegisterCallback<ClickEvent>(OnPlayCode);
 
+            _gridHandler.onIsReady.AddListener(IsReady);
+            
             for (byte i = 0; i < _gridSize * _gridSize; i++)
             {
                 Button _gridButton = new();
@@ -176,6 +187,38 @@ namespace UIHandlers
         private Button GetCellButton(byte _targetCell)
         {
             return _gridButtons[_targetCell];
+        }
+
+        private void Ready(ClickEvent _event)
+        {
+            onReady.Invoke();
+            SetPlayerReadyRpc();
+            Button readyButton = (Button)_document.rootVisualElement.Query("ready-button");
+            readyButton.SetEnabled(false);
+        }
+
+        [Rpc(SendTo.Everyone)]
+        private void StartGameRpc()
+        {
+            _document.rootVisualElement.Query("pregame-buttons").First().style.display = DisplayStyle.None;
+            _document.rootVisualElement.Query("game-buttons").First().style.display = DisplayStyle.Flex;
+        }
+
+        [Rpc(SendTo.Server)]
+        private void SetPlayerReadyRpc()
+        {
+            _readyPlayers.Value.Add(1);
+
+            if (_readyPlayers.Value.Count == _playerCount)
+            {
+                StartGameRpc();
+            }
+        }
+
+        public void IsReady(bool _ready)
+        {
+            Button readyButton = (Button)_document.rootVisualElement.Query("ready-button");
+            readyButton.SetEnabled(_ready);
         }
 
         [Rpc(SendTo.NotMe)]

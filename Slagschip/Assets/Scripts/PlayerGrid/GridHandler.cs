@@ -22,10 +22,12 @@ namespace PlayerGrid
         public UnityEvent<bool> onValidate;
         public UnityEvent<Vector3> onMove;
         public UnityEvent<bool> onHit;
+        public UnityEvent<bool> onIsReady;
 
         public UnityEvent<GridCell, bool> onAttacked;
 
         public const byte gridSize = 10;
+        private const byte _maxShips = 5;
 
         private GridCell[,] _grid;
         private GridCell _current;
@@ -34,6 +36,8 @@ namespace PlayerGrid
 
         private ShipBehaviour _ship;
         private UniqueList<ShipBehaviour> _ships = new UniqueList<ShipBehaviour>();
+
+        private bool _placing = false;
 
         [SerializeField] private LayerMask interactionLayers;
 
@@ -157,6 +161,14 @@ namespace PlayerGrid
             }
         }
 
+        private void CheckReadiness()
+        {
+            if (_ships.Count == _maxShips && !_placing)
+            {
+                onIsReady.Invoke(true);
+            }
+        }
+
         private bool IsValidPosition()
         {
             if (_ship == null)
@@ -194,7 +206,11 @@ namespace PlayerGrid
             _ship.position = _current.position;
             _ship.OnClear.AddListener(Clear);
 
+            _placing = false;
+
             _ship = null;
+
+            CheckReadiness();
         }
 
         public void Clear(ShipBehaviour _requestedShip)
@@ -208,6 +224,9 @@ namespace PlayerGrid
                 _grid[x, y].isTaken = false;
             }
             _requestedShip.OnClear.RemoveListener(Clear);
+
+            _placing = true;
+            onIsReady.Invoke(false);
         }
 
         // TODO: Check incoming target cell whether it is a hit or miss
@@ -239,6 +258,13 @@ namespace PlayerGrid
             }
         }
 
+        public void LockGrid()
+        {
+            for (int i = 0; i < _ships.Count; i++)
+            {
+                _ships[i].Lock();
+            }
+        }
         public ShipBehaviour ShipFromCell(GridCell _cell)
         {
             for (int i = 0; i < _ships.Count; i++)
