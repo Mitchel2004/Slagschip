@@ -155,6 +155,7 @@ GameObject:
   - component: {fileID: 6253618748357395804}
   - component: {fileID: 5802931726271597559}
   - component: {fileID: 8367325544407775162}
+  - component: {fileID: 2818529756699156697}
   m_Layer: 0
   m_Name: VanAmstel
   m_TagString: Untagged
@@ -233,6 +234,28 @@ MonoBehaviour:
   - {fileID: 5890705733256124372}
   - {fileID: 6314672296559157489}
   - {fileID: 4081573423424408133}
+--- !u!95 &2818529756699156697
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7826272775955144139}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f58a0a96081b82e4db93a8be378876d3, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &8575622325855705632
 GameObject:
   m_ObjectHideFlags: 0
