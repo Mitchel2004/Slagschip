@@ -34,8 +34,6 @@ namespace UIHandlers
 
         private void Awake()
         {
-            _readyPlayers.Value = new();
-
             _gameData.currentPlayerTurn.OnValueChanged += OnPlayerTurnChange;
 
             _document = GetComponent<UIDocument>();
@@ -119,6 +117,8 @@ namespace UIHandlers
         public override void OnNetworkSpawn()
         {
             base.OnNetworkSpawn();
+
+            _readyPlayers.Value = new();
 
             if (!IsHost)
                 _document.rootVisualElement.Query("grid-cover").First().style.visibility = Visibility.Visible;
