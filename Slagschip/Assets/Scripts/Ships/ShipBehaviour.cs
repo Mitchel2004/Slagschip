@@ -3,7 +3,6 @@ using PlayerGrid;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
 
 namespace Ships
 {
@@ -142,6 +141,11 @@ namespace Ships
             _rotateRight.started -= _rotateRightAction;
 
             //_material.color = new Color(0.5f, 0.5f, 0.5f);  
+        }
+
+        public void Lock()
+        {
+            onClick.RemoveAllListeners();
         }
         
         public FXSystem FindEffectOnOffset(Vector2Int _offset)
