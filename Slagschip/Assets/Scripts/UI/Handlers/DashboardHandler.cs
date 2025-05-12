@@ -8,6 +8,7 @@ using UnityEngine.Events;
 using UnityEngine.UIElements;
 using Unity.Services.Multiplayer;
 using TMPro;
+using System.Linq;
 
 namespace UIHandlers
 {
@@ -130,9 +131,9 @@ namespace UIHandlers
         {
             List<string> _joinedSessions = await MultiplayerService.Instance.GetJoinedSessionIdsAsync();
 
-            foreach(ISession _session in MultiplayerService.Instance.Sessions.Values)
+            foreach (ISession _session in MultiplayerService.Instance.Sessions.Values)
             {
-                if(_joinedSessions.Count == 1 && _session.Id == _joinedSessions[0])
+                if (_joinedSessions.Contains(_session.Id))
                     _sessionCodeText.text = _session.Code;
             }
 
