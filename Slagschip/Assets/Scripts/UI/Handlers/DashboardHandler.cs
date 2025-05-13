@@ -4,19 +4,30 @@ using System;
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UIElements;
+using Unity.Services.Multiplayer;
+using TMPro;
+using System.Linq;
 
-namespace OpponentGrid
+namespace UIHandlers
 {
     [RequireComponent(typeof(UIDocument))]
     public class DashboardHandler : NetworkBehaviour
     {
+        public UnityEvent onReady;
+
         private UIDocument _document;
 
         [SerializeField] private GameData _gameData;
         [SerializeField] private GridHandler _gridHandler;
+        [SerializeField] private TMP_Text _sessionCodeText;
+        [SerializeField] private UnityEngine.UI.Button _copySessionCode;
+
+        private NetworkVariable<List<byte>> _readyPlayers = new();
 
         private const byte _gridSize = GridHandler.gridSize;
+        private const byte _playerCount = 2;
 
         private Button[] _gridButtons = new Button[_gridSize * (_gridSize + 4)];
 
@@ -28,11 +39,15 @@ namespace OpponentGrid
 
             _document = GetComponent<UIDocument>();
 
-            _document.rootVisualElement.Query("grid-container").First().RegisterCallback<TransitionEndEvent>(OnGridFadeOut);
+            _document.rootVisualElement.Query("turn-information").First().RegisterCallback<TransitionEndEvent>(TurnFadeOut);
             _document.rootVisualElement.Query("menu-button").First().RegisterCallback<ClickEvent>(OnMenu);
             _document.rootVisualElement.Query("attack-button").First().RegisterCallback<ClickEvent>(OnAttack);
             _document.rootVisualElement.Query("torpedo-button").First().RegisterCallback<ClickEvent>(OnTorpedo);
+            _document.rootVisualElement.Query("ready-button").First().RegisterCallback<ClickEvent>(Ready);
+            _document.rootVisualElement.Query("play-code").First().RegisterCallback<ClickEvent>(OnPlayCode);
 
+            _gridHandler.onIsReady.AddListener(IsReady);
+            
             for (byte i = 0; i < _gridSize * _gridSize; i++)
             {
                 Button _gridButton = new();
@@ -83,36 +98,66 @@ namespace OpponentGrid
             }
         }
 
+        private void OnPlayCode(ClickEvent _event)
+        {
+            _copySessionCode.onClick.Invoke();
+        }
+
+        private void TurnFadeOut(TransitionEndEvent _event)
+        {
+            if (_document.rootVisualElement.Query("turn-information").First().style.opacity == 0)
+            {
+                _document.rootVisualElement.Query("turn-screen").First().style.display = DisplayStyle.None;
+            }
+            else
+            {
+                _document.rootVisualElement.Query("turn-information").First().style.opacity = 0;
+            }
+        }
+
         public override void OnNetworkSpawn()
         {
             base.OnNetworkSpawn();
 
+            _readyPlayers.Value = new();
+
             if (!IsHost)
-            {
-                _document.rootVisualElement.Query("grid-container").First().style.visibility = Visibility.Hidden;
-                _document.rootVisualElement.Query("grid-container").First().style.opacity = 0;
-            }
+                _document.rootVisualElement.Query("grid-cover").First().style.visibility = Visibility.Visible;
+
+            SetPlayCode();
         }
 
-        private void OnGridFadeOut(TransitionEndEvent _event)
+        private async void SetPlayCode()
         {
-            IStyle _gridStyle = _document.rootVisualElement.Query("grid-container").First().style;
+            List<string> _joinedSessions = await MultiplayerService.Instance.GetJoinedSessionIdsAsync();
 
-            if (_gridStyle.opacity == 0)
-                _gridStyle.visibility = Visibility.Hidden;
+            foreach (ISession _session in MultiplayerService.Instance.Sessions.Values)
+            {
+                if (_joinedSessions.Contains(_session.Id))
+                    _sessionCodeText.text = _session.Code;
+            }
+
+            _document.rootVisualElement.Query<Button>("play-code").First().text = _sessionCodeText.text;
         }
 
         private void OnPlayerTurnChange(ulong _previousValue, ulong _newValue)
         {
-            if (NetworkManager.Singleton.LocalClientId == _newValue)
+            _document.rootVisualElement.Query("turn-screen").First().style.display = DisplayStyle.Flex;
+
+            if(NetworkManager.Singleton.LocalClientId == _newValue)
             {
-                _document.rootVisualElement.Query("grid-container").First().style.visibility = Visibility.Visible;
-                _document.rootVisualElement.Query("grid-container").First().style.opacity = 1;
+                _document.rootVisualElement.Query("grid-cover").First().style.visibility = Visibility.Hidden;
+                _document.rootVisualElement.Query("turn-information").First().RemoveFromClassList("their-turn");
+                _document.rootVisualElement.Query("turn-information").First().AddToClassList("your-turn");
             }
             else
             {
-                _document.rootVisualElement.Query("grid-container").First().style.opacity = 0;
+                _document.rootVisualElement.Query("grid-cover").First().style.visibility = Visibility.Visible;
+                _document.rootVisualElement.Query("turn-information").First().RemoveFromClassList("your-turn");
+                _document.rootVisualElement.Query("turn-information").First().AddToClassList("their-turn");
             }
+
+            _document.rootVisualElement.Query("turn-information").First().style.opacity = 1;
         }
 
         private void OnMenu(ClickEvent _event)
@@ -143,6 +188,38 @@ namespace OpponentGrid
         private Button GetCellButton(byte _targetCell)
         {
             return _gridButtons[_targetCell];
+        }
+
+        private void Ready(ClickEvent _event)
+        {
+            onReady.Invoke();
+            SetPlayerReadyRpc();
+            Button readyButton = (Button)_document.rootVisualElement.Query("ready-button");
+            readyButton.SetEnabled(false);
+        }
+
+        [Rpc(SendTo.Everyone)]
+        private void StartGameRpc()
+        {
+            _document.rootVisualElement.Query("pregame-buttons").First().style.display = DisplayStyle.None;
+            _document.rootVisualElement.Query("game-buttons").First().style.display = DisplayStyle.Flex;
+        }
+
+        [Rpc(SendTo.Server)]
+        private void SetPlayerReadyRpc()
+        {
+            _readyPlayers.Value.Add(1);
+
+            if (_readyPlayers.Value.Count == _playerCount)
+            {
+                StartGameRpc();
+            }
+        }
+
+        public void IsReady(bool _ready)
+        {
+            Button readyButton = (Button)_document.rootVisualElement.Query("ready-button");
+            readyButton.SetEnabled(_ready);
         }
 
         [Rpc(SendTo.NotMe)]

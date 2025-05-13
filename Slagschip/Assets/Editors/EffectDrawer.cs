@@ -3,6 +3,7 @@ using FX.Enumeration;
 using UnityEditor;
 using UnityEngine;
 
+#if UNITY_EDITOR
 [CustomPropertyDrawer(typeof(Effect))]
 public class EffectDrawer : PropertyDrawer
 {
@@ -107,3 +108,4 @@ public class EffectDrawer : PropertyDrawer
         return height;
     }
 }
+#endif
