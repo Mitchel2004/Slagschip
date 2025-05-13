@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4613313559821510325}
   - component: {fileID: 1220689212007268264}
   m_Layer: 0
-  m_Name: Smoke_Hitmarker
+  m_Name: SmokeHitmarker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
