@@ -16,8 +16,7 @@
                 <ui:Button text="0" name="torpedo-button" />
             </ui:VisualElement>
             <ui:VisualElement name="pregame-buttons" style="position: absolute; display: flex;">
-                <ui:Button text="0" name="naval-mine-button" style="display: flex;" />
-                <ui:Button name="naval-mine-attack-button" enabled="true" />
+                <ui:Button name="naval-mine-button" enabled="false" />
                 <ui:Button text="Klaar" name="ready-button" enabled="false" style="-unity-text-align: middle-center;" />
             </ui:VisualElement>
             <ui:VisualElement name="grid-cover" />

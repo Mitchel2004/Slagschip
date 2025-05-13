@@ -19,13 +19,6 @@ namespace PlayerGrid
         [SerializeField] private GameData gameData;
         private float _gridScale => transform.localScale.x;
 
-        public UnityEvent<bool> onValidate;
-        public UnityEvent<Vector3> onMove;
-        public UnityEvent<bool> onHit;
-        public UnityEvent<bool> onIsReady;
-
-        public UnityEvent<GridCell, bool> onAttacked;
-
         public const byte gridSize = 10;
         private const byte _maxShips = 5;
 
@@ -40,6 +33,14 @@ namespace PlayerGrid
         private bool _placing = false;
 
         [SerializeField] private LayerMask interactionLayers;
+        
+        public UnityEvent<bool> OnValidate { get; set; }
+        public UnityEvent<Vector3> OnMove { get; set; }
+        public UnityEvent<bool> OnHit { get; set; }
+        public UnityEvent<bool> OnIsReady { get; set; }
+
+        public UnityEvent<GridCell, bool> OnAttacked { get; set; }
+        public UnityEvent<GridCell> OnMineSet { get; set; }
 
         public ShipBehaviour Ship
         {
@@ -61,6 +62,9 @@ namespace PlayerGrid
 
         private void Awake()
         {
+            Debug.Log(CompassDirections.VectorToDirection(new Vector2Int(1, 1)));
+            Debug.Log(CompassDirections.DirectionToVector(ECompassDirection.South));
+
             if (instance == null)
             {
                 instance = this;
@@ -89,12 +93,12 @@ namespace PlayerGrid
                 _rotateLeft.started += context => {
                     if (_ship != null)
                         _ship.shape.RotateCounterClockwise();
-                    onValidate.Invoke(IsValidPosition());
+                    OnValidate.Invoke(IsValidPosition());
                 };
                 _rotateRight.started += context => {
                     if (_ship != null)
                         _ship.shape.RotateClockwise();
-                    onValidate.Invoke(IsValidPosition());
+                    OnValidate.Invoke(IsValidPosition());
                 };
             }
         }
@@ -131,7 +135,7 @@ namespace PlayerGrid
             Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, interactionLayers))
             {
-                onHit.Invoke(true);
+                OnHit.Invoke(true);
 
                 Vector3 gridPosition = hit.transform.position;
                 float halfSize = gridSize / 2 * _gridScale;
@@ -151,13 +155,13 @@ namespace PlayerGrid
                 {
                     _current = _grid[indexX, indexY];
 
-                    onMove.Invoke(_grid[indexX, indexY].worldPosition);
+                    OnMove.Invoke(_grid[indexX, indexY].worldPosition);
                 }
-                onValidate.Invoke(IsValidPosition());
+                OnValidate.Invoke(IsValidPosition());
             }
             else
             {
-                onHit.Invoke(false);
+                OnHit.Invoke(false);
             }
         }
 
@@ -165,7 +169,7 @@ namespace PlayerGrid
         {
             if (_ships.Count == _maxShips && !_placing)
             {
-                onIsReady.Invoke(true);
+                OnIsReady.Invoke(true);
             }
         }
 
@@ -226,7 +230,7 @@ namespace PlayerGrid
             _requestedShip.OnClear.RemoveListener(Clear);
 
             _placing = true;
-            onIsReady.Invoke(false);
+            OnIsReady.Invoke(false);
         }
 
         // TODO: Check incoming target cell whether it is a hit or miss
@@ -240,7 +244,7 @@ namespace PlayerGrid
                 {
                     Vector2Int pos = CellUnpacker.CellPosition(_targetCell);
                     isHit = _grid[pos.x, pos.y].isTaken;
-                    onAttacked.Invoke(_grid[pos.x, pos.y], isHit);
+                    OnAttacked.Invoke(_grid[pos.x, pos.y], isHit);
                 }
 
                 //TODO: Torpedo hit check with correct target cell
@@ -256,6 +260,13 @@ namespace PlayerGrid
                     gameData.SwitchPlayerTurnRpc();
                 }
             }
+        }
+
+        [Rpc(SendTo.NotMe)]
+        public void PlaceMineRpc(byte _targetCell)
+        {
+            Vector2Int pos = CellUnpacker.CellPosition(_targetCell);
+            OnMineSet.Invoke(_grid[pos.x, pos.y]);
         }
 
         public void LockGrid()

@@ -279,6 +279,7 @@
     border-bottom-color: rgba(0, 0, 0, 0);
     -unity-font-definition: url("project://database/Assets/Art/Fonts/Seven%20Segment.ttf?fileID=12800000&guid=d50cfcbf6199f4449a2f67056ef83161&type=3#Seven Segment");
     left: 15px;
+    overflow: visible;
 }
 
 #naval-mine-button:active {
@@ -291,33 +292,6 @@
     border-bottom-color: rgba(0, 0, 0, 0);
     -unity-text-outline-color: rgba(0, 0, 0, 0);
     background-color: rgba(0, 0, 0, 0);
-}
-
-#naval-mine-attack-button {
-    left: 15px;
-    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Buttons/AttackButton.png?fileID=367398710&guid=4dd918dd566a2cc4eb326b769c124f46&type=3#AttackButton_0");
-    width: 100px;
-    height: 109px;
-    display: none;
-    background-color: rgba(0, 0, 0, 0);
-    border-left-color: rgba(0, 0, 0, 0);
-    border-right-color: rgba(0, 0, 0, 0);
-    border-top-color: rgba(0, 0, 0, 0);
-    border-bottom-color: rgba(0, 0, 0, 0);
-}
-
-#naval-mine-attack-button:active {
-    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Buttons/AttackButtonPressed.png?fileID=1102495899&guid=25d44e4de6fdfa9468ac72b1b92f4d7b&type=3#AttackButtonPressed_0");
-    width: 100px;
-    height: 109px;
-    display: flex;
-    border-left-color: rgba(0, 0, 0, 0);
-    border-right-color: rgba(0, 0, 0, 0);
-    border-top-color: rgba(0, 0, 0, 0);
-    border-bottom-color: rgba(0, 0, 0, 0);
-    background-color: rgba(0, 0, 0, 0);
-    -unity-text-outline-color: rgba(0, 0, 0, 0);
-    left: 15px;
 }
 
 #ready-button {
@@ -390,4 +364,13 @@
     border-right-color: rgba(0, 0, 0, 0);
     border-top-color: rgba(0, 0, 0, 0);
     border-bottom-color: rgba(0, 0, 0, 0);
+}
+
+#naval-mine-counter {
+    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Buttons/PlayCodeButton.png?fileID=1782324807&guid=11b57b2a8662bb54fbdcbd70fdde81f3&type=3#PlayCodeButton_0");
+    background-size: 100% 100%;
+    padding-top: 52px;
+    padding-right: 70px;
+    padding-bottom: 37px;
+    padding-left: 37px;
 }

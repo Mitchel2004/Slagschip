@@ -1307,21 +1307,6 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   _dashboardHandler: {fileID: 1286696011}
   gameData: {fileID: 1729439125}
-  onValidate:
-    m_PersistentCalls:
-      m_Calls: []
-  onMove:
-    m_PersistentCalls:
-      m_Calls: []
-  onHit:
-    m_PersistentCalls:
-      m_Calls: []
-  onIsReady:
-    m_PersistentCalls:
-      m_Calls: []
-  onAttacked:
-    m_PersistentCalls:
-      m_Calls: []
   interactionLayers:
     serializedVersion: 2
     m_Bits: 8
@@ -1819,6 +1804,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  onGameStart:
+    m_PersistentCalls:
+      m_Calls: []
   _gameData: {fileID: 1729439125}
   _gridHandler: {fileID: 820298679}
   _sessionCodeText: {fileID: 1057508723}

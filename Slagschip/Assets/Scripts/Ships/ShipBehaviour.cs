@@ -90,9 +90,9 @@ namespace Ships
 
         private void Selectable()
         {
-            GridHandler.instance.onHit.RemoveListener(SetEnabled);
-            GridHandler.instance.onMove.RemoveListener(MoveTo);
-            GridHandler.instance.onValidate.RemoveListener(Validate);
+            GridHandler.instance.OnHit.RemoveListener(SetEnabled);
+            GridHandler.instance.OnMove.RemoveListener(MoveTo);
+            GridHandler.instance.OnValidate.RemoveListener(Validate);
 
             onStartMove.AddListener(ResetRotation);
 
@@ -114,9 +114,9 @@ namespace Ships
 
             OnClear.Invoke(this);
 
-            GridHandler.instance.onHit.AddListener(SetEnabled);
-            GridHandler.instance.onMove.AddListener(MoveTo);
-            GridHandler.instance.onValidate.AddListener(Validate);
+            GridHandler.instance.OnHit.AddListener(SetEnabled);
+            GridHandler.instance.OnMove.AddListener(MoveTo);
+            GridHandler.instance.OnValidate.AddListener(Validate);
 
             _rotateLeft.started += _rotateLeftAction;
             _rotateRight.started += _rotateRightAction;
@@ -130,9 +130,9 @@ namespace Ships
                 
             GridHandler.instance.Ship = null;
 
-            GridHandler.instance.onHit.RemoveListener(SetEnabled);
-            GridHandler.instance.onMove.RemoveListener(MoveTo);
-            GridHandler.instance.onValidate.RemoveListener(Validate);
+            GridHandler.instance.OnHit.RemoveListener(SetEnabled);
+            GridHandler.instance.OnMove.RemoveListener(MoveTo);
+            GridHandler.instance.OnValidate.RemoveListener(Validate);
 
             onClick.RemoveListener(Placed);
             onClick.AddListener(TryMove);

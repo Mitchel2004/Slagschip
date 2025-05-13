@@ -12,7 +12,7 @@ namespace Missile
 
         private void Start()
         {
-            GridHandler.instance.onAttacked.AddListener(AttackCell);
+            GridHandler.instance.OnAttacked.AddListener(AttackCell);
         }
 
         private void AttackCell(GridCell _cell, bool _hit)
