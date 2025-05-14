@@ -1,5 +1,6 @@
 using FX;
 using PlayerGrid;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -23,7 +24,7 @@ namespace Ships
 
         [SerializeField] private FXSystem[] effects;
 
-        public UnityEvent<ShipBehaviour> OnClear { get; set; }
+        public UnityEvent<ShipBehaviour> OnClear { get; set; } = new UnityEvent<ShipBehaviour>();
 
         private void Start()
         {
@@ -42,8 +43,6 @@ namespace Ships
             _rotateRightAction += context => {
                 Rotate(new Vector3(0, 90, 0));
             };
-
-            OnClear = new UnityEvent<ShipBehaviour>();  
 
             Selectable();
         }
@@ -90,7 +89,7 @@ namespace Ships
 
         private void Selectable()
         {
-            GridHandler.instance.OnHit.RemoveListener(SetEnabled);
+            GridHandler.instance.OnHover.RemoveListener(SetEnabled);
             GridHandler.instance.OnMove.RemoveListener(MoveTo);
             GridHandler.instance.OnValidate.RemoveListener(Validate);
 
@@ -114,7 +113,7 @@ namespace Ships
 
             OnClear.Invoke(this);
 
-            GridHandler.instance.OnHit.AddListener(SetEnabled);
+            GridHandler.instance.OnHover.AddListener(SetEnabled);
             GridHandler.instance.OnMove.AddListener(MoveTo);
             GridHandler.instance.OnValidate.AddListener(Validate);
 
@@ -130,7 +129,7 @@ namespace Ships
                 
             GridHandler.instance.Ship = null;
 
-            GridHandler.instance.OnHit.RemoveListener(SetEnabled);
+            GridHandler.instance.OnHover.RemoveListener(SetEnabled);
             GridHandler.instance.OnMove.RemoveListener(MoveTo);
             GridHandler.instance.OnValidate.RemoveListener(Validate);
 
@@ -141,6 +140,11 @@ namespace Ships
             _rotateRight.started -= _rotateRightAction;
 
             //_material.color = new Color(0.5f, 0.5f, 0.5f);  
+        }
+
+        public void Hit(Vector2Int _attackPosition)
+        {
+            FindEffectOnOffset(_attackPosition - position).Play();
         }
 
         public void Lock()

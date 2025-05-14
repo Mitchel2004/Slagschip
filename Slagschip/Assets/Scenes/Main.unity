@@ -2526,44 +2526,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cce21c33114b0f4d9e7ad3b3878c5aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  missileData:
-    heightCurve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 0.5
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.91666245
-      - serializedVersion: 3
-        time: 1
-        value: 0
-        inSlope: -5.619668
-        outSlope: -5.619668
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.09562111
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    heightMultiplier: 5
-    speed: 0.6
-    startPos: {x: 5, y: 0, z: 12}
-  missileObject: {fileID: -7917512969010367156, guid: a13d79dc2c431b043b41d7a55df278b8, type: 3}
+  attackerPrefab: {fileID: -7917512969010367156, guid: a13d79dc2c431b043b41d7a55df278b8, type: 3}
 --- !u!4 &1690667196
 Transform:
   m_ObjectHideFlags: 0
@@ -2985,6 +2948,52 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2008120859}
   m_CullTransparentMesh: 1
+--- !u!1 &2033785346
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2033785348}
+  - component: {fileID: 2033785347}
+  m_Layer: 0
+  m_Name: NavalMineHandler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2033785347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2033785346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5b1a5e251cd4a941a335b907727bec9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackerPrefab: {fileID: 4558756324771530385, guid: 3be82987f98f4064f821f578590b226a, type: 3}
+  dashboardHandler: {fileID: 1286696011}
+--- !u!4 &2033785348
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2033785346}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.4240756, y: -2.8326254, z: 5.777444}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -3003,4 +3012,5 @@ SceneRoots:
   - {fileID: 1024326514}
   - {fileID: 1319724353}
   - {fileID: 1690667196}
+  - {fileID: 2033785348}
   - {fileID: 1261110646}

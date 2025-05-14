@@ -1,27 +1,47 @@
 using UnityEngine;
-using UnityEngine.UIElements;
 
-public struct CompassDirections
+namespace Utilities.CompassDirections
 {
-    public static Vector2Int DirectionToVector(ECompassDirection direction)
+    public struct CompassDirections
     {
-        int index = (byte)direction;
-        float angleDegrees = index * 45f;
-        float y = Mathf.Cos(angleDegrees * Mathf.Deg2Rad);
-        float x = Mathf.Sin(angleDegrees * Mathf.Deg2Rad);
+        public const byte Directions = 8;
 
-        return new Vector2Int(Mathf.RoundToInt(x), Mathf.RoundToInt(y));
-    }
+        public static Vector2Int DirectionToVector(ECompassDirection direction)
+        {
+            int index = (byte)direction;
+            float angleDegrees = index * 45f;
+            float y = Mathf.Cos(angleDegrees * Mathf.Deg2Rad);
+            float x = Mathf.Sin(angleDegrees * Mathf.Deg2Rad);
 
-    public static ECompassDirection VectorToDirection(Vector2Int direction)
-    {
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        int index = Mathf.RoundToInt((angle + 360) % 360 / 45);
+            return new Vector2Int(Mathf.RoundToInt(x), Mathf.RoundToInt(y));
+        }
 
-        return (ECompassDirection)index;
-    }
+        public static ECompassDirection VectorToDirection(Vector2Int direction)
+        {
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            int index = Mathf.RoundToInt((angle + 360) % 360 / 45);
 
-    public static  RotateClockwise()
-    {
+            return (ECompassDirection)index;
+        }
+
+        public static ECompassDirection RotateClockwise(ECompassDirection direction)
+        {
+            int index = ((int)direction + 1) % Directions;
+            return (ECompassDirection)index;
+        }
+        public static Vector2Int RotateClockwiseVector2Int(ECompassDirection direction)
+        {
+            return  DirectionToVector(RotateClockwise(direction));
+        }
+
+        public static ECompassDirection RotateCounterclockwise(ECompassDirection direction)
+        {
+            int index = ((int)direction + Directions - 1) % Directions;
+            return (ECompassDirection)index;
+        }
+        public static Vector2Int RotateCounterclockwiseVector2Int(ECompassDirection direction)
+        {
+            return DirectionToVector(RotateCounterclockwise(direction));
+        }
     }
 }

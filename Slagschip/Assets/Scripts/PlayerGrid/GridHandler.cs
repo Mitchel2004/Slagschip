@@ -8,6 +8,7 @@ using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using Utilities;
 using Utilities.Generic;
+using static UnityEditor.PlayerSettings;
 
 namespace PlayerGrid
 {
@@ -20,7 +21,10 @@ namespace PlayerGrid
         private float _gridScale => transform.localScale.x;
 
         public const byte gridSize = 10;
-        private const byte _maxShips = 5;
+        private const byte _maxShips = 1;
+        private const byte _maxMines = 2;
+
+        private int _mineCount;
 
         private GridCell[,] _grid;
         private GridCell _current;
@@ -34,13 +38,13 @@ namespace PlayerGrid
 
         [SerializeField] private LayerMask interactionLayers;
         
-        public UnityEvent<bool> OnValidate { get; set; }
-        public UnityEvent<Vector3> OnMove { get; set; }
-        public UnityEvent<bool> OnHit { get; set; }
-        public UnityEvent<bool> OnIsReady { get; set; }
+        public UnityEvent<bool> OnValidate { get; private set; } = new UnityEvent<bool>();
+        public UnityEvent<Vector3> OnMove { get; private set; } = new UnityEvent<Vector3>();
+        public UnityEvent<bool> OnHover { get; private set; } = new UnityEvent<bool>();
+        public UnityEvent<bool> OnIsReady { get; private set; } = new UnityEvent<bool>();
 
-        public UnityEvent<GridCell, bool> OnAttacked { get; set; }
-        public UnityEvent<GridCell> OnMineSet { get; set; }
+        public UnityEvent<GridCell> OnAttacked { get; private set; } = new UnityEvent<GridCell>();
+        public UnityEvent<GridCell> OnMineSet { get; private set; } = new UnityEvent<GridCell>();
 
         public ShipBehaviour Ship
         {
@@ -62,9 +66,6 @@ namespace PlayerGrid
 
         private void Awake()
         {
-            Debug.Log(CompassDirections.VectorToDirection(new Vector2Int(1, 1)));
-            Debug.Log(CompassDirections.DirectionToVector(ECompassDirection.South));
-
             if (instance == null)
             {
                 instance = this;
@@ -135,7 +136,7 @@ namespace PlayerGrid
             Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, interactionLayers))
             {
-                OnHit.Invoke(true);
+                OnHover.Invoke(true);
 
                 Vector3 gridPosition = hit.transform.position;
                 float halfSize = gridSize / 2 * _gridScale;
@@ -161,13 +162,13 @@ namespace PlayerGrid
             }
             else
             {
-                OnHit.Invoke(false);
+                OnHover.Invoke(false);
             }
         }
 
         private void CheckReadiness()
         {
-            if (_ships.Count == _maxShips && !_placing)
+            if (_ships.Count == _maxShips && !_placing && _mineCount == _maxMines)
             {
                 OnIsReady.Invoke(true);
             }
@@ -243,8 +244,8 @@ namespace PlayerGrid
                 if (_targetCell <= 100)
                 {
                     Vector2Int pos = CellUnpacker.CellPosition(_targetCell);
-                    isHit = _grid[pos.x, pos.y].isTaken;
-                    OnAttacked.Invoke(_grid[pos.x, pos.y], isHit);
+                    isHit = Hit(pos);
+                    OnAttacked.Invoke(_grid[pos.x, pos.y]);
                 }
 
                 //TODO: Torpedo hit check with correct target cell
@@ -262,11 +263,28 @@ namespace PlayerGrid
             }
         }
 
+        public bool Hit(Vector2Int _position)
+        {
+            return _grid[_position.x, _position.y].isTaken;
+        }
+
+        public void MineCallback(Vector2Int target)
+        {
+            _dashboardHandler.OnHitRpc(CellUnpacker.PackCell(target));
+        }
+
         [Rpc(SendTo.NotMe)]
         public void PlaceMineRpc(byte _targetCell)
         {
             Vector2Int pos = CellUnpacker.CellPosition(_targetCell);
             OnMineSet.Invoke(_grid[pos.x, pos.y]);
+            IncrementMineCountRpc();
+        }
+        [Rpc(SendTo.NotMe)]
+        private void IncrementMineCountRpc()
+        {
+            _mineCount++;
+            CheckReadiness();
         }
 
         public void LockGrid()
@@ -284,6 +302,19 @@ namespace PlayerGrid
                     return _ships[i];
             }
             return null;
+        }
+        public ShipBehaviour ShipFromPosition(Vector2Int _position)
+        {
+            for (int i = 0; i < _ships.Count; i++)
+            {
+                if (_ships[i].shape.ContainsOffset(_position - _ships[i].position))
+                    return _ships[i];
+            }
+            return null;
+        }
+        public Vector3 CellWorldPosition(Vector2Int _cellPosition)
+        {
+            return _grid[_cellPosition.x, _cellPosition.y].worldPosition;
         }
     }
 }

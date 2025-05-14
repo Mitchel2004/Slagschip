@@ -36,8 +36,6 @@ namespace UIHandlers
 
         private void Awake()
         {
-            _readyPlayers.Value = new();
-
             _gameData.currentPlayerTurn.OnValueChanged += OnPlayerTurnChange;
 
             _document = GetComponent<UIDocument>();
@@ -123,10 +121,18 @@ namespace UIHandlers
         {
             base.OnNetworkSpawn();
 
-            if (!IsHost)
-                _document.rootVisualElement.Query("grid-cover").First().style.visibility = Visibility.Visible;
+            if (IsServer)
+                _readyPlayers.Value = 0;
+
+            onGameStart.AddListener(StartTurn);
 
             SetPlayCode();
+        }
+
+        private void StartTurn()
+        {
+            if (!IsHost)
+                _document.rootVisualElement.Query("grid-cover").First().style.visibility = Visibility.Visible;
         }
 
         private async void SetPlayCode()
@@ -180,6 +186,7 @@ namespace UIHandlers
         }
         private void OnMine(ClickEvent _event)
         {
+            _gridHandler.PlaceMineRpc(_targetCell);
             _document.rootVisualElement.Query<Button>("naval-mine-button").First().SetEnabled(false);
         }
 
