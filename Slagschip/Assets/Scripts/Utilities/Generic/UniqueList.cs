@@ -1,7 +1,6 @@
 using System.Collections.Generic;
-using UnityEditor.ShaderGraph.Serialization;
 
-namespace Uitilities.Generic
+namespace Utilities.Generic
 {
     public class UniqueList<T>
     {
@@ -34,6 +33,21 @@ namespace Uitilities.Generic
             }
 
             return false;
+        }
+
+        public int Count
+        {
+            get { return _list.Count; }
+        }
+
+        public T this[int t]
+        {
+            get { return _list[t]; }
+            set 
+            {
+                if (!_list.Contains(value))
+                    _list[t] = value; 
+            }
         }
     }
 }
