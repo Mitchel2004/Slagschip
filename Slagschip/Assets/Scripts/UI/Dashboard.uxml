@@ -1,8 +1,5 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/Scripts/UI/StyleSheets/Dashboard.uss?fileID=7433441132597879392&amp;guid=2b82aa7426e41f742a50ecfb83b639cc&amp;type=3#Dashboard" />
-    <ui:VisualElement name="turn-screen">
-        <ui:VisualElement name="turn-information" />
-    </ui:VisualElement>
     <ui:VisualElement name="dashboard-holder">
         <ui:VisualElement name="dashboard" style="position: relative; align-self: flex-end; top: 0;">
             <ui:Button text="Menu" name="menu-button" />
@@ -11,16 +8,48 @@
             <ui:VisualElement name="horizontal-rl-grid-container" />
             <ui:VisualElement name="vertical-tb-grid-container" />
             <ui:VisualElement name="vertical-bt-grid-container" />
-            <ui:VisualElement name="game-buttons" style="position: absolute; display: none;">
+            <ui:VisualElement name="game-buttons">
                 <ui:Button name="attack-button" enabled="false" />
                 <ui:Button text="0" name="torpedo-button" />
             </ui:VisualElement>
-            <ui:VisualElement name="pregame-buttons" style="position: absolute; display: flex;">
-                <ui:Button text="0" name="naval-mine-button" style="display: flex;" />
+            <ui:VisualElement name="pregame-buttons">
+                <ui:Button text="0" name="naval-mine-button" />
                 <ui:Button text="Klaar" name="ready-button" enabled="false" style="-unity-text-align: middle-center;" />
             </ui:VisualElement>
             <ui:VisualElement name="grid-cover" />
         </ui:VisualElement>
     </ui:VisualElement>
+    <ui:VisualElement style="position: absolute; margin-top: 32px; align-self: center; align-items: center; padding-top: 16px; padding-right: 16px; padding-bottom: 16px; padding-left: 16px;">
+        <ui:VisualElement style="flex-direction: row;">
+            <ui:Label text="Team" class="team-information" />
+            <ui:Label text="Alfa/Bravo" name="team-name" class="team-information" />
+        </ui:VisualElement>
+        <ui:VisualElement style="flex-direction: row;">
+            <ui:Label text="Team" class="team-information" style="font-size: 24px;" />
+            <ui:Label text="Alfa" name="turn-team-name" class="team-information team-alfa" />
+            <ui:Label text="aan zet" class="team-information" style="font-size: 24px; margin-right: 0;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
     <ui:Button text="------" name="play-code" />
+    <ui:Label text="Klik op de code &#10;om het te kopiëren." name="play-code-tutorial" class="tutorial-pop-up" style="left: 32px; top: 128px; transition-delay: 4s;" />
+    <ui:VisualElement name="turn-screen">
+        <ui:VisualElement name="turn-information">
+            <ui:Label text="Team" class="turn-text" />
+            <ui:Label text="Alfa/Bravo" name="team-text" class="turn-text" />
+            <ui:Label text="is aan zet" class="turn-text" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement name="pause-screen" style="flex-grow: 1;">
+        <ui:VisualElement name="pause-pop-up">
+            <ui:Label text="Menu" style="-unity-font-definition: url(&quot;project://database/Assets/Art/Fonts/Pulse%20Rifle.ttf?fileID=12800000&amp;guid=3921b8da77362b541b6dbaab39532451&amp;type=3#Pulse Rifle&quot;); font-size: 32px; color: rgb(255, 255, 255); -unity-text-align: upper-center; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; margin-top: 8px; margin-right: 0; margin-bottom: 32px; margin-left: 0;" />
+            <ui:Button text="Hervatten" name="resume-button" class="pause-button" style="margin-bottom: 32px;" />
+            <ui:Button text="Opgeven" name="give-up-button" class="pause-button" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement name="disconnected-screen" style="flex-grow: 1;">
+        <ui:VisualElement name="disconnected-pup-up" style="flex-grow: 1;">
+            <ui:Label text="Het andere team heeft opgegeven!&#10;Gefeliciteerd met de winst!" style="font-size: 32px; -unity-font-definition: url(&quot;project://database/Assets/Art/Fonts/Pulse%20Rifle.ttf?fileID=12800000&amp;guid=3921b8da77362b541b6dbaab39532451&amp;type=3#Pulse Rifle&quot;); color: rgb(255, 255, 255); -unity-text-align: upper-center; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; margin-top: 0; margin-right: 0; margin-bottom: 32px; margin-left: 0;" />
+            <ui:Button text="Naar Start" name="to-start-button" class="pause-button" />
+        </ui:VisualElement>
+    </ui:VisualElement>
 </ui:UXML>

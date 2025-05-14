@@ -27,7 +27,7 @@ namespace PlayerGrid
         public UnityEvent<GridCell, bool> onAttacked;
 
         public const byte gridSize = 10;
-        private const byte _maxShips = 5;
+        private const byte _maxShips = 2;
 
         private GridCell[,] _grid;
         private GridCell _current;
