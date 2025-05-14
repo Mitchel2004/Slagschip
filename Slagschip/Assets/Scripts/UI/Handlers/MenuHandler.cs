@@ -12,7 +12,6 @@ namespace UIHandlers
     {
         private UIDocument _document;
 
-        [SerializeField] private SceneLoader sceneLoader;
         [SerializeField] private string loadingScene;
 
         [SerializeField] private UnityEngine.UI.Button quickPlayButton;
@@ -34,7 +33,7 @@ namespace UIHandlers
 
         private void OnQuickPlay(ClickEvent _event)
         {
-            sceneLoader.LoadScene(loadingScene, false);
+            SceneLoader.instance.LoadScene(loadingScene);
 
             quickPlayButton.onClick.Invoke();
         }
