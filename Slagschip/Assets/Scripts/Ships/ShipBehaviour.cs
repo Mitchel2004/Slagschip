@@ -14,6 +14,7 @@ namespace Ships
         public UnityEvent onPlace;
         public UnityEvent onClick;
         public UnityEvent onStartMove;
+        public bool dismantleMines;
 
         public Vector2Int position;
 

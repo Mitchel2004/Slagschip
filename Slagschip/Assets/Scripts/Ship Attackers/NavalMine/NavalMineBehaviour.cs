@@ -13,6 +13,8 @@ namespace ShipAttackers.Mine
         [SerializeField] private ECompassDirection startDirection = ECompassDirection.West;
         [SerializeField] private float floatCooldown = 2;
 
+        private static bool _dismantled = false;
+
         private CountdownTimer _timer;
 
         public override void Initialize(GridCell _cell)
@@ -21,7 +23,7 @@ namespace ShipAttackers.Mine
             base.Initialize(_cell);
 
             _timer = new CountdownTimer(floatCooldown);
-            _timer.onTimerStop += Check;
+            _timer.onTimerStop += DismantleOrExplode;
             _timer.Start();
         }
 
@@ -30,8 +32,27 @@ namespace ShipAttackers.Mine
             transform.position = Vector3.Lerp(data.EndPosition, data.StartPosition, _timer.Progress);
         }
 
-        private void Check()
+        private void DismantleOrExplode()
         {
+            AttackPosition = data.GridPosition;
+            if (Ship.dismantleMines && _dismantled)
+            {
+                _dismantled = true;
+                Destroy(this);
+                return;
+            }
+
+            for (byte i = 0; i < CompassDirections.Directions; i++)
+            {
+                AttackPosition = data.GridPosition + CompassDirections.DirectionToVector(startDirection);
+                if (Ship.dismantleMines && _dismantled)
+                {
+                    _dismantled = true;
+                    return;
+                }
+                startDirection = CompassDirections.RotateClockwise(startDirection);
+            }
+
             AttackPosition = data.GridPosition;
             if (Attack())
                 return;
@@ -51,6 +72,10 @@ namespace ShipAttackers.Mine
             {
                 GridHandler.instance.MineCallback(AttackPosition);
                 Ship.Hit(AttackPosition);
+
+                //TODO: SplashEffect
+
+                Destroy(this);
                 return true;
             }
             return false;
