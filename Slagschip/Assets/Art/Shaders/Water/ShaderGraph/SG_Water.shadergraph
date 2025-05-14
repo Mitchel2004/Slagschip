@@ -275,6 +275,9 @@
         },
         {
             "m_Id": "523a6fcb001c402ab8a793aa3e6a960d"
+        },
+        {
+            "m_Id": "2ef57cf133a045df9dd051c631b02845"
         }
     ],
     "m_GroupDatas": [
@@ -1174,6 +1177,9 @@
             },
             {
                 "m_Id": "bb7e0e09eaad47b5a9a0edadd1a27dd5"
+            },
+            {
+                "m_Id": "2ef57cf133a045df9dd051c631b02845"
             }
         ]
     },
@@ -2347,6 +2353,40 @@
 
 {
     "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.BlockNode",
+    "m_ObjectId": "2ef57cf133a045df9dd051c631b02845",
+    "m_Group": {
+        "m_Id": ""
+    },
+    "m_Name": "SurfaceDescription.AlphaClipThreshold",
+    "m_DrawState": {
+        "m_Expanded": true,
+        "m_Position": {
+            "serializedVersion": "2",
+            "x": 0.0,
+            "y": 0.0,
+            "width": 0.0,
+            "height": 0.0
+        }
+    },
+    "m_Slots": [
+        {
+            "m_Id": "c91c9fe32c3f468199f3c90a3edfe5df"
+        }
+    ],
+    "synonyms": [],
+    "m_Precision": 0,
+    "m_PreviewExpanded": true,
+    "m_DismissedVersion": 0,
+    "m_PreviewMode": 0,
+    "m_CustomColors": {
+        "m_SerializableColors": []
+    },
+    "m_SerializedDescriptor": "SurfaceDescription.AlphaClipThreshold"
+}
+
+{
+    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.Vector3MaterialSlot",
     "m_ObjectId": "3060d6be92f44b4096c2cda87279d591",
     "m_Id": 0,
@@ -3038,8 +3078,8 @@
     "m_ObjectId": "49cbf26343b64e11aa9ec21a7335986c",
     "m_Title": "Foam",
     "m_Position": {
-        "x": -2152.0,
-        "y": 451.9999084472656
+        "x": -2152.000244140625,
+        "y": 451.99993896484377
     }
 }
 
@@ -5095,8 +5135,8 @@
     "m_ObjectId": "8faa82d3172c475fa866de6b7e632bfc",
     "m_Title": "Water Color",
     "m_Position": {
-        "x": -1931.199951171875,
-        "y": -420.7999267578125
+        "x": -1931.2001953125,
+        "y": -420.79998779296877
     }
 }
 
@@ -5937,7 +5977,7 @@
     "m_ZWriteControl": 0,
     "m_AlphaMode": 0,
     "m_RenderFace": 2,
-    "m_AlphaClip": false,
+    "m_AlphaClip": true,
     "m_CastShadows": false,
     "m_ReceiveShadows": false,
     "m_DisableTint": false,
@@ -6265,8 +6305,8 @@
     "m_ObjectId": "bfb9f26c81754bfbbf14dd3f2442eacd",
     "m_Title": "Water Normal",
     "m_Position": {
-        "x": -1857.599853515625,
-        "y": 1247.1998291015625
+        "x": -1857.5999755859375,
+        "y": 1247.199951171875
     }
 }
 
@@ -6617,6 +6657,21 @@
         "x": 0.0,
         "y": 0.0
     },
+    "m_Labels": []
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
+    "m_ObjectId": "c91c9fe32c3f468199f3c90a3edfe5df",
+    "m_Id": 0,
+    "m_DisplayName": "Alpha Clip Threshold",
+    "m_SlotType": 0,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "AlphaClipThreshold",
+    "m_StageCapability": 2,
+    "m_Value": 0.5,
+    "m_DefaultValue": 0.5,
     "m_Labels": []
 }
 
@@ -8234,10 +8289,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -1886.999755859375,
-            "y": 511.9999694824219,
-            "width": 207.9998779296875,
-            "height": 278.9999694824219
+            "x": -1886.39990234375,
+            "y": 512.0,
+            "width": 208.0,
+            "height": 278.4000244140625
         }
     },
     "m_Slots": [
