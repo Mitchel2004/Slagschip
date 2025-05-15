@@ -179,7 +179,7 @@ namespace PlayerGrid
             {
                 int y = _current.position.y + _ship.shape.offsets[i].y;
 
-                int x = _current.position.x - _ship.shape.offsets[i].x;
+                int x = _current.position.x + _ship.shape.offsets[i].x;
 
                 GridCell offsetCell = _current;
                 bool isOnGrid;
@@ -198,7 +198,7 @@ namespace PlayerGrid
             {
                 int y = _current.position.y + _ship.shape.offsets[i].y;
 
-                int x = _current.position.x - _ship.shape.offsets[i].x;
+                int x = _current.position.x + _ship.shape.offsets[i].x;
 
                 _grid[x, y].isTaken = true;
             }
@@ -220,7 +220,7 @@ namespace PlayerGrid
             {
                 int y = _requestedShip.position.y + _requestedShip.shape.offsets[i].y;
 
-                int x = _requestedShip.position.x - _requestedShip.shape.offsets[i].x;
+                int x = _requestedShip.position.x + _requestedShip.shape.offsets[i].x;
 
                 _grid[x, y].isTaken = false;
             }
@@ -263,10 +263,19 @@ namespace PlayerGrid
         {
             return _grid[_position.x, _position.y].isTaken;
         }
-
-        public void MineCallback(Vector2Int target)
+        public void MineCallback(Vector2Int _target, bool _hit = true)
         {
-            _dashboardHandler.OnHitRpc(CellUnpacker.PackCell(target));
+            byte target = CellUnpacker.PackCell(_target);
+            if (_hit)
+            {
+                _dashboardHandler.OnHitRpc(target);
+                _dashboardHandler.LockGridButtonRpc(target);
+            }
+            else
+            {
+                _dashboardHandler.OnMissRpc(target);
+                _dashboardHandler.LockGridButtonRpc(target);
+            }
         }
 
         [Rpc(SendTo.NotMe)]

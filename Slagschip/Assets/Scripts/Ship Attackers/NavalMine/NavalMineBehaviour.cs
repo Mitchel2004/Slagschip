@@ -6,6 +6,7 @@ using Utilities.Timer;
 namespace ShipAttackers.Mine
 {
     using Data;
+    using UnityEngine.UIElements;
 
     public class NavalMineBehaviour : ShipAttacker
     {
@@ -68,14 +69,18 @@ namespace ShipAttackers.Mine
 
         protected override bool Attack()
         {
-            if (Ship != null)
+            if (Ship != null && !Ship.IsHitAtPoint(AttackPosition))
             {
                 GridHandler.instance.MineCallback(AttackPosition);
                 Ship.Hit(AttackPosition);
 
                 //TODO: SplashEffect
+                if (AttackPosition != data.GridPosition)
+                {
+                    GridHandler.instance.MineCallback(data.GridPosition, false);
+                }
 
-                Destroy(this);
+                Destroy(gameObject);
                 return true;
             }
             return false;

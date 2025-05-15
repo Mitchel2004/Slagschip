@@ -26,6 +26,7 @@ namespace UIHandlers
         [SerializeField] private UnityEngine.UI.Button _copySessionCode;
 
         private NetworkVariable<byte> _readyPlayers = new();
+        private List<byte> _mineTargets = new();
         private bool _inPregame = true;
 
         private const byte _gridSize = GridHandler.gridSize;
@@ -187,8 +188,16 @@ namespace UIHandlers
         }
         private void OnMine(ClickEvent _event)
         {
+            if (_mineTargets.Contains(_targetCell))
+                return;
+
+            _mineTargets.Add(_targetCell);
             _gridHandler.PlaceMineRpc(_targetCell);
             _document.rootVisualElement.Query<Button>("naval-mine-button").First().SetEnabled(false);
+            if (IsClient)
+            {
+                GetCellButton(_targetCell).AddToClassList("mine-grid-button");
+            }
         }
 
         private void SetTargetCell(ClickEvent _event, byte _targetCell)
@@ -199,6 +208,9 @@ namespace UIHandlers
 
             if (_inPregame)
             {
+                if (_mineTargets.Contains(_targetCell))
+                    return;
+
                 _document.rootVisualElement.Query<Button>("naval-mine-button").First().SetEnabled(true);
             }
             else 
@@ -253,6 +265,7 @@ namespace UIHandlers
             {
                 GetCellButton(_targetCell).AddToClassList("hitted-grid-button");
                 GetCellButton(_targetCell).RemoveFromClassList("grid-button");
+                GetCellButton(_targetCell).RemoveFromClassList("mine-grid-button");
             }
         }
 
@@ -263,6 +276,16 @@ namespace UIHandlers
             {
                 GetCellButton(_targetCell).AddToClassList("missed-grid-button");
                 GetCellButton(_targetCell).RemoveFromClassList("grid-button");
+                GetCellButton(_targetCell).RemoveFromClassList("mine-grid-button");
+            }
+        }
+
+        [Rpc(SendTo.NotMe)]
+        public void LockGridButtonRpc(byte _targetCell)
+        {
+            if (IsClient)
+            {
+                GetCellButton(_targetCell).UnregisterCallback<ClickEvent, byte>(SetTargetCell);
             }
         }
     }

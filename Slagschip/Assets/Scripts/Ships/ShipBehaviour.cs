@@ -23,6 +23,8 @@ namespace Ships
         private System.Action<InputAction.CallbackContext> _rotateLeftAction;
         private System.Action<InputAction.CallbackContext> _rotateRightAction;
 
+        private bool[] _hits;
+
         [SerializeField] private FXSystem[] effects;
 
         public UnityEvent<ShipBehaviour> OnClear { get; set; } = new UnityEvent<ShipBehaviour>();
@@ -30,6 +32,8 @@ namespace Ships
         private void Start()
         {
             InitializeEvents();
+
+            _hits = new bool[shape.offsets.Length];
         }
 
         private void InitializeEvents()
@@ -144,7 +148,13 @@ namespace Ships
 
         public void Hit(Vector2Int _attackPosition)
         {
+            _hits[shape[_attackPosition - position]] = true;
             FindEffectOnOffset(_attackPosition - position).Play();
+        }
+
+        public bool IsHitAtPoint(Vector2Int _attackPosition)
+        {
+            return _hits[shape[_attackPosition - position]];
         }
 
         public void Lock()
