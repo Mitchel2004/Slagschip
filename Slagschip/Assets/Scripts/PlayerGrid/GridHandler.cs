@@ -21,7 +21,7 @@ namespace PlayerGrid
         private float _gridScale => transform.localScale.x;
 
         public const byte gridSize = 10;
-        private const byte _maxShips = 1;
+        private const byte _maxShips = 2;
         private const byte _maxMines = 2;
 
         private int _mineCount;
@@ -85,23 +85,19 @@ namespace PlayerGrid
 
         private void InitializeInput()
         {
-            InputActionAsset actions = FindFirstObjectByType<PlayerInput>().actions;
-            _rotateLeft = actions.FindAction("RotateLeft");
-            _rotateRight = actions.FindAction("RotateRight");
+            _rotateLeft = InputSystem.actions.FindAction("RotateLeft");
+            _rotateRight = InputSystem.actions.FindAction("RotateRight");
 
-            if (IsClient)
-            {
-                _rotateLeft.started += context => {
-                    if (_ship != null)
-                        _ship.shape.RotateCounterClockwise();
-                    OnValidate.Invoke(IsValidPosition());
-                };
-                _rotateRight.started += context => {
-                    if (_ship != null)
-                        _ship.shape.RotateClockwise();
-                    OnValidate.Invoke(IsValidPosition());
-                };
-            }
+            _rotateLeft.started += context => {
+                if (_ship != null)
+                    _ship.shape.RotateCounterClockwise();
+                OnValidate.Invoke(IsValidPosition());
+            };
+            _rotateRight.started += context => {
+                if (_ship != null)
+                    _ship.shape.RotateClockwise();
+                OnValidate.Invoke(IsValidPosition());
+            };
         }
 
         private void InitializeGrid()

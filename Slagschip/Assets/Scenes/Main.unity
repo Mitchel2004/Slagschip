@@ -243,7 +243,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 8292b69045a88d849a293e8d2b7d6132, type: 2}
     - target: {fileID: 2849392732881552703, guid: e6c3cb642086e234385711148c0d5f67, type: 3}
       propertyPath: m_Name
-      value: Ship5
+      value: JohanDeWitt
       objectReference: {fileID: 0}
     - target: {fileID: 2894915360897056379, guid: e6c3cb642086e234385711148c0d5f67, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
@@ -468,7 +468,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7930470697246618941, guid: aea8a53bcc1aefc469a9afd67768be88, type: 3}
       propertyPath: m_Name
-      value: Ship3
+      value: Schiedam
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1120,7 +1120,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7826272775955144139, guid: 3435d61aafa168146a6d91e7db6cd642, type: 3}
       propertyPath: m_Name
-      value: Ship2
+      value: VanAmstel
       objectReference: {fileID: 0}
     - target: {fileID: 8367325544407775162, guid: 3435d61aafa168146a6d91e7db6cd642, type: 3}
       propertyPath: onPlace.m_PersistentCalls.m_Calls.Array.size
@@ -1169,7 +1169,6 @@ GameObject:
   - component: {fileID: 820298674}
   - component: {fileID: 820298678}
   - component: {fileID: 820298679}
-  - component: {fileID: 820298680}
   m_Layer: 3
   m_Name: GridHandler
   m_TagString: Untagged
@@ -1311,36 +1310,6 @@ MonoBehaviour:
   interactionLayers:
     serializedVersion: 2
     m_Bits: 8
---- !u!114 &820298680
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 820298673}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  m_NotificationBehavior: 0
-  m_UIInputModule: {fileID: 0}
-  m_DeviceLostEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_DeviceRegainedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ControlsChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ActionEvents: []
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
-  m_DefaultActionMap: Player
-  m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
 --- !u!1001 &827169600
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1457,7 +1426,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2458933282116653889, guid: 2d7bc44959c0c4242af036a603db1d19, type: 3}
       propertyPath: m_Name
-      value: Ship1
+      value: VanSpeijk
       objectReference: {fileID: 0}
     - target: {fileID: 7517173894613510098, guid: 2d7bc44959c0c4242af036a603db1d19, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2361,7 +2330,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2925566774537669777, guid: 18facc0d00d794448ab10b626abfd348, type: 3}
       propertyPath: m_Name
-      value: Ship4
+      value: DeRuyter
       objectReference: {fileID: 0}
     - target: {fileID: 7955869514566529243, guid: 18facc0d00d794448ab10b626abfd348, type: 3}
       propertyPath: m_LocalPosition.x

@@ -5,7 +5,6 @@ using UnityEngine;
 
 namespace ShipAttackers.Mine
 {
-    using Data;
     public class NavalMineHandler : ShipAttackerHandler<NavalMineBehaviour>
     {
         [SerializeField] private DashboardHandler dashboardHandler;
