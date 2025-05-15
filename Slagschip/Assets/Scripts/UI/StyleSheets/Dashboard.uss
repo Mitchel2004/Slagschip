@@ -173,7 +173,7 @@
     border-top-color: rgba(0, 0, 0, 0);
     border-bottom-color: rgba(0, 0, 0, 0);
     font-size: 32px;
-    -unity-font-definition: url("project://database/Assets/Art/Fonts/Pulse%20Rifle.ttf?fileID=12800000&guid=3921b8da77362b541b6dbaab39532451&type=3#Pulse Rifle");
+    -unity-font-definition: url("project://database/Assets/Art/Fonts/PulseRifle.ttf?fileID=12800000&guid=67c88df0693e9e14d86c2ea179049521&type=3#PulseRifle");
     top: -34px;
     align-self: center;
     padding-right: 32px;
@@ -208,7 +208,7 @@
 #pregame-buttons {
     bottom: -55px;
     position: absolute;
-    visibility: visible;
+    visibility: hidden;
     flex-direction: row;
     justify-content: space-evenly;
     align-self: center;
@@ -251,7 +251,7 @@
     border-right-color: rgba(0, 0, 0, 0);
     border-top-color: rgba(0, 0, 0, 0);
     border-bottom-color: rgba(0, 0, 0, 0);
-    -unity-font-definition: url("project://database/Assets/Art/Fonts/Seven%20Segment.ttf?fileID=12800000&guid=d50cfcbf6199f4449a2f67056ef83161&type=3#Seven Segment");
+    -unity-font-definition: url("project://database/Assets/Art/Fonts/SevenSegment.ttf?fileID=12800000&guid=554869fa8935f544bb407948d22dc3f9&type=3#SevenSegment");
     left: 15px;
 }
 
@@ -281,7 +281,7 @@
     border-right-color: rgba(0, 0, 0, 0);
     border-top-color: rgba(0, 0, 0, 0);
     border-bottom-color: rgba(0, 0, 0, 0);
-    -unity-font-definition: url("project://database/Assets/Art/Fonts/Seven%20Segment.ttf?fileID=12800000&guid=d50cfcbf6199f4449a2f67056ef83161&type=3#Seven Segment");
+    -unity-font-definition: url("project://database/Assets/Art/Fonts/SevenSegment.ttf?fileID=12800000&guid=554869fa8935f544bb407948d22dc3f9&type=3#SevenSegment");
 }
 
 #torpedo-button:active {
@@ -304,12 +304,11 @@
     border-top-color: rgba(0, 0, 0, 0);
     border-bottom-color: rgba(0, 0, 0, 0);
     background-color: rgba(0, 0, 0, 0);
-    -unity-font-definition: url("project://database/Assets/Art/Fonts/Pulse%20Rifle.ttf?fileID=12800000&guid=3921b8da77362b541b6dbaab39532451&type=3#Pulse Rifle");
+    -unity-font-definition: url("project://database/Assets/Art/Fonts/PulseRifle.ttf?fileID=12800000&guid=67c88df0693e9e14d86c2ea179049521&type=3#PulseRifle");
     background-size: 100% 100%;
-    flex-grow: 0;
-    left: 0;
-    width: 150px;
     font-size: 25px;
+    padding-right: 16px;
+    padding-left: 16px;
 }
 
 #ready-button:active {
@@ -354,7 +353,7 @@
 
 #play-code {
     background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Buttons/PlayCodeButton.png?fileID=1782324807&guid=11b57b2a8662bb54fbdcbd70fdde81f3&type=3#PlayCodeButton_0");
-    -unity-font-definition: url("project://database/Assets/Art/Fonts/Seven%20Segment.ttf?fileID=12800000&guid=d50cfcbf6199f4449a2f67056ef83161&type=3#Seven Segment");
+    -unity-font-definition: url("project://database/Assets/Art/Fonts/SevenSegment.ttf?fileID=12800000&guid=554869fa8935f544bb407948d22dc3f9&type=3#SevenSegment");
     position: absolute;
     font-size: 32px;
     color: rgb(0, 255, 0);
@@ -374,7 +373,7 @@
 
 .turn-text {
     font-size: 32px;
-    -unity-font-definition: url("project://database/Assets/Art/Fonts/Pulse%20Rifle.ttf?fileID=12800000&guid=3921b8da77362b541b6dbaab39532451&type=3#Pulse Rifle");
+    -unity-font-definition: url("project://database/Assets/Art/Fonts/PulseRifle.ttf?fileID=12800000&guid=67c88df0693e9e14d86c2ea179049521&type=3#PulseRifle");
     -unity-text-align: upper-center;
     color: rgb(255, 255, 255);
     margin-top: 0;
@@ -388,7 +387,7 @@
     margin-right: 10px;
     margin-bottom: 0;
     margin-left: 0;
-    -unity-font-definition: url("project://database/Assets/Art/Fonts/Pulse%20Rifle.ttf?fileID=12800000&guid=3921b8da77362b541b6dbaab39532451&type=3#Pulse Rifle");
+    -unity-font-definition: url("project://database/Assets/Art/Fonts/PulseRifle.ttf?fileID=12800000&guid=67c88df0693e9e14d86c2ea179049521&type=3#PulseRifle");
     font-size: 32px;
     -unity-text-align: upper-center;
     color: rgb(255, 255, 255);
@@ -424,7 +423,7 @@
 
 .pause-button {
     margin: 32px;
-    -unity-font-definition: url("project://database/Assets/Art/Fonts/Pulse%20Rifle.ttf?fileID=12800000&guid=3921b8da77362b541b6dbaab39532451&type=3#Pulse Rifle");
+    -unity-font-definition: url("project://database/Assets/Art/Fonts/PulseRifle.ttf?fileID=12800000&guid=67c88df0693e9e14d86c2ea179049521&type=3#PulseRifle");
     font-size: 32px;
     background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Buttons/EmptyButton.png?fileID=430277337&guid=ff7992968b1f57a488a3532787968185&type=3#EmptyButton_0");
     padding-top: 16px;
@@ -461,8 +460,32 @@
     padding-left: 32px;
 }
 
+.close-tutorial-button {
+    position: absolute;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    -unity-font-definition: url("project://database/Assets/Art/Fonts/PulseRifle.ttf?fileID=12800000&guid=67c88df0693e9e14d86c2ea179049521&type=3#PulseRifle");
+    font-size: 16px;
+    padding-top: 2px;
+    padding-right: 4px;
+    padding-bottom: 3px;
+    padding-left: 5px;
+    background-image: url("project://database/Assets/Art/UI/PauzeScreen/PauseScreenBackground.png?fileID=-2096421328&guid=38aa389c1393d464ca18ff06bdffd634&type=3#PauseScreenBackground_0");
+    -unity-background-image-tint-color: rgb(255, 0, 0);
+    background-color: rgba(0, 0, 0, 0);
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    -unity-text-outline-color: rgba(0, 0, 0, 0);
+    color: rgb(255, 255, 255);
+    -unity-text-align: upper-center;
+}
+
 .tutorial-pop-up {
-    -unity-font-definition: url("project://database/Assets/Art/Fonts/Pulse%20Rifle.ttf?fileID=12800000&guid=3921b8da77362b541b6dbaab39532451&type=3#Pulse Rifle");
+    -unity-font-definition: url("project://database/Assets/Art/Fonts/PulseRifle.ttf?fileID=12800000&guid=67c88df0693e9e14d86c2ea179049521&type=3#PulseRifle");
     color: rgb(255, 255, 255);
     font-size: 16px;
     background-image: url("project://database/Assets/Art/UI/PauzeScreen/PauseScreenBackground.png?fileID=-2096421328&guid=38aa389c1393d464ca18ff06bdffd634&type=3#PauseScreenBackground_0");
@@ -475,9 +498,8 @@
     margin-bottom: 0;
     margin-left: 0;
     transition-property: opacity;
-    visibility: visible;
     transition-timing-function: linear;
     transition-duration: 1s;
     -unity-text-align: upper-center;
-    position: absolute;
+    visibility: hidden;
 }

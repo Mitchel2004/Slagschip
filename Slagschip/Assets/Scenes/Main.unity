@@ -1864,8 +1864,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  _gameData: {fileID: 1729439125}
-  sceneLoader: {fileID: 607853097}
   loadingScene: LoadingMenu
   _gridHandler: {fileID: 820298679}
   _sessionCodeText: {fileID: 1057508723}

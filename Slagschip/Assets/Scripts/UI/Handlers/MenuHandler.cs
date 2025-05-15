@@ -49,7 +49,7 @@ namespace UIHandlers
 
             playCodeInputField.text = _playCodeTextField.value;
 
-            _document.rootVisualElement.Query("play-code-button").First().SetEnabled(!_playCodeTextField.value.IsNullOrEmpty());
+            _document.rootVisualElement.Query("play-code-button").First().SetEnabled(_playCodeTextField.value.Length == 6);
         }
 
         private void OnPlayCodeInputSubmitted(ClickEvent _event)

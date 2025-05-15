@@ -13,7 +13,7 @@
 #play-code-input {
     margin: 0;
     width: 50%;
-    -unity-font-definition: url("project://database/Assets/Art/Fonts/Seven%20Segment.ttf?fileID=12800000&guid=d50cfcbf6199f4449a2f67056ef83161&type=3#Seven Segment");
+    -unity-font-definition: url("project://database/Assets/Art/Fonts/SevenSegment.ttf?fileID=12800000&guid=554869fa8935f544bb407948d22dc3f9&type=3#SevenSegment");
     font-size: 32px;
     margin-bottom: 5px;
     color: rgb(0, 255, 0);
@@ -46,7 +46,7 @@
 
 .menu-button {
     margin: 0;
-    -unity-font-definition: url("project://database/Assets/Art/Fonts/Pulse%20Rifle.ttf?fileID=12800000&guid=3921b8da77362b541b6dbaab39532451&type=3#Pulse Rifle");
+    -unity-font-definition: url("project://database/Assets/Art/Fonts/PulseRifle.ttf?fileID=12800000&guid=67c88df0693e9e14d86c2ea179049521&type=3#PulseRifle");
     font-size: 32px;
     background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Buttons/EmptyButton.png?fileID=430277337&guid=ff7992968b1f57a488a3532787968185&type=3#EmptyButton_0");
     padding-top: 16px;
@@ -89,9 +89,9 @@
 
 #error-box {
     position: absolute;
-    background-color: rgba(0, 0, 0, 0.75);
     justify-content: space-between;
     align-self: center;
+    background-image: url("project://database/Assets/Art/UI/PauzeScreen/PauseScreenBackground.png?fileID=-2096421328&guid=38aa389c1393d464ca18ff06bdffd634&type=3#PauseScreenBackground_0");
 }
 
 #ok-button {
