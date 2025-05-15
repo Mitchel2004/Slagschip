@@ -22,7 +22,8 @@ namespace Ships
         private System.Action<InputAction.CallbackContext> _rotateRightAction;
 
         [SerializeField] private FXSystem[] effects;
-
+        [SerializeField] private PlacingIndicator indicator;
+ 
         public UnityEvent<ShipBehaviour> OnClear { get; set; }
 
         private void Start()
