@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 837e22a9c74918240be4c753f9a93917
+guid: 55f4a1b9fccd3e649a2192dcc54a9bf8
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -15,7 +15,7 @@ ModelImporter:
     resampleCurves: 1
     optimizeGameObjects: 0
     removeConstantScaleCurves: 1
-    motionNodeName: 
+    motionNodeName: Root
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
@@ -31,9 +31,9 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: AS_JohanDeWitt
-      takeName: Arm_DeRuyter|Arm_SchiedamAction.001
-      internalID: -2519921818442745190
+      name: AS_Ships
+      takeName: Arm_Schiedam|Arm_SchiedamAction.002
+      internalID: 1158541102799522728
       firstFrame: 0
       lastFrame: 99
       wrapMode: 0
