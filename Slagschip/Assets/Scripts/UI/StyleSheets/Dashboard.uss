@@ -308,7 +308,6 @@
     background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Buttons/NavalMineButton.png?fileID=-1748097259&guid=3acf8cd83bf90c74a81a23c19a6cf09a&type=3#NavalMineButton_0");
     width: 100px;
     height: 109px;
-    display: flex;
     padding-bottom: 16px;
     -unity-text-align: lower-left;
     font-size: 16px;
@@ -318,7 +317,7 @@
     border-right-color: rgba(0, 0, 0, 0);
     border-top-color: rgba(0, 0, 0, 0);
     border-bottom-color: rgba(0, 0, 0, 0);
-    -unity-font-definition: url("project://database/Assets/Art/Fonts/Seven%20Segment.ttf?fileID=12800000&guid=d50cfcbf6199f4449a2f67056ef83161&type=3#Seven Segment");
+    -unity-font-definition: url("project://database/Assets/Art/Fonts/SevenSegment.ttf?fileID=12800000&guid=554869fa8935f544bb407948d22dc3f9&type=3#SevenSegment");
     left: 15px;
     overflow: visible;
 }

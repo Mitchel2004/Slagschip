@@ -55,7 +55,7 @@ namespace UIHandlers
             _document.rootVisualElement.Query("play-code").First().RegisterCallback<ClickEvent>(CopyPlayCode);
             _document.rootVisualElement.Query("to-start-button").First().RegisterCallback<ClickEvent>(OnToStart);
 
-            GridHandler.instance.onMove.AddListener(ShowRotateTutorial);
+            GridHandler.instance.OnMove.AddListener(ShowRotateTutorial);
 
             foreach (VisualElement _button in _document.rootVisualElement.Query(className: "close-tutorial-button").ToList())
             {
@@ -148,7 +148,7 @@ namespace UIHandlers
 
         private void ShowRotateTutorial(Vector3 _position)
         {
-            GridHandler.instance.onMove.RemoveListener(ShowRotateTutorial);
+            GridHandler.instance.OnMove.RemoveListener(ShowRotateTutorial);
 
             ShowVisualElement(_document.rootVisualElement.Query("rotate-tutorial").First());
             StartCoroutine(FadeOutTutorial(_document.rootVisualElement.Query("rotate-tutorial").First()));

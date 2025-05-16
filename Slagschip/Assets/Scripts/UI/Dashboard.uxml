@@ -21,7 +21,7 @@
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement name="pregame-buttons" style="visibility: visible;">
-                <ui:Button text="0" name="naval-mine-button" />
+                <ui:Button text="0" name="naval-mine-button" enabled="false" />
                 <ui:VisualElement name="naval-mine-tutorial" class="tutorial-pop-up" style="position: absolute; bottom: 7px; left: -349px;">
                     <ui:Label text="Met Zeemijnen kAn je &#10;Schepen rAken AlS Ze niet &#10;ontSchAdelijk Worden gemAAkt. &#10;PlAAtS Ze tActiSch op het rASter." />
                     <ui:Button text="×" class="close-tutorial-button" style="right: 10px; top: 10px;" />

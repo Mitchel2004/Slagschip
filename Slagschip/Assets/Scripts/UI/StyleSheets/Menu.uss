@@ -1,5 +1,4 @@
 #start-screen {
-    display: flex;
     flex-grow: 1;
     align-items: center;
     justify-content: center;
@@ -73,8 +72,8 @@
 }
 
 #credits-screen {
-    display: none;
-    flex-grow: 1;
+    visibility: hidden;
+    position: absolute;
 }
 
 #error-screen {
@@ -84,7 +83,7 @@
     right: 0;
     bottom: 0;
     justify-content: center;
-    display: none;
+    visibility: hidden;
 }
 
 #error-box {

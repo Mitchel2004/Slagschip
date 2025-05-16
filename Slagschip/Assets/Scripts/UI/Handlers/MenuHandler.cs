@@ -3,7 +3,6 @@ using System.Text.RegularExpressions;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UIElements;
-using WebSocketSharp;
 
 namespace UIHandlers
 {
@@ -59,8 +58,8 @@ namespace UIHandlers
 
         private void OnCredits(ClickEvent _event)
         {
-            _document.rootVisualElement.Query("start-screen").First().style.display = DisplayStyle.None;
-            _document.rootVisualElement.Query("credits-screen").First().style.display = DisplayStyle.Flex;
+            _document.rootVisualElement.Query("start-screen").First().style.visibility = Visibility.Hidden;
+            _document.rootVisualElement.Query("credits-screen").First().style.visibility = Visibility.Visible;
         }
 
         private void OnQuit(ClickEvent _event)
@@ -70,18 +69,18 @@ namespace UIHandlers
 
         private void OnBack(ClickEvent _event)
         {
-            _document.rootVisualElement.Query("credits-screen").First().style.display = DisplayStyle.None;
-            _document.rootVisualElement.Query("start-screen").First().style.display = DisplayStyle.Flex;
+            _document.rootVisualElement.Query("credits-screen").First().style.visibility = Visibility.Hidden;
+            _document.rootVisualElement.Query("start-screen").First().style.visibility = Visibility.Visible;
         }
 
         public void TogglePlayCodeError(bool _isVisible)
         {
-            _document.rootVisualElement.Query("error-screen").First().style.display = _isVisible ? DisplayStyle.Flex : DisplayStyle.None;
+            _document.rootVisualElement.Query("error-screen").First().style.visibility = _isVisible ? Visibility.Visible : Visibility.Hidden;
         }
 
         private void TogglePlayCodeError(ClickEvent _event)
         {
-            _document.rootVisualElement.Query("error-screen").First().style.display = DisplayStyle.None;
+            _document.rootVisualElement.Query("error-screen").First().style.visibility = Visibility.Hidden;
         }
     }
 }
