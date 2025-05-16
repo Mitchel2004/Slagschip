@@ -50,6 +50,7 @@ namespace Ships
             };
 
             Selectable();
+            Select();
         }
 
         private void SetEnabled(bool enabled)
@@ -106,6 +107,10 @@ namespace Ships
 
             _rotateLeft.started -= _rotateLeftAction;
             _rotateRight.started -= _rotateRightAction;
+        }
+        public void Select()
+        {
+            onClick.Invoke();
         }
 
         private void TryMove()
