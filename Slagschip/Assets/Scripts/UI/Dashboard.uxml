@@ -14,14 +14,18 @@
                     <ui:Label text="wAnneer het jouW beurt iS, &#10;kAn je op het rASter kieZen &#10;WAAr je Wilt AAnvAllen. &#10;Klik op deZe knop &#10;om een rAket Af te vuren." style="margin-right: 16px; margin-left: 16px;" />
                     <ui:Button text="×" class="close-tutorial-button" style="right: 10px; top: 10px;" />
                 </ui:VisualElement>
-                <ui:Button text="0" name="torpedo-button" />
+                <ui:Button name="torpedo-button">
+                    <ui:Label text="0" name="torpedo-counter" class="number-counter" />
+                </ui:Button>
                 <ui:VisualElement name="torpedo-tutorial" class="tutorial-pop-up" style="position: absolute; left: -80px; bottom: 120px; transition-delay: 15s;">
                     <ui:Label text="Torpedo&apos;S ontvAng je WAnneer &#10;je een Schip verlieSt. &#10;DeZe kAn je gebruiken in plAAtS vAn &#10;een normAle AAnvAl." />
                     <ui:Button text="×" class="close-tutorial-button" style="right: 10px; top: 10px;" />
                 </ui:VisualElement>
             </ui:VisualElement>
-            <ui:VisualElement name="pregame-buttons" style="visibility: visible;">
-                <ui:Button text="0" name="naval-mine-button" enabled="false" />
+            <ui:VisualElement name="pregame-buttons">
+                <ui:Button name="naval-mine-button" enabled="false">
+                    <ui:Label text="0" name="naval-mine-counter" class="number-counter" />
+                </ui:Button>
                 <ui:VisualElement name="naval-mine-tutorial" class="tutorial-pop-up" style="position: absolute; bottom: 7px; left: -349px;">
                     <ui:Label text="Met Zeemijnen kAn je &#10;Schepen rAken AlS Ze niet &#10;ontSchAdelijk Worden gemAAkt. &#10;PlAAtS Ze tActiSch op het rASter." />
                     <ui:Button text="×" class="close-tutorial-button" style="right: 10px; top: 10px;" />

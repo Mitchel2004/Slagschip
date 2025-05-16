@@ -6,7 +6,6 @@ using Utilities.Timer;
 namespace ShipAttackers.Mine
 {
     using Data;
-    using UnityEngine.UIElements;
 
     public class NavalMineBehaviour : ShipAttacker
     {

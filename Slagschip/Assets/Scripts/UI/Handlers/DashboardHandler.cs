@@ -22,7 +22,6 @@ namespace UIHandlers
         private UIDocument _document;
 
         [SerializeField] private string loadingScene;
-        [SerializeField] private GridHandler _gridHandler;
         [SerializeField] private TMP_Text _sessionCodeText;
         [SerializeField] private UnityEngine.UI.Button _copySessionCode;
         [SerializeField] private UnityEngine.UI.Button _leaveSessionButton;
@@ -37,6 +36,7 @@ namespace UIHandlers
         private Button[] _gridButtons = new Button[_gridSize * (_gridSize + 4)];
 
         private byte _targetCell;
+        private byte _mineCount = GridHandler._maxMines;
 
         Action<TransitionEndEvent> OnTutorialClose;
 
@@ -62,7 +62,7 @@ namespace UIHandlers
                 _button.RegisterCallback<ClickEvent, VisualElement>(CloseTutorial, _button);
             }
 
-            _gridHandler.OnIsReady.AddListener(IsReady);
+            GridHandler.instance.OnIsReady.AddListener(IsReady);
             
             for (byte i = 0; i < _gridSize * _gridSize; i++)
             {
@@ -119,6 +119,8 @@ namespace UIHandlers
             base.OnNetworkSpawn();
 
             GameData.instance.currentPlayerTurn.OnValueChanged += OnPlayerTurnChange;
+
+            _document.rootVisualElement.Query<Label>("naval-mine-counter").First().text = _mineCount.ToString();
 
             if (IsServer)
                 _readyPlayers.Value = 0;
@@ -310,7 +312,7 @@ namespace UIHandlers
 
         private void OnAttack(ClickEvent _event)
         {
-            _gridHandler.CheckTargetCellRpc(_targetCell);
+            GridHandler.instance.CheckTargetCellRpc(_targetCell);
             _document.rootVisualElement.Query("attack-button").First().SetEnabled(false);
             GetCellButton(_targetCell).UnregisterCallback<ClickEvent, byte>(SetTargetCell);
         }
@@ -325,8 +327,10 @@ namespace UIHandlers
                 return;
 
             _mineTargets.Add(_targetCell);
-            _gridHandler.PlaceMineRpc(_targetCell);
+            GridHandler.instance.PlaceMineRpc(_targetCell);
+            _document.rootVisualElement.Query<Label>("naval-mine-counter").First().text = (--_mineCount).ToString();
             _document.rootVisualElement.Query<Button>("naval-mine-button").First().SetEnabled(false);
+
             if (IsClient)
             {
                 GetCellButton(_targetCell).AddToClassList("mine-grid-button");

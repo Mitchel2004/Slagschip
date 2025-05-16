@@ -16,12 +16,11 @@ namespace PlayerGrid
         public static GridHandler instance;
 
         [SerializeField] private DashboardHandler _dashboardHandler;
-        [SerializeField] private GameData gameData;
         private float _gridScale => transform.localScale.x;
 
         public const byte gridSize = 10;
         private const byte _maxShips = 2;
-        private const byte _maxMines = 2;
+        public const byte _maxMines = 2;
 
         private int _mineCount;
 
@@ -229,7 +228,6 @@ namespace PlayerGrid
             OnIsReady.Invoke(false);
         }
 
-        // TODO: Check incoming target cell whether it is a hit or miss
         [Rpc(SendTo.NotMe)]
         public void CheckTargetCellRpc(byte _targetCell)
         {
@@ -253,7 +251,7 @@ namespace PlayerGrid
                 {
                     _dashboardHandler.OnMissRpc(_targetCell);
 
-                    gameData.SwitchPlayerTurnRpc();
+                    GameData.instance.SwitchPlayerTurnRpc();
                 }
             }
         }
@@ -284,6 +282,7 @@ namespace PlayerGrid
             OnMineSet.Invoke(_grid[pos.x, pos.y]);
             IncrementMineCountRpc();
         }
+
         [Rpc(SendTo.NotMe)]
         private void IncrementMineCountRpc()
         {
