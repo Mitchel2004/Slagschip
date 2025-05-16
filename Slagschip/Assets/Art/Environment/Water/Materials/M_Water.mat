@@ -89,7 +89,7 @@ Material:
     - _ZWrite: 0
     - _ZWriteControl: 0
     m_Colors:
-    - _DeepWater: {r: 0, g: 0.15636846, b: 0.32156846, a: 1}
+    - _DeepWater: {r: 0, g: 0.15636843, b: 0.32156843, a: 0.87058824}
     - _FoamColor: {r: 1, g: 1, b: 1, a: 1}
     - _RiplesColor: {r: 0.18823418, g: 0.35578573, b: 0.8490566, a: 0}
     - _RipplesColor: {r: 0.2107867, g: 0.35184783, b: 0.5849056, a: 1}

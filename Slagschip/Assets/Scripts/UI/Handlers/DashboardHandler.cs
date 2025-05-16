@@ -17,6 +17,7 @@ namespace UIHandlers
     public class DashboardHandler : NetworkBehaviour
     {
         public UnityEvent onReady;
+        public UnityEvent onGameStart;
 
         private UIDocument _document;
 
@@ -27,6 +28,8 @@ namespace UIHandlers
         [SerializeField] private UnityEngine.UI.Button _leaveSessionButton;
 
         private NetworkVariable<byte> _readyPlayers = new();
+        private List<byte> _mineTargets = new();
+        private bool _inPregame = true;
 
         private const byte _gridSize = GridHandler.gridSize;
         private const byte _playerCount = 2;
@@ -47,6 +50,7 @@ namespace UIHandlers
             _document.rootVisualElement.Query("give-up-button").First().RegisterCallback<ClickEvent>(OnGiveUp);
             _document.rootVisualElement.Query("attack-button").First().RegisterCallback<ClickEvent>(OnAttack);
             _document.rootVisualElement.Query("torpedo-button").First().RegisterCallback<ClickEvent>(OnTorpedo);
+            _document.rootVisualElement.Query("naval-mine-button").First().RegisterCallback<ClickEvent>(OnMine);
             _document.rootVisualElement.Query("ready-button").First().RegisterCallback<ClickEvent>(Ready);
             _document.rootVisualElement.Query("play-code").First().RegisterCallback<ClickEvent>(CopyPlayCode);
             _document.rootVisualElement.Query("to-start-button").First().RegisterCallback<ClickEvent>(OnToStart);
@@ -58,7 +62,7 @@ namespace UIHandlers
                 _button.RegisterCallback<ClickEvent, VisualElement>(CloseTutorial, _button);
             }
 
-            _gridHandler.onIsReady.AddListener(IsReady);
+            _gridHandler.OnIsReady.AddListener(IsReady);
             
             for (byte i = 0; i < _gridSize * _gridSize; i++)
             {
@@ -118,9 +122,8 @@ namespace UIHandlers
 
             if (IsServer)
                 _readyPlayers.Value = 0;
-
-            if(!IsHost)
-                ShowVisualElement(_document.rootVisualElement.Query("grid-cover").First());
+            
+            onGameStart.AddListener(StartTurn);
 
             SetPlayCode();
 
@@ -159,6 +162,12 @@ namespace UIHandlers
         private void HideVisualElement(VisualElement _visualElement)
         {
             _visualElement.style.visibility = Visibility.Hidden;
+        }
+
+        private void StartTurn()
+        {
+            if (!IsHost)
+                _document.rootVisualElement.Query("grid-cover").First().style.visibility = Visibility.Visible;
         }
 
         private async void SetPlayCode()
@@ -310,13 +319,37 @@ namespace UIHandlers
         {
             throw new NotImplementedException();
         }
+        private void OnMine(ClickEvent _event)
+        {
+            if (_mineTargets.Contains(_targetCell))
+                return;
+
+            _mineTargets.Add(_targetCell);
+            _gridHandler.PlaceMineRpc(_targetCell);
+            _document.rootVisualElement.Query<Button>("naval-mine-button").First().SetEnabled(false);
+            if (IsClient)
+            {
+                GetCellButton(_targetCell).AddToClassList("mine-grid-button");
+            }
+        }
 
         private void SetTargetCell(ClickEvent _event, byte _targetCell)
         {
             GetCellButton(this._targetCell).RemoveFromClassList("selected-grid-button");
             this._targetCell = _targetCell;
             GetCellButton(_targetCell).AddToClassList("selected-grid-button");
-            _document.rootVisualElement.Query("attack-button").First().SetEnabled(true);
+
+            if (_inPregame)
+            {
+                if (_mineTargets.Contains(_targetCell))
+                    return;
+
+                _document.rootVisualElement.Query<Button>("naval-mine-button").First().SetEnabled(true);
+            }
+            else 
+            {
+                _document.rootVisualElement.Query("attack-button").First().SetEnabled(true);
+            }
         }
 
         private Button GetCellButton(byte _targetCell)
@@ -337,6 +370,9 @@ namespace UIHandlers
         {
             HideVisualElement(_document.rootVisualElement.Query("pregame-buttons").First());
             ShowVisualElement(_document.rootVisualElement.Query("game-buttons").First());
+
+            onGameStart.Invoke();
+            _inPregame = false;
 
             ShowAttackTutorialRpc();
         }
@@ -383,6 +419,7 @@ namespace UIHandlers
             {
                 GetCellButton(_targetCell).AddToClassList("hitted-grid-button");
                 GetCellButton(_targetCell).RemoveFromClassList("grid-button");
+                GetCellButton(_targetCell).RemoveFromClassList("mine-grid-button");
             }
         }
 
@@ -393,6 +430,16 @@ namespace UIHandlers
             {
                 GetCellButton(_targetCell).AddToClassList("missed-grid-button");
                 GetCellButton(_targetCell).RemoveFromClassList("grid-button");
+                GetCellButton(_targetCell).RemoveFromClassList("mine-grid-button");
+            }
+        }
+
+        [Rpc(SendTo.NotMe)]
+        public void LockGridButtonRpc(byte _targetCell)
+        {
+            if (IsClient)
+            {
+                GetCellButton(_targetCell).UnregisterCallback<ClickEvent, byte>(SetTargetCell);
             }
         }
 

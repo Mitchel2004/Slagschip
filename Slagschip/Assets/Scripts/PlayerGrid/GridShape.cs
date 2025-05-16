@@ -12,7 +12,7 @@ namespace PlayerGrid
         {
             for (int i = 0; i < offsets.Length; i++)
             {
-                offsets[i] = new Vector2Int(-offsets[i].y, offsets[i].x);
+                offsets[i] = new Vector2Int(offsets[i].y, -offsets[i].x);
             }
         }
 
@@ -20,7 +20,7 @@ namespace PlayerGrid
         {
             for (int i = 0; i < offsets.Length; i++)
             {
-                offsets[i] = new Vector2Int(offsets[i].y, -offsets[i].x);
+                offsets[i] = new Vector2Int(-offsets[i].y, offsets[i].x);
             }
         }
 
