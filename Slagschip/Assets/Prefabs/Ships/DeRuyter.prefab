@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7955869514566529243}
   - component: {fileID: 180008919902893490}
   - component: {fileID: 476841469003473642}
+  - component: {fileID: 6673612382867160901}
   m_Layer: 0
   m_Name: DeRuyter
   m_TagString: Untagged
@@ -93,6 +94,28 @@ MonoBehaviour:
   - {fileID: 1543991716301835275}
   - {fileID: 338393077040388945}
   - {fileID: 408787295220948545}
+--- !u!95 &6673612382867160901
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2925566774537669777}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 39ee8dd19ab543f429155652be16f9c0, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &642337690437172378
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 765b472838d3cf04880fb66384baa996
+guid: 9ae066bd0ec9e964f8e0e21821bb781d
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -15,7 +15,7 @@ ModelImporter:
     resampleCurves: 1
     optimizeGameObjects: 0
     removeConstantScaleCurves: 1
-    motionNodeName: 
+    motionNodeName: Root
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
@@ -31,9 +31,9 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: AS_VanSpeijk
-      takeName: Arm_VanAmstel|Arm_SchiedamAction.001
-      internalID: 3877503714204323263
+      name: AS_Ships
+      takeName: Arm_Schiedam|Arm_SchiedamAction.002
+      internalID: 1158541102799522728
       firstFrame: 0
       lastFrame: 99
       wrapMode: 0
