@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 3921b8da77362b541b6dbaab39532451
+guid: 554869fa8935f544bb407948d22dc3f9
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Pulse Rifle
+  - Seven Segment
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0

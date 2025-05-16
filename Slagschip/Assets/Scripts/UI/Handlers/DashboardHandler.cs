@@ -8,7 +8,8 @@ using UnityEngine.Events;
 using UnityEngine.UIElements;
 using Unity.Services.Multiplayer;
 using TMPro;
-using System.Linq;
+using SceneManagement;
+using System.Collections;
 
 namespace UIHandlers
 {
@@ -20,10 +21,11 @@ namespace UIHandlers
 
         private UIDocument _document;
 
-        [SerializeField] private GameData _gameData;
+        [SerializeField] private string loadingScene;
         [SerializeField] private GridHandler _gridHandler;
         [SerializeField] private TMP_Text _sessionCodeText;
         [SerializeField] private UnityEngine.UI.Button _copySessionCode;
+        [SerializeField] private UnityEngine.UI.Button _leaveSessionButton;
 
         private NetworkVariable<byte> _readyPlayers = new();
         private List<byte> _mineTargets = new();
@@ -36,19 +38,29 @@ namespace UIHandlers
 
         private byte _targetCell;
 
+        Action<TransitionEndEvent> OnTutorialClose;
+
         private void Awake()
         {
-            _gameData.currentPlayerTurn.OnValueChanged += OnPlayerTurnChange;
-
             _document = GetComponent<UIDocument>();
 
-            _document.rootVisualElement.Query("turn-information").First().RegisterCallback<TransitionEndEvent>(TurnFadeOut);
+            _document.rootVisualElement.Query("turn-information").First().RegisterCallback<TransitionEndEvent>(OnTurnFadeEnd);
             _document.rootVisualElement.Query("menu-button").First().RegisterCallback<ClickEvent>(OnMenu);
+            _document.rootVisualElement.Query("resume-button").First().RegisterCallback<ClickEvent>(OnResume);
+            _document.rootVisualElement.Query("give-up-button").First().RegisterCallback<ClickEvent>(OnGiveUp);
             _document.rootVisualElement.Query("attack-button").First().RegisterCallback<ClickEvent>(OnAttack);
             _document.rootVisualElement.Query("torpedo-button").First().RegisterCallback<ClickEvent>(OnTorpedo);
             _document.rootVisualElement.Query("naval-mine-button").First().RegisterCallback<ClickEvent>(OnMine);
             _document.rootVisualElement.Query("ready-button").First().RegisterCallback<ClickEvent>(Ready);
-            _document.rootVisualElement.Query("play-code").First().RegisterCallback<ClickEvent>(OnPlayCode);
+            _document.rootVisualElement.Query("play-code").First().RegisterCallback<ClickEvent>(CopyPlayCode);
+            _document.rootVisualElement.Query("to-start-button").First().RegisterCallback<ClickEvent>(OnToStart);
+
+            GridHandler.instance.OnMove.AddListener(ShowRotateTutorial);
+
+            foreach (VisualElement _button in _document.rootVisualElement.Query(className: "close-tutorial-button").ToList())
+            {
+                _button.RegisterCallback<ClickEvent, VisualElement>(CloseTutorial, _button);
+            }
 
             _gridHandler.OnIsReady.AddListener(IsReady);
             
@@ -102,33 +114,54 @@ namespace UIHandlers
             }
         }
 
-        private void OnPlayCode(ClickEvent _event)
-        {
-            _copySessionCode.onClick.Invoke();
-        }
-
-        private void TurnFadeOut(TransitionEndEvent _event)
-        {
-            if (_document.rootVisualElement.Query("turn-information").First().style.opacity == 0)
-            {
-                _document.rootVisualElement.Query("turn-screen").First().style.display = DisplayStyle.None;
-            }
-            else
-            {
-                _document.rootVisualElement.Query("turn-information").First().style.opacity = 0;
-            }
-        }
-
         public override void OnNetworkSpawn()
         {
             base.OnNetworkSpawn();
-            
+
+            GameData.instance.currentPlayerTurn.OnValueChanged += OnPlayerTurnChange;
+
             if (IsServer)
                 _readyPlayers.Value = 0;
-
+            
             onGameStart.AddListener(StartTurn);
 
             SetPlayCode();
+
+            if (IsHost)
+            {
+                _document.rootVisualElement.Query("team-name").First().AddToClassList("team-alfa");
+                _document.rootVisualElement.Query<Label>("team-name").First().text = "AlfA";
+            }
+            else
+            {
+                _document.rootVisualElement.Query("team-name").First().AddToClassList("team-bravo");
+                _document.rootVisualElement.Query<Label>("team-name").First().text = "BrAvo";
+            }
+        }
+
+        private IEnumerator FadeOutTutorial(VisualElement _visualElement)
+        {
+            yield return null;
+
+            _visualElement.style.opacity = 0;
+        }
+
+        private void ShowRotateTutorial(Vector3 _position)
+        {
+            GridHandler.instance.OnMove.RemoveListener(ShowRotateTutorial);
+
+            ShowVisualElement(_document.rootVisualElement.Query("rotate-tutorial").First());
+            StartCoroutine(FadeOutTutorial(_document.rootVisualElement.Query("rotate-tutorial").First()));
+        }
+
+        private void ShowVisualElement(VisualElement _visualElement)
+        {
+            _visualElement.style.visibility = Visibility.Visible;
+        }
+
+        private void HideVisualElement(VisualElement _visualElement)
+        {
+            _visualElement.style.visibility = Visibility.Hidden;
         }
 
         private void StartTurn()
@@ -144,27 +177,85 @@ namespace UIHandlers
             foreach (ISession _session in MultiplayerService.Instance.Sessions.Values)
             {
                 if (_joinedSessions.Contains(_session.Id))
+                {
                     _sessionCodeText.text = _session.Code;
+                    break;
+                }
             }
 
             _document.rootVisualElement.Query<Button>("play-code").First().text = _sessionCodeText.text;
+
+            if (IsHost)
+            {
+                ShowVisualElement(_document.rootVisualElement.Query("play-code-tutorial").First());
+                StartCoroutine(FadeOutTutorial(_document.rootVisualElement.Query("play-code-tutorial").First()));
+            }
+        }
+
+        private void CopyPlayCode(ClickEvent _event)
+        {
+            _copySessionCode.onClick.Invoke();
+        }
+
+        private void OnTurnFadeEnd(TransitionEndEvent _event)
+        {
+            VisualElement _turnInformation = _document.rootVisualElement.Query("turn-information").First();
+
+            if (_turnInformation.style.opacity == 0)
+            {
+                HideVisualElement(_document.rootVisualElement.Query("turn-screen").First());
+            }
+            else
+            {
+                VisualElement _turnTeamName = _document.rootVisualElement.Query("turn-team-name").First();
+
+                if (GameData.instance.currentPlayerTurn.Value == 0)
+                {
+                    _turnTeamName.AddToClassList("team-alfa");
+                    _turnTeamName.RemoveFromClassList("team-bravo");
+
+                    _document.rootVisualElement.Query<Label>("turn-team-name").First().text = "AlfA";
+                }
+                else
+                {
+                    _turnTeamName.AddToClassList("team-bravo");
+                    _turnTeamName.RemoveFromClassList("team-alfa");
+
+                    _document.rootVisualElement.Query<Label>("turn-team-name").First().text = "BrAvo";
+                }
+
+                _turnInformation.style.opacity = 0;
+            }
         }
 
         private void OnPlayerTurnChange(ulong _previousValue, ulong _newValue)
         {
-            _document.rootVisualElement.Query("turn-screen").First().style.display = DisplayStyle.Flex;
+            ShowVisualElement(_document.rootVisualElement.Query("turn-screen").First());
 
-            if(NetworkManager.Singleton.LocalClientId == _newValue)
+            if (NetworkManager.Singleton.LocalClientId == _newValue)
             {
-                _document.rootVisualElement.Query("grid-cover").First().style.visibility = Visibility.Hidden;
-                _document.rootVisualElement.Query("turn-information").First().RemoveFromClassList("their-turn");
-                _document.rootVisualElement.Query("turn-information").First().AddToClassList("your-turn");
+                HideVisualElement(_document.rootVisualElement.Query("grid-cover").First());
             }
             else
             {
-                _document.rootVisualElement.Query("grid-cover").First().style.visibility = Visibility.Visible;
-                _document.rootVisualElement.Query("turn-information").First().RemoveFromClassList("your-turn");
-                _document.rootVisualElement.Query("turn-information").First().AddToClassList("their-turn");
+                ShowVisualElement(_document.rootVisualElement.Query("grid-cover").First());
+            }
+
+            VisualElement _teamText = _document.rootVisualElement.Query("team-text").First();
+
+            if (_newValue == 0)
+            {
+                _teamText.AddToClassList("team-alfa");
+                _teamText.RemoveFromClassList("team-bravo");
+
+                _document.rootVisualElement.Query<Label>("team-text").First().text = "AlfA";
+            }
+            else
+            {
+                _teamText.AddToClassList("team-bravo");
+                _teamText.RemoveFromClassList("team-alfa");
+
+                _document.rootVisualElement.Query<Label>("team-text").First().text = "BrAvo";
             }
 
             _document.rootVisualElement.Query("turn-information").First().style.opacity = 1;
@@ -172,7 +263,49 @@ namespace UIHandlers
 
         private void OnMenu(ClickEvent _event)
         {
-            throw new NotImplementedException();
+            ShowVisualElement(_document.rootVisualElement.Query("pause-screen").First());
+        }
+
+        private void OnResume(ClickEvent _event)
+        {
+            HideVisualElement(_document.rootVisualElement.Query("pause-screen").First());
+        }
+
+        private void LoadMenu()
+        {
+            SceneLoader.instance.LoadScene(loadingScene);
+        }
+
+        private void LoadMenu(ulong _clientId)
+        {
+            NetworkManager.OnClientDisconnectCallback -= LoadMenu;
+            SceneLoader.instance.LoadScene(loadingScene);
+        }
+
+        private void OnGiveUp(ClickEvent _event)
+        {
+            ShowDisconnectedScreenRpc();
+
+            NetworkManager.OnClientDisconnectCallback += LoadMenu;
+
+            LeaveSessionRpc();
+        }
+
+        [Rpc(SendTo.ClientsAndHost)]
+        private void LeaveSessionRpc()
+        {
+            _leaveSessionButton.onClick.Invoke();
+        }
+
+        [Rpc(SendTo.NotMe)]
+        private void ShowDisconnectedScreenRpc()
+        {
+            ShowVisualElement(_document.rootVisualElement.Query("disconnected-screen").First());
+        }
+
+        private void OnToStart(ClickEvent _event)
+        {
+            LoadMenu();
         }
 
         private void OnAttack(ClickEvent _event)
@@ -235,26 +368,47 @@ namespace UIHandlers
         [Rpc(SendTo.Everyone)]
         private void StartGameRpc()
         {
-            _document.rootVisualElement.Query("pregame-buttons").First().style.display = DisplayStyle.None;
-            _document.rootVisualElement.Query("game-buttons").First().style.display = DisplayStyle.Flex;
+            HideVisualElement(_document.rootVisualElement.Query("pregame-buttons").First());
+            ShowVisualElement(_document.rootVisualElement.Query("game-buttons").First());
+
             onGameStart.Invoke();
             _inPregame = false;
+
+            ShowAttackTutorialRpc();
+        }
+
+        [Rpc(SendTo.Me)]
+        private void ShowAttackTutorialRpc()
+        {
+            _document.rootVisualElement.Query("attack-tutorial").First().RegisterCallbackOnce<TransitionEndEvent>(OnAttackTutorialFadeEnd);
+
+            OnTutorialClose += OnAttackTutorialFadeEnd;
+
+            ShowVisualElement(_document.rootVisualElement.Query("attack-tutorial").First());
+            StartCoroutine(FadeOutTutorial(_document.rootVisualElement.Query("attack-tutorial").First()));
+        }
+
+        private void OnAttackTutorialFadeEnd(TransitionEndEvent _event)
+        {
+            OnTutorialClose -= OnAttackTutorialFadeEnd;
+
+            ShowVisualElement(_document.rootVisualElement.Query("torpedo-tutorial").First());
+            StartCoroutine(FadeOutTutorial(_document.rootVisualElement.Query("torpedo-tutorial").First()));
         }
 
         [Rpc(SendTo.Server)]
         private void SetPlayerReadyRpc()
         {
-            _readyPlayers.Value ++;
+            _readyPlayers.Value++;
 
             if (_readyPlayers.Value == _playerCount)
-            {
                 StartGameRpc();
-            }
         }
 
         public void IsReady(bool _ready)
         {
-            Button readyButton = (Button)_document.rootVisualElement.Query("ready-button");
+            Button readyButton = _document.rootVisualElement.Query<Button>("ready-button");
+
             readyButton.SetEnabled(_ready);
         }
 
@@ -287,6 +441,13 @@ namespace UIHandlers
             {
                 GetCellButton(_targetCell).UnregisterCallback<ClickEvent, byte>(SetTargetCell);
             }
+        }
+
+        private void CloseTutorial(ClickEvent _event, VisualElement _visualElement)
+        {
+            _visualElement.parent.style.display = DisplayStyle.None;
+
+            OnTutorialClose.Invoke(null);
         }
     }
 }

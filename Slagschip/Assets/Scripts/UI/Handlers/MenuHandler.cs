@@ -3,7 +3,6 @@ using System.Text.RegularExpressions;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UIElements;
-using WebSocketSharp;
 
 namespace UIHandlers
 {
@@ -12,7 +11,6 @@ namespace UIHandlers
     {
         private UIDocument _document;
 
-        [SerializeField] private SceneLoader sceneLoader;
         [SerializeField] private string loadingScene;
 
         [SerializeField] private UnityEngine.UI.Button quickPlayButton;
@@ -34,7 +32,7 @@ namespace UIHandlers
 
         private void OnQuickPlay(ClickEvent _event)
         {
-            sceneLoader.LoadScene(loadingScene, false);
+            SceneLoader.instance.LoadScene(loadingScene);
 
             quickPlayButton.onClick.Invoke();
         }
@@ -50,7 +48,7 @@ namespace UIHandlers
 
             playCodeInputField.text = _playCodeTextField.value;
 
-            _document.rootVisualElement.Query("play-code-button").First().SetEnabled(!_playCodeTextField.value.IsNullOrEmpty());
+            _document.rootVisualElement.Query("play-code-button").First().SetEnabled(_playCodeTextField.value.Length == 6);
         }
 
         private void OnPlayCodeInputSubmitted(ClickEvent _event)
@@ -60,8 +58,8 @@ namespace UIHandlers
 
         private void OnCredits(ClickEvent _event)
         {
-            _document.rootVisualElement.Query("start-screen").First().style.display = DisplayStyle.None;
-            _document.rootVisualElement.Query("credits-screen").First().style.display = DisplayStyle.Flex;
+            _document.rootVisualElement.Query("start-screen").First().style.visibility = Visibility.Hidden;
+            _document.rootVisualElement.Query("credits-screen").First().style.visibility = Visibility.Visible;
         }
 
         private void OnQuit(ClickEvent _event)
@@ -71,18 +69,18 @@ namespace UIHandlers
 
         private void OnBack(ClickEvent _event)
         {
-            _document.rootVisualElement.Query("credits-screen").First().style.display = DisplayStyle.None;
-            _document.rootVisualElement.Query("start-screen").First().style.display = DisplayStyle.Flex;
+            _document.rootVisualElement.Query("credits-screen").First().style.visibility = Visibility.Hidden;
+            _document.rootVisualElement.Query("start-screen").First().style.visibility = Visibility.Visible;
         }
 
         public void TogglePlayCodeError(bool _isVisible)
         {
-            _document.rootVisualElement.Query("error-screen").First().style.display = _isVisible ? DisplayStyle.Flex : DisplayStyle.None;
+            _document.rootVisualElement.Query("error-screen").First().style.visibility = _isVisible ? Visibility.Visible : Visibility.Hidden;
         }
 
         private void TogglePlayCodeError(ClickEvent _event)
         {
-            _document.rootVisualElement.Query("error-screen").First().style.display = DisplayStyle.None;
+            _document.rootVisualElement.Query("error-screen").First().style.visibility = Visibility.Hidden;
         }
     }
 }
