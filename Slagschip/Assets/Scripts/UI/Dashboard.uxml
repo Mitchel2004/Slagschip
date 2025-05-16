@@ -1,72 +1,21 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/Scripts/UI/StyleSheets/Dashboard.uss?fileID=7433441132597879392&amp;guid=2b82aa7426e41f742a50ecfb83b639cc&amp;type=3#Dashboard" />
-    <ui:VisualElement name="dashboard-holder" style="align-items: center;">
-        <ui:VisualElement name="dashboard" style="position: relative; align-self: flex-end; top: 0;">
-            <ui:Button text="Menu" name="menu-button" />
-            <ui:VisualElement name="grid-container" />
-            <ui:VisualElement name="horizontal-lr-grid-container" />
-            <ui:VisualElement name="horizontal-rl-grid-container" />
-            <ui:VisualElement name="vertical-tb-grid-container" />
-            <ui:VisualElement name="vertical-bt-grid-container" />
-            <ui:VisualElement name="game-buttons">
-                <ui:Button name="attack-button" enabled="false" />
-                <ui:VisualElement name="attack-tutorial" class="tutorial-pop-up" style="position: absolute; bottom: -1px; left: -306px; transition-delay: 15s;">
-                    <ui:Label text="wAnneer het jouW beurt iS, &#10;kAn je op het rASter kieZen &#10;WAAr je Wilt AAnvAllen. &#10;Klik op deZe knop &#10;om een rAket Af te vuren." style="margin-right: 16px; margin-left: 16px;" />
-                    <ui:Button text="×" class="close-tutorial-button" style="right: 10px; top: 10px;" />
-                </ui:VisualElement>
-                <ui:Button text="0" name="torpedo-button" />
-                <ui:VisualElement name="torpedo-tutorial" class="tutorial-pop-up" style="position: absolute; left: -80px; bottom: 120px; transition-delay: 15s;">
-                    <ui:Label text="Torpedo&apos;S ontvAng je WAnneer &#10;je een Schip verlieSt. &#10;DeZe kAn je gebruiken in plAAtS vAn &#10;een normAle AAnvAl." />
-                    <ui:Button text="×" class="close-tutorial-button" style="right: 10px; top: 10px;" />
-                </ui:VisualElement>
-            </ui:VisualElement>
-            <ui:VisualElement name="pregame-buttons" style="visibility: visible;">
-                <ui:Button text="0" name="naval-mine-button" enabled="false" />
-                <ui:VisualElement name="naval-mine-tutorial" class="tutorial-pop-up" style="position: absolute; bottom: 7px; left: -349px;">
-                    <ui:Label text="Met Zeemijnen kAn je &#10;Schepen rAken AlS Ze niet &#10;ontSchAdelijk Worden gemAAkt. &#10;PlAAtS Ze tActiSch op het rASter." />
-                    <ui:Button text="×" class="close-tutorial-button" style="right: 10px; top: 10px;" />
-                </ui:VisualElement>
-                <ui:Button text="KlAAr" name="ready-button" enabled="false" style="-unity-text-align: middle-center;" />
-            </ui:VisualElement>
-            <ui:VisualElement name="grid-cover" />
+    <ui:VisualElement name="dashboard">
+        <ui:Button text="Menu" name="menu-button" />
+        <ui:VisualElement name="grid-container" />
+        <ui:VisualElement name="horizontal-lr-grid-container" />
+        <ui:VisualElement name="horizontal-rl-grid-container" />
+        <ui:VisualElement name="vertical-tb-grid-container" />
+        <ui:VisualElement name="vertical-bt-grid-container" />
+        <ui:VisualElement style="flex-direction: row; bottom: -51px; position: absolute; align-self: center; width: 100%; justify-content: space-evenly;">
+            <ui:Button name="attack-button" enabled="false" />
+            <ui:Button text="0" name="sea-mine-button" />
+            <ui:Button text="0" name="torpedo-button" />
         </ui:VisualElement>
-        <ui:Label text="Druk op &apos;Q&apos; of &apos;e&apos; om een Schip te drAAien. &#10;Klik op een Schip om het &#10;te plAAtSen of op te pAkken." name="rotate-tutorial" class="tutorial-pop-up" style="position: absolute; top: 128px; transition-delay: 10s;" />
-        <ui:VisualElement name="torpedo-received-tutorial" class="tutorial-pop-up" style="position: absolute; right: 456px;">
-            <ui:Label text="Je hebt een torpedo gekregen!&#10;&#10;Klik op de torpedo-knop &#10;om in torpedomoduS te gAAn, &#10;en klik op de vuur-knop &#10;om de torpedo in de &#10;geSelecteerde richting Af te vuren.&#10;&#10;Druk op &apos;R&apos; om de oriëntAtie &#10;vAn de torpedo te verAnderen." />
-            <ui:Button text="×" class="close-tutorial-button" style="right: 10px; top: 10px;" />
-        </ui:VisualElement>
+        <ui:VisualElement name="grid-cover" />
     </ui:VisualElement>
-    <ui:VisualElement style="position: absolute; margin-top: 32px; align-self: center; align-items: center; padding-top: 16px; padding-right: 16px; padding-bottom: 16px; padding-left: 16px;">
-        <ui:VisualElement style="flex-direction: row;">
-            <ui:Label text="TeAm" class="team-information" />
-            <ui:Label text="AlfA/BrAvo" name="team-name" class="team-information" />
-        </ui:VisualElement>
-        <ui:VisualElement style="flex-direction: row;">
-            <ui:Label text="TeAm" class="team-information" style="font-size: 24px;" />
-            <ui:Label text="AlfA" name="turn-team-name" class="team-information team-alfa" />
-            <ui:Label text="AAn Zet" class="team-information" style="font-size: 24px; margin-right: 0;" />
-        </ui:VisualElement>
-    </ui:VisualElement>
-    <ui:Button text="------" name="play-code" />
-    <ui:Label text="Klik op de code &#10;om het te kopiëren." name="play-code-tutorial" class="tutorial-pop-up" style="left: 32px; top: 128px; transition-delay: 5s; position: absolute;" />
     <ui:VisualElement name="turn-screen">
-        <ui:VisualElement name="turn-information">
-            <ui:Label text="TeAm" class="turn-text" />
-            <ui:Label text="AlfA/BrAvo" name="team-text" class="turn-text" />
-            <ui:Label text="iS AAn Zet" class="turn-text" />
-        </ui:VisualElement>
-    </ui:VisualElement>
-    <ui:VisualElement name="pause-screen" style="flex-grow: 1;">
-        <ui:VisualElement name="pause-pop-up">
-            <ui:Label text="Menu" style="-unity-font-definition: url(&quot;project://database/Assets/Art/Fonts/PulseRifle.ttf?fileID=12800000&amp;guid=67c88df0693e9e14d86c2ea179049521&amp;type=3#PulseRifle&quot;); font-size: 32px; color: rgb(255, 255, 255); -unity-text-align: upper-center; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; margin-top: 8px; margin-right: 0; margin-bottom: 32px; margin-left: 0;" />
-            <ui:Button text="HervAtten" name="resume-button" class="pause-button" style="margin-bottom: 32px;" />
-            <ui:Button text="Opgeven" name="give-up-button" class="pause-button" />
-        </ui:VisualElement>
-    </ui:VisualElement>
-    <ui:VisualElement name="disconnected-screen" style="flex-grow: 1;">
-        <ui:VisualElement name="disconnected-pup-up" style="flex-grow: 1;">
-            <ui:Label text="Het Andere teAm heeft opgegeven!&#10;Gefeliciteerd met de WinSt!" style="font-size: 32px; -unity-font-definition: url(&quot;project://database/Assets/Art/Fonts/PulseRifle.ttf?fileID=12800000&amp;guid=67c88df0693e9e14d86c2ea179049521&amp;type=3#PulseRifle&quot;); color: rgb(255, 255, 255); -unity-text-align: upper-center; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; margin-top: 0; margin-right: 0; margin-bottom: 32px; margin-left: 0;" />
-            <ui:Button text="NAAr StArt" name="to-start-button" class="pause-button" />
-        </ui:VisualElement>
+        <ui:VisualElement name="your-turn" />
+        <ui:VisualElement name="their-turn" />
     </ui:VisualElement>
 </ui:UXML>

@@ -1,9 +1,9 @@
 using FX;
 using PlayerGrid;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 namespace Ships
 {
@@ -14,7 +14,6 @@ namespace Ships
         public UnityEvent onPlace;
         public UnityEvent onClick;
         public UnityEvent onStartMove;
-        public bool dismantleMines;
 
         public Vector2Int position;
 
@@ -23,23 +22,20 @@ namespace Ships
         private System.Action<InputAction.CallbackContext> _rotateLeftAction;
         private System.Action<InputAction.CallbackContext> _rotateRightAction;
 
-        private bool[] _hits;
-
         [SerializeField] private FXSystem[] effects;
 
-        public UnityEvent<ShipBehaviour> OnClear { get; set; } = new UnityEvent<ShipBehaviour>();
+        public UnityEvent<ShipBehaviour> OnClear { get; set; }
 
         private void Start()
         {
             InitializeEvents();
-
-            _hits = new bool[shape.offsets.Length];
         }
 
         private void InitializeEvents()
         {
-            _rotateLeft = InputSystem.actions.FindAction("RotateLeft");
-            _rotateRight = InputSystem.actions.FindAction("RotateRight");       
+            InputActionAsset actions = FindFirstObjectByType<PlayerInput>().actions;
+            _rotateLeft = actions.FindAction("RotateLeft");
+            _rotateRight = actions.FindAction("RotateRight");       
 
             _rotateLeftAction += context => {
                 Rotate(new Vector3(0, -90, 0));
@@ -47,6 +43,8 @@ namespace Ships
             _rotateRightAction += context => {
                 Rotate(new Vector3(0, 90, 0));
             };
+
+            OnClear = new UnityEvent<ShipBehaviour>();  
 
             Selectable();
         }
@@ -93,9 +91,9 @@ namespace Ships
 
         private void Selectable()
         {
-            GridHandler.instance.OnHover.RemoveListener(SetEnabled);
-            GridHandler.instance.OnMove.RemoveListener(MoveTo);
-            GridHandler.instance.OnValidate.RemoveListener(Validate);
+            GridHandler.instance.onHit.RemoveListener(SetEnabled);
+            GridHandler.instance.onMove.RemoveListener(MoveTo);
+            GridHandler.instance.onValidate.RemoveListener(Validate);
 
             onStartMove.AddListener(ResetRotation);
 
@@ -117,9 +115,9 @@ namespace Ships
 
             OnClear.Invoke(this);
 
-            GridHandler.instance.OnHover.AddListener(SetEnabled);
-            GridHandler.instance.OnMove.AddListener(MoveTo);
-            GridHandler.instance.OnValidate.AddListener(Validate);
+            GridHandler.instance.onHit.AddListener(SetEnabled);
+            GridHandler.instance.onMove.AddListener(MoveTo);
+            GridHandler.instance.onValidate.AddListener(Validate);
 
             _rotateLeft.started += _rotateLeftAction;
             _rotateRight.started += _rotateRightAction;
@@ -133,9 +131,9 @@ namespace Ships
                 
             GridHandler.instance.Ship = null;
 
-            GridHandler.instance.OnHover.RemoveListener(SetEnabled);
-            GridHandler.instance.OnMove.RemoveListener(MoveTo);
-            GridHandler.instance.OnValidate.RemoveListener(Validate);
+            GridHandler.instance.onHit.RemoveListener(SetEnabled);
+            GridHandler.instance.onMove.RemoveListener(MoveTo);
+            GridHandler.instance.onValidate.RemoveListener(Validate);
 
             onClick.RemoveListener(Placed);
             onClick.AddListener(TryMove);
@@ -144,22 +142,6 @@ namespace Ships
             _rotateRight.started -= _rotateRightAction;
 
             //_material.color = new Color(0.5f, 0.5f, 0.5f);  
-        }
-
-        public void Hit(Vector2Int _attackPosition)
-        {
-            _hits[shape[_attackPosition - position]] = true;
-            FindEffectOnOffset(_attackPosition - position).Play();
-        }
-
-        public bool IsHitAtPoint(Vector2Int _attackPosition)
-        {
-            return _hits[shape[_attackPosition - position]];
-        }
-
-        public void Lock()
-        {
-            onClick.RemoveAllListeners();
         }
         
         public FXSystem FindEffectOnOffset(Vector2Int _offset)
