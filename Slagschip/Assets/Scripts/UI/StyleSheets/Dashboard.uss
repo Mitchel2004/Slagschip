@@ -32,6 +32,8 @@
     top: 53px;
     position: absolute;
     right: 22px;
+    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Radar%20Animation/Radar.renderTexture?fileID=8400000&guid=c77ddc032ea85ee4cb0e58e741e3cfe8&type=2#Radar");
+    -unity-background-image-tint-color: rgba(255, 255, 255, 0.5);
 }
 
 #horizontal-lr-grid-container {

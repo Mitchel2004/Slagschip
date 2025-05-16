@@ -8,6 +8,7 @@
             <ui:VisualElement name="horizontal-rl-grid-container" />
             <ui:VisualElement name="vertical-tb-grid-container" />
             <ui:VisualElement name="vertical-bt-grid-container" />
+            <ui:VisualElement name="grid-cover" />
             <ui:VisualElement name="game-buttons">
                 <ui:Button name="attack-button" enabled="false" />
                 <ui:VisualElement name="attack-tutorial" class="tutorial-pop-up" style="position: absolute; bottom: -1px; left: -306px; transition-delay: 15s;">
@@ -28,7 +29,6 @@
                 </ui:VisualElement>
                 <ui:Button text="KlAAr" name="ready-button" enabled="false" style="-unity-text-align: middle-center;" />
             </ui:VisualElement>
-            <ui:VisualElement name="grid-cover" />
         </ui:VisualElement>
         <ui:Label text="Druk op &apos;Q&apos; of &apos;e&apos; om een Schip te drAAien. &#10;Klik op een Schip om het &#10;te plAAtSen of op te pAkken." name="rotate-tutorial" class="tutorial-pop-up" style="position: absolute; top: 128px; transition-delay: 10s;" />
         <ui:VisualElement name="torpedo-received-tutorial" class="tutorial-pop-up" style="position: absolute; right: 456px;">

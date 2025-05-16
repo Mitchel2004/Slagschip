@@ -447,7 +447,7 @@ namespace UIHandlers
         {
             _visualElement.parent.style.display = DisplayStyle.None;
 
-            OnTutorialClose.Invoke(null);
+            OnTutorialClose?.Invoke(null);
         }
     }
 }
