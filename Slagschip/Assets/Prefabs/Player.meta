@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Slagschip/Assets/Art/VFX/WaterExplosion/Textures.meta
+guid: c9a105ca39fad7b4c995cdb65cc4edbc
+========
 guid: bd730317ec8c35546af2735220fe6f6c
+>>>>>>>> develop:Slagschip/Assets/Prefabs/Player.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

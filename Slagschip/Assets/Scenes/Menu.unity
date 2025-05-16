@@ -1859,7 +1859,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a41506e656517ff4894199cc31fcd670, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneLoader: {fileID: 1395624746}
   loadingScene: LoadingMain
   quickPlayButton: {fileID: 801041813}
   playCodeInputField: {fileID: 726599057}

@@ -8,7 +8,6 @@ using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using Utilities;
 using Utilities.Generic;
-using static UnityEditor.PlayerSettings;
 
 namespace PlayerGrid
 {
