@@ -54,7 +54,7 @@ namespace Ships
 
         private void SetEnabled(bool enabled)
         {
-            //_renderer.enabled = enabled;
+            indicator.gameObject.SetActive(enabled);
         }
 
         private void MoveTo(Vector3 position)
@@ -75,14 +75,15 @@ namespace Ships
         {
             if (_isOnGrid)
             {
-                //_material.color = Color.green;
+                indicator.SetActive();
 
                 onClick.RemoveListener(Placed);
                 onClick.AddListener(Placed);
             }
             else
             {
-                //_material.color = Color.red;
+                indicator.SetInactive();
+
                 onClick.RemoveListener(Placed);
             }
         }
@@ -144,7 +145,7 @@ namespace Ships
             _rotateLeft.started -= _rotateLeftAction;
             _rotateRight.started -= _rotateRightAction;
 
-            //_material.color = new Color(0.5f, 0.5f, 0.5f);  
+            SetEnabled(false);
         }
 
         public void Hit(Vector2Int _attackPosition)

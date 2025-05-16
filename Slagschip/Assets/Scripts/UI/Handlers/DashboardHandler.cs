@@ -208,7 +208,10 @@ namespace UIHandlers
 
             if (_inPregame)
             {
+                _document.rootVisualElement.Query<Button>("naval-mine-button").First().SetEnabled(false);
                 if (_mineTargets.Contains(_targetCell))
+                    return;
+                if (!_gridHandler.MineAllowed())
                     return;
 
                 _document.rootVisualElement.Query<Button>("naval-mine-button").First().SetEnabled(true);
