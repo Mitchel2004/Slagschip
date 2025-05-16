@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8555367840163286666}
   - component: {fileID: 1500569173189864942}
   - component: {fileID: 5824756649779264065}
+  - component: {fileID: 7317524190558638050}
   m_Layer: 0
   m_Name: JohanDeWitt
   m_TagString: Untagged
@@ -96,6 +97,28 @@ MonoBehaviour:
   - {fileID: 8027932197651947653}
   - {fileID: 4277463115081999757}
   - {fileID: 8588166141379463352}
+--- !u!95 &7317524190558638050
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2849392732881552703}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 39ee8dd19ab543f429155652be16f9c0, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &1046819401727156172
 PrefabInstance:
   m_ObjectHideFlags: 0
