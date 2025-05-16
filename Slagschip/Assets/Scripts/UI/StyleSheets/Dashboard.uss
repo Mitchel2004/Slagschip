@@ -1,3 +1,9 @@
+#dashboard-holder {
+    flex-grow: 1;
+    justify-content: center;
+    align-self: auto;
+}
+
 #dashboard {
     background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Opponent%20Dashboard%20and%20grid/OpponentGridDashboard.png?fileID=1881719252&guid=21aeff29aa88b20468c3854f01d3ee09&type=3#OpponentGridDashboard_0");
     position: absolute;
@@ -124,6 +130,14 @@
     background-color: rgba(255, 255, 255, 0);
 }
 
+.mine-grid-button {
+    margin: 0;
+    padding: 0;
+    border-width: 0;
+    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Grid%20Icons/NavalMineMarker.png?fileID=2800000&guid=ba7c2a4219d3e7148b7a1753220a99df&type=3#NavalMineMarker");
+    background-color: rgba(255, 255, 255, 0);
+}
+
 #horizontal-lr-grid-container .horizontal-grid-button:hover {
     background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Grid%20Icons/HorizontalTorpedoSelected.png?fileID=2800000&guid=88eec7743382b084188f59899177f233&type=3#HorizontalTorpedoSelected");
     background-color: rgba(255, 255, 255, 0);
@@ -167,7 +181,7 @@
     border-top-color: rgba(0, 0, 0, 0);
     border-bottom-color: rgba(0, 0, 0, 0);
     font-size: 32px;
-    -unity-font-definition: url("project://database/Assets/Art/Fonts/Pulse%20Rifle.ttf?fileID=12800000&guid=3921b8da77362b541b6dbaab39532451&type=3#Pulse Rifle");
+    -unity-font-definition: url("project://database/Assets/Art/Fonts/PulseRifle.ttf?fileID=12800000&guid=67c88df0693e9e14d86c2ea179049521&type=3#PulseRifle");
     top: -34px;
     align-self: center;
     padding-right: 32px;
@@ -187,6 +201,26 @@
     background-color: rgba(0, 0, 0, 0);
     padding-bottom: 13px;
     background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Buttons/MenuButtonPressed.png?fileID=-105710934&guid=9525cda0323c688479c89948c18df623&type=3#MenuButtonPressed_5");
+}
+
+#game-buttons {
+    bottom: -55px;
+    position: absolute;
+    visibility: hidden;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-self: center;
+    width: 100%;
+}
+
+#pregame-buttons {
+    bottom: -55px;
+    position: absolute;
+    visibility: hidden;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-self: center;
+    width: 100%;
 }
 
 #attack-button {
@@ -212,11 +246,10 @@
     border-bottom-color: rgba(0, 0, 0, 0);
 }
 
-#sea-mine-button {
-    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Buttons/SeaMineButton.png?fileID=-1748097259&guid=3acf8cd83bf90c74a81a23c19a6cf09a&type=3#SeaMineButton_0");
+#naval-mine-button {
+    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Buttons/NavalMineButton.png?fileID=-1748097259&guid=3acf8cd83bf90c74a81a23c19a6cf09a&type=3#NavalMineButton_0");
     width: 100px;
     height: 109px;
-    display: none;
     padding-bottom: 16px;
     -unity-text-align: lower-left;
     font-size: 16px;
@@ -226,11 +259,12 @@
     border-right-color: rgba(0, 0, 0, 0);
     border-top-color: rgba(0, 0, 0, 0);
     border-bottom-color: rgba(0, 0, 0, 0);
-    -unity-font-definition: url("project://database/Assets/Art/Fonts/Seven%20Segment.ttf?fileID=12800000&guid=d50cfcbf6199f4449a2f67056ef83161&type=3#Seven Segment");
+    -unity-font-definition: url("project://database/Assets/Art/Fonts/SevenSegment.ttf?fileID=12800000&guid=554869fa8935f544bb407948d22dc3f9&type=3#SevenSegment");
+    left: 15px;
 }
 
-#sea-mine-button:active {
-    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Buttons/SeaMineButtonPressed.png?fileID=760942414&guid=7e5552311fba8d14097ac9b96117faf5&type=3#SeaMineButtonPressed_0");
+#naval-mine-button:active {
+    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Buttons/NavalMineButtonPressed.png?fileID=760942414&guid=7e5552311fba8d14097ac9b96117faf5&type=3#NavalMineButtonPressed_0");
     padding-top: 3px;
     padding-bottom: 13px;
     border-left-color: rgba(0, 0, 0, 0);
@@ -255,7 +289,7 @@
     border-right-color: rgba(0, 0, 0, 0);
     border-top-color: rgba(0, 0, 0, 0);
     border-bottom-color: rgba(0, 0, 0, 0);
-    -unity-font-definition: url("project://database/Assets/Art/Fonts/Seven%20Segment.ttf?fileID=12800000&guid=d50cfcbf6199f4449a2f67056ef83161&type=3#Seven Segment");
+    -unity-font-definition: url("project://database/Assets/Art/Fonts/SevenSegment.ttf?fileID=12800000&guid=554869fa8935f544bb407948d22dc3f9&type=3#SevenSegment");
 }
 
 #torpedo-button:active {
@@ -270,38 +304,240 @@
     -unity-text-outline-color: rgba(0, 0, 0, 0);
 }
 
+#naval-mine-button {
+    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Buttons/NavalMineButton.png?fileID=-1748097259&guid=3acf8cd83bf90c74a81a23c19a6cf09a&type=3#NavalMineButton_0");
+    width: 100px;
+    height: 109px;
+    padding-bottom: 16px;
+    -unity-text-align: lower-left;
+    font-size: 16px;
+    -unity-text-outline-color: rgba(0, 0, 0, 0);
+    background-color: rgba(0, 0, 0, 0);
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    -unity-font-definition: url("project://database/Assets/Art/Fonts/SevenSegment.ttf?fileID=12800000&guid=554869fa8935f544bb407948d22dc3f9&type=3#SevenSegment");
+    left: 15px;
+    overflow: visible;
+}
+
+#naval-mine-button:active {
+    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Buttons/NavalMineButtonPressed.png?fileID=760942414&guid=7e5552311fba8d14097ac9b96117faf5&type=3#NavalMineButtonPressed_0");
+    padding-top: 3px;
+    padding-bottom: 13px;
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    -unity-text-outline-color: rgba(0, 0, 0, 0);
+    background-color: rgba(0, 0, 0, 0);
+}
+
+#ready-button {
+    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Buttons/EmptyButton.png?fileID=430277337&guid=ff7992968b1f57a488a3532787968185&type=3#EmptyButton_0");
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    background-color: rgba(0, 0, 0, 0);
+    -unity-font-definition: url("project://database/Assets/Art/Fonts/PulseRifle.ttf?fileID=12800000&guid=67c88df0693e9e14d86c2ea179049521&type=3#PulseRifle");
+    background-size: 100% 100%;
+    font-size: 25px;
+    padding-right: 16px;
+    padding-left: 16px;
+}
+
+#ready-button:active {
+    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Buttons/EmptyButtonPressed.png?fileID=-336603769&guid=15490286b6d453c47aee6c54b33fd5e7&type=3#EmptyButtonPressed_0");
+    padding-top: 19px;
+    padding-bottom: 13px;
+}
+
 #turn-screen {
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
     position: absolute;
-    display: none;
+    visibility: hidden;
     justify-content: center;
 }
 
-#your-turn {
+#turn-information {
     position: absolute;
-    background-image: url("project://database/Assets/Art/UI/Information/Turn%20Indication/YourTurnIndication.png?fileID=2800000&guid=43138bdeeca902d478e29de12a57943d&type=3#YourTurnIndication");
     left: 0;
     right: 0;
-    height: 245px;
     transition-property: opacity;
     transition-timing-function: linear;
     transition-duration: 1s;
     opacity: 0;
-    transition-delay: 1s;
+    transition-delay: 2s;
+    background-image: url("project://database/Assets/Art/UI/Information/Turn%20Indication/TurnIndication.png?fileID=468747298&guid=993e2418c306c1244ba30fd37071f106&type=3#TurnIndication_0");
+    height: 250px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
 }
 
-#their-turn {
+#team-name {
+    margin-right: 0;
+}
+
+#turn-team-name {
+    font-size: 24px;
+}
+
+#play-code {
+    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Buttons/PlayCodeButton.png?fileID=1782324807&guid=11b57b2a8662bb54fbdcbd70fdde81f3&type=3#PlayCodeButton_0");
+    -unity-font-definition: url("project://database/Assets/Art/Fonts/SevenSegment.ttf?fileID=12800000&guid=554869fa8935f544bb407948d22dc3f9&type=3#SevenSegment");
     position: absolute;
-    background-image: url("project://database/Assets/Art/UI/Information/Turn%20Indication/theirTurnIndication.png?fileID=2800000&guid=8ff31f1edf1472645ac09a0a702c869b&type=3#theirTurnIndication");
+    font-size: 32px;
+    color: rgb(0, 255, 0);
+    padding-right: 24px;
+    padding-left: 24px;
+    padding-bottom: 24px;
+    padding-top: 24px;
+    margin-top: 32px;
+    margin-left: 32px;
+    -unity-text-outline-color: rgba(0, 0, 0, 0);
+    background-color: rgba(0, 0, 0, 0);
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+}
+
+.turn-text {
+    font-size: 32px;
+    -unity-font-definition: url("project://database/Assets/Art/Fonts/PulseRifle.ttf?fileID=12800000&guid=67c88df0693e9e14d86c2ea179049521&type=3#PulseRifle");
+    -unity-text-align: upper-center;
+    color: rgb(255, 255, 255);
+    margin-top: 0;
+    margin-right: 10px;
+    margin-bottom: 0;
+    margin-left: 0;
+}
+
+.team-information {
+    margin-top: 0;
+    margin-right: 10px;
+    margin-bottom: 0;
+    margin-left: 0;
+    -unity-font-definition: url("project://database/Assets/Art/Fonts/PulseRifle.ttf?fileID=12800000&guid=67c88df0693e9e14d86c2ea179049521&type=3#PulseRifle");
+    font-size: 32px;
+    -unity-text-align: upper-center;
+    color: rgb(255, 255, 255);
+}
+
+.team-alfa {
+    color: rgb(255, 0, 0);
+}
+
+.team-bravo {
+    color: rgb(0, 64, 255);
+}
+
+#pause-screen {
+    position: absolute;
+    visibility: hidden;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    align-items: center;
+    justify-content: center;
+}
+
+#pause-pop-up {
+    background-image: url("project://database/Assets/Art/UI/PauzeScreen/PauseScreenBackground.png?fileID=-2096421328&guid=38aa389c1393d464ca18ff06bdffd634&type=3#PauseScreenBackground_0");
+    position: absolute;
+    padding-top: 32px;
+    padding-right: 128px;
+    padding-bottom: 64px;
+    padding-left: 128px;
+}
+
+.pause-button {
+    margin: 32px;
+    -unity-font-definition: url("project://database/Assets/Art/Fonts/PulseRifle.ttf?fileID=12800000&guid=67c88df0693e9e14d86c2ea179049521&type=3#PulseRifle");
+    font-size: 32px;
+    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Buttons/EmptyButton.png?fileID=430277337&guid=ff7992968b1f57a488a3532787968185&type=3#EmptyButton_0");
+    padding-top: 16px;
+    padding-bottom: 24px;
+    background-color: rgba(0, 0, 0, 0);
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    -unity-text-outline-color: rgba(0, 0, 0, 0);
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+}
+
+#disconnected-screen {
+    position: absolute;
+    top: 0;
     left: 0;
     right: 0;
-    height: 245px;
+    bottom: 0;
+    align-items: center;
+    justify-content: center;
+    visibility: hidden;
+}
+
+#disconnected-pup-up {
+    position: absolute;
+    background-image: url("project://database/Assets/Art/UI/PauzeScreen/PauseScreenBackground.png?fileID=-2096421328&guid=38aa389c1393d464ca18ff06bdffd634&type=3#PauseScreenBackground_0");
+    padding-top: 32px;
+    padding-right: 32px;
+    padding-bottom: 32px;
+    padding-left: 32px;
+}
+
+.close-tutorial-button {
+    position: absolute;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    -unity-font-definition: url("project://database/Assets/Art/Fonts/PulseRifle.ttf?fileID=12800000&guid=67c88df0693e9e14d86c2ea179049521&type=3#PulseRifle");
+    font-size: 16px;
+    padding-top: 2px;
+    padding-right: 4px;
+    padding-bottom: 3px;
+    padding-left: 5px;
+    background-image: url("project://database/Assets/Art/UI/PauzeScreen/PauseScreenBackground.png?fileID=-2096421328&guid=38aa389c1393d464ca18ff06bdffd634&type=3#PauseScreenBackground_0");
+    -unity-background-image-tint-color: rgb(255, 0, 0);
+    background-color: rgba(0, 0, 0, 0);
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    -unity-text-outline-color: rgba(0, 0, 0, 0);
+    color: rgb(255, 255, 255);
+    -unity-text-align: upper-center;
+}
+
+.tutorial-pop-up {
+    -unity-font-definition: url("project://database/Assets/Art/Fonts/PulseRifle.ttf?fileID=12800000&guid=67c88df0693e9e14d86c2ea179049521&type=3#PulseRifle");
+    color: rgb(255, 255, 255);
+    font-size: 16px;
+    background-image: url("project://database/Assets/Art/UI/PauzeScreen/PauseScreenBackground.png?fileID=-2096421328&guid=38aa389c1393d464ca18ff06bdffd634&type=3#PauseScreenBackground_0");
+    padding-top: 16px;
+    padding-right: 16px;
+    padding-bottom: 16px;
+    padding-left: 16px;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
     transition-property: opacity;
-    transition-duration: 1s;
     transition-timing-function: linear;
-    opacity: 0;
-    transition-delay: 1s;
+    transition-duration: 1s;
+    -unity-text-align: upper-center;
+    visibility: hidden;
 }

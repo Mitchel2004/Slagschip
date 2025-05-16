@@ -25,7 +25,9 @@ Material:
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
-  m_InvalidKeywords: []
+  m_InvalidKeywords:
+  - _RECEIVE_SHADOWS_OFF
+  - _SURFACE_TYPE_TRANSPARENT
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -55,6 +57,13 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _AlphaClip: 1
+    - _AlphaToMask: 0
+    - _Blend: 0
+    - _BlendModePreserveSpecular: 0
+    - _CastShadows: 0
+    - _Cull: 2
+    - _DstBlend: 10
     - _FoamAmount: 1.09
     - _FoamCutoff: 1.02
     - _FoamScale: 6.11
@@ -62,6 +71,7 @@ Material:
     - _NormalStrength: 1
     - _QueueControl: 0
     - _QueueOffset: 0
+    - _ReceiveShadows: 0
     - _RefractionScale: 0.2
     - _RefractionSpeed: 0.05
     - _RippleAmount: 0.3
@@ -69,14 +79,20 @@ Material:
     - _RippleScale: 1
     - _RippleSpeed: 0.36
     - _RippleThickness: 0.02
+    - _SrcBlend: 5
+    - _Surface: 1
     - _WaterDepth: 1
     - _WaveHeight: 0.17
     - _WaveSpeed: 1
+    - _WorkflowMode: 1
+    - _ZTest: 4
+    - _ZWrite: 0
+    - _ZWriteControl: 0
     m_Colors:
-    - _DeepWater: {r: 0, g: 0.1563685, b: 0.3215685, a: 0.87058824}
+    - _DeepWater: {r: 0, g: 0.15636843, b: 0.32156843, a: 0.87058824}
     - _FoamColor: {r: 1, g: 1, b: 1, a: 1}
     - _RiplesColor: {r: 0.18823418, g: 0.35578573, b: 0.8490566, a: 0}
-    - _RipplesColor: {r: 0.21078674, g: 0.3518479, b: 0.5849056, a: 0.15686275}
-    - _ShallowWater: {r: 0.023584902, g: 0.6813803, b: 1, a: 0.36078432}
+    - _RipplesColor: {r: 0.2107867, g: 0.35184783, b: 0.5849056, a: 1}
+    - _ShallowWater: {r: 0.023584902, g: 0.6813803, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
