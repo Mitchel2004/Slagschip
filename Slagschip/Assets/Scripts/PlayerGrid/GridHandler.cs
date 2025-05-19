@@ -19,8 +19,8 @@ namespace PlayerGrid
         private float _gridScale => transform.localScale.x;
 
         public const byte gridSize = 10;
-        private const byte _maxShips = 2;
-        public const byte _maxMines = 2;
+        private const byte _maxShips = 5;
+        private const byte _maxMines = 2;
 
         private int _mineCount;
 
@@ -318,6 +318,11 @@ namespace PlayerGrid
         public Vector3 CellWorldPosition(Vector2Int _cellPosition)
         {
             return _grid[_cellPosition.x, _cellPosition.y].worldPosition;
+        }
+
+        public bool MineAllowed()
+        {
+            return _mineCount < _maxMines;
         }
     }
 }

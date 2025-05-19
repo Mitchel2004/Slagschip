@@ -35,7 +35,7 @@ namespace ShipAttackers.Mine
         private void DismantleOrExplode()
         {
             AttackPosition = data.GridPosition;
-            if (Ship != null && Ship.dismantleMines && _dismantled)
+            if (Ship != null && Ship.dismantleMines && !_dismantled)
             {
                 _dismantled = true;
                 Destroy(this);
@@ -45,7 +45,7 @@ namespace ShipAttackers.Mine
             for (byte i = 0; i < CompassDirections.Directions; i++)
             {
                 AttackPosition = data.GridPosition + CompassDirections.DirectionToVector(startDirection);
-                if (Ship != null && Ship.dismantleMines && _dismantled)
+                if (Ship != null && Ship.dismantleMines && !_dismantled)
                 {
                     _dismantled = true;
                     return;

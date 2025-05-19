@@ -1,7 +1,12 @@
 #start-screen {
-    flex-grow: 1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    justify-content: space-evenly;
     align-items: center;
-    justify-content: center;
+    flex-direction: row;
 }
 
 #menu-buttons {
