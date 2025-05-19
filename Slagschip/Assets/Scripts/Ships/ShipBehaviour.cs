@@ -67,10 +67,6 @@ namespace Ships
         {
             transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + rotation);
         }
-        private void ResetRotation()
-        {
-            transform.rotation = Quaternion.Euler(Vector3.zero);
-        }
 
         private void Validate(bool _isOnGrid)
         {
@@ -100,8 +96,6 @@ namespace Ships
             GridHandler.instance.OnMove.RemoveListener(MoveTo);
             GridHandler.instance.OnValidate.RemoveListener(Validate);
 
-            onStartMove.AddListener(ResetRotation);
-
             onClick.RemoveListener(Selectable);
             onClick.AddListener(TryMove);
 
@@ -120,7 +114,6 @@ namespace Ships
         public void Moveable()
         {
             onStartMove.Invoke();
-            onStartMove.RemoveListener(ResetRotation);
 
             OnClear.Invoke(this);
 

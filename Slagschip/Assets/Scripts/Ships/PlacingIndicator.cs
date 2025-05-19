@@ -78,6 +78,7 @@ namespace Ships
         public void GenerateMesh()
         {
             _mesh = new Mesh();
+            _mesh.name = "Indicator";
 
             _mesh.vertices = new Vector3[] {
             new Vector3(-depth / 2, thickness / 2, width / 2),
