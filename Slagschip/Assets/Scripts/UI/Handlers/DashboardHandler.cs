@@ -207,12 +207,12 @@ namespace UIHandlers
             if (IsHost)
             {
                 _document.rootVisualElement.Query("team-name").First().AddToClassList("team-alfa");
-                _document.rootVisualElement.Query<Label>("team-name").First().text = "AlfA";
+                _document.rootVisualElement.Query<Label>("team-name").First().text = "Alfa";
             }
             else
             {
                 _document.rootVisualElement.Query("team-name").First().AddToClassList("team-bravo");
-                _document.rootVisualElement.Query<Label>("team-name").First().text = "BrAvo";
+                _document.rootVisualElement.Query<Label>("team-name").First().text = "Bravo";
             }
         }
 
@@ -291,14 +291,14 @@ namespace UIHandlers
                     _turnTeamName.AddToClassList("team-alfa");
                     _turnTeamName.RemoveFromClassList("team-bravo");
 
-                    _document.rootVisualElement.Query<Label>("turn-team-name").First().text = "AlfA";
+                    _document.rootVisualElement.Query<Label>("turn-team-name").First().text = "Alfa";
                 }
                 else
                 {
                     _turnTeamName.AddToClassList("team-bravo");
                     _turnTeamName.RemoveFromClassList("team-alfa");
 
-                    _document.rootVisualElement.Query<Label>("turn-team-name").First().text = "BrAvo";
+                    _document.rootVisualElement.Query<Label>("turn-team-name").First().text = "Bravo";
                 }
 
                 _turnInformation.style.opacity = 0;
@@ -325,14 +325,14 @@ namespace UIHandlers
                 _teamText.AddToClassList("team-alfa");
                 _teamText.RemoveFromClassList("team-bravo");
 
-                _document.rootVisualElement.Query<Label>("team-text").First().text = "AlfA";
+                _document.rootVisualElement.Query<Label>("team-text").First().text = "Alfa";
             }
             else
             {
                 _teamText.AddToClassList("team-bravo");
                 _teamText.RemoveFromClassList("team-alfa");
 
-                _document.rootVisualElement.Query<Label>("team-text").First().text = "BrAvo";
+                _document.rootVisualElement.Query<Label>("team-text").First().text = "Bravo";
             }
 
             _document.rootVisualElement.Query("turn-information").First().style.opacity = 1;
