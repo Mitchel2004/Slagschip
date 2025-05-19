@@ -47,7 +47,20 @@
             <ui:Label text="AAn Zet" class="team-information" style="font-size: 24px; margin-right: 0;" />
         </ui:VisualElement>
     </ui:VisualElement>
+    <ui:VisualElement name="turn-screen">
+        <ui:VisualElement name="turn-information" />
+    </ui:VisualElement>
     <ui:Button text="------" name="play-code" />
+    <ui:VisualElement name="selection-container" style="flex-grow: 1;">
+        <ui:Label name="ship-label" text="Text" />
+        <ui:VisualElement name="fleet-selection" style="right: auto;">
+            <ui:Button name="ship-button-schiedam" class="ship-button" />
+            <ui:Button name="ship-button-vanamstel" class="ship-button" />
+            <ui:Button name="ship-button-vanspeijk" class="ship-button" />
+            <ui:Button name="ship-button-deruyter" class="ship-button" />
+            <ui:Button name="ship-button-johandewitt" class="ship-button" />
+        </ui:VisualElement>
+    </ui:VisualElement>
     <ui:Label text="Klik op de code &#10;om het te kopiëren." name="play-code-tutorial" class="tutorial-pop-up" style="left: 32px; top: 128px; transition-delay: 5s; position: absolute;" />
     <ui:VisualElement name="turn-screen">
         <ui:VisualElement name="turn-information">

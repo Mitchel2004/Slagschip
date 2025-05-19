@@ -543,3 +543,87 @@
     -unity-text-align: upper-center;
     visibility: hidden;
 }
+
+#selection-container {
+    width: 500px;
+    height: 140px;
+    flex-grow: 1;
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 48px;
+    margin-left: 148px;
+}
+
+#fleet-selection {
+    background-image: url("project://database/Assets/Art/UI/Fleet%20Selection/FleetSelectionBackground.png?fileID=1003578706&guid=76289cf1c86a4944b864dec5aa9a3de8&type=3#FleetSelectionBackground_0");
+    bottom: auto;
+    left: auto;
+    flex-grow: 1;
+    height: 90px;
+    width: auto;
+    position: relative;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    align-self: auto;
+}
+
+#ship-label {
+    visibility: visible;
+    flex-grow: 1;
+    flex-shrink: 1;
+    font-size: 20px;
+    color: rgb(255, 255, 255);
+    -unity-font-definition: url("project://database/Assets/Art/Fonts/PulseRifle.ttf?fileID=12800000&guid=67c88df0693e9e14d86c2ea179049521&type=3#PulseRifle");
+    -unity-text-align: middle-center;
+}
+
+#ship-button-schiedam {
+    background-image: url("project://database/Assets/Art/UI/Fleet%20Selection/SchiedamSelectionIcon.png?fileID=2800000&guid=d63c3228f7694384f96cd623af18424b&type=3#SchiedamSelectionIcon");
+    background-color: rgba(0, 0, 0, 0);
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+}
+
+#ship-button-vanamstel {
+    background-image: url("project://database/Assets/Art/UI/Fleet%20Selection/VanAmstelSelectionIcon.png?fileID=2800000&guid=1c7f129b0c422604a9ff7ea0df42fbbf&type=3#VanAmstelSelectionIcon");
+    background-color: rgba(0, 0, 0, 0);
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+}
+
+#ship-button-vanspeijk {
+    background-image: url("project://database/Assets/Art/UI/Fleet%20Selection/VanSpeijkSelectionIcon.png?fileID=2800000&guid=0208cea448889d7408bec48198ed0bc3&type=3#VanSpeijkSelectionIcon");
+    background-color: rgba(0, 0, 0, 0);
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+}
+
+#ship-button-deruyter {
+    background-image: url("project://database/Assets/Art/UI/Fleet%20Selection/DeRuyterSelectionIcon.png?fileID=2800000&guid=597ce17cf4f63d34b843e15cddcbe844&type=3#DeRuyterSelectionIcon");
+    background-color: rgba(0, 0, 0, 0);
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+}
+
+#ship-button-johandewitt {
+    background-image: url("project://database/Assets/Art/UI/Fleet%20Selection/JohanDeWittSelectionIcon.png?fileID=2800000&guid=bbf37cd6c673e504bb567e8a7608f33d&type=3#JohanDeWittSelectionIcon");
+    background-color: rgba(0, 0, 0, 0);
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+}
+
+.ship-button {
+    width: 90px;
+    height: 90px;
+}

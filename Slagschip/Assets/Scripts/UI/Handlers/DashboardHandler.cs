@@ -8,6 +8,7 @@ using UnityEngine.Events;
 using UnityEngine.UIElements;
 using Unity.Services.Multiplayer;
 using TMPro;
+using Ships;
 using SceneManagement;
 using System.Collections;
 
@@ -23,8 +24,10 @@ namespace UIHandlers
 
         [SerializeField] private string loadingScene;
         [SerializeField] private GridHandler _gridHandler;
+        [SerializeField] private ShipPlacer _shipPlacer;
         [SerializeField] private TMP_Text _sessionCodeText;
         [SerializeField] private UnityEngine.UI.Button _copySessionCode;
+        [SerializeField] private string[] shipIds;
         [SerializeField] private UnityEngine.UI.Button _leaveSessionButton;
 
         private NetworkVariable<byte> _readyPlayers = new();
@@ -60,6 +63,15 @@ namespace UIHandlers
             foreach (VisualElement _button in _document.rootVisualElement.Query(className: "close-tutorial-button").ToList())
             {
                 _button.RegisterCallback<ClickEvent, VisualElement>(CloseTutorial, _button);
+            }
+
+            for (int i = 0; i < shipIds.Length; i++)
+            {
+                _document.rootVisualElement.Query(shipIds[i]).First().RegisterCallback<ClickEvent, EShip>(PlaceShip, (EShip)i);
+                _document.rootVisualElement.Query(shipIds[i]).First().RegisterCallback<FocusEvent, EShip>(OnShipFocus, (EShip)i);
+                _document.rootVisualElement.Query(shipIds[i]).First().RegisterCallback<FocusOutEvent, EShip>(OnShipFocusLost, (EShip)i);
+                _document.rootVisualElement.Query(shipIds[i]).First().RegisterCallback<MouseOverEvent, EShip>(OnShipHover, (EShip)i);
+                _document.rootVisualElement.Query(shipIds[i]).First().RegisterCallback<MouseLeaveEvent, EShip>(OnShipHoverExit, (EShip)i);
             }
 
             _gridHandler.OnIsReady.AddListener(IsReady);
@@ -111,6 +123,71 @@ namespace UIHandlers
                 _gridButtons[_gridSize * (_gridSize + 1) + i] = _horizontalRLGridButton;
                 _gridButtons[_gridSize * (_gridSize + 2) + i] = _verticalTBGridButton;
                 _gridButtons[_gridSize * (_gridSize + 3) + i] = _verticalBTGridButton;
+            }
+        }
+        private void PlaceShip(ClickEvent _event, EShip _ship)
+        {
+            if (_shipPlacer.IsPlacing)
+                return;
+                
+            _shipPlacer.PlaceShip(_ship);
+            _shipPlacer.DonePlacing.AddListener(StopPlacing);
+
+            _document.rootVisualElement.Query<Label>("ship-label").First().style.visibility = Visibility.Visible;
+            _document.rootVisualElement.Query<Label>("ship-label").First().text = ShipName(_ship);
+
+            Button button = (Button)_event.target;
+            button.SetEnabled(false);
+        }
+        private void StopPlacing()
+        {
+            _document.rootVisualElement.Query<Label>("ship-label").First().style.visibility = Visibility.Hidden;
+        }
+        private void OnShipHover(MouseOverEvent _event, EShip _ship)
+        {
+            if (_shipPlacer.IsPlacing)
+                return;
+            _document.rootVisualElement.Query<Label>("ship-label").First().style.visibility = Visibility.Visible;
+            _document.rootVisualElement.Query<Label>("ship-label").First().text = ShipName(_ship);
+        }
+        private void OnShipHoverExit(MouseLeaveEvent _event, EShip _ship)
+        {
+            if (_shipPlacer.IsPlacing)
+                return;
+            _document.rootVisualElement.Query<Label>("ship-label").First().style.visibility = Visibility.Hidden;
+        }
+
+        private void OnShipFocus(FocusEvent _event, EShip _ship)
+        {
+            if (_shipPlacer.IsPlacing)
+                return;
+
+            _document.rootVisualElement.Query<Label>("ship-label").First().style.visibility = Visibility.Visible;
+            _document.rootVisualElement.Query<Label>("ship-label").First().text = ShipName(_ship);
+        }
+        private void OnShipFocusLost(FocusOutEvent _event, EShip _ship)
+        {
+            if (_shipPlacer.IsPlacing)
+                return;
+            _document.rootVisualElement.Query<Label>("ship-label").First().style.visibility = Visibility.Hidden;
+        }
+
+        private string ShipName(EShip _ship)
+        {
+            switch (_ship)
+            {
+                case EShip.Schiedam:
+                    return "Zr.Ms. Schiedam";
+                case EShip.VanAmstel:
+                    return "Zr.Ms. Van Amstel";
+                case EShip.VanSpeijk:
+                    return "Zr.Ms. Van Speijk";
+                case EShip.DeRuyter:
+                    return "Zr.Ms. De Ruyter";
+                case EShip.JohanDeWitt:
+                    return "Zr.Ms. Johan De Witt";
+                default:
+                    return null;
             }
         }
 
@@ -341,7 +418,10 @@ namespace UIHandlers
 
             if (_inPregame)
             {
+                _document.rootVisualElement.Query<Button>("naval-mine-button").First().SetEnabled(false);
                 if (_mineTargets.Contains(_targetCell))
+                    return;
+                if (!_gridHandler.MineAllowed())
                     return;
 
                 _document.rootVisualElement.Query<Button>("naval-mine-button").First().SetEnabled(true);

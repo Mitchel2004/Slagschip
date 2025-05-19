@@ -320,5 +320,10 @@ namespace PlayerGrid
         {
             return _grid[_cellPosition.x, _cellPosition.y].worldPosition;
         }
+
+        public bool MineAllowed()
+        {
+            return _mineCount < _maxMines;
+        }
     }
 }
