@@ -8,8 +8,8 @@
                 <ui:VisualElement style="width: 5px;" />
                 <ui:Button text="Speel" enabled="false" name="play-code-button" class="menu-button" />
             </ui:VisualElement>
-            <ui:Button text="CreditS" name="credits-button" class="menu-button" />
-            <ui:Button text="AfSluiten" name="quit-button" class="menu-button" />
+            <ui:Button text="Credits" name="credits-button" class="menu-button" />
+            <ui:Button text="Afsluiten" name="quit-button" class="menu-button" />
         </ui:VisualElement>
     </ui:VisualElement>
     <ui:VisualElement name="credits-screen">
@@ -17,7 +17,7 @@
     </ui:VisualElement>
     <ui:VisualElement name="error-screen">
         <ui:VisualElement name="error-box">
-            <ui:Label text="Speelcode beStAAt niet &#10;of lobby Zit vol!" style="margin: 0; padding: 0; -unity-font-definition: url(&quot;project://database/Assets/Art/Fonts/PulseRifle.ttf?fileID=12800000&amp;guid=67c88df0693e9e14d86c2ea179049521&amp;type=3#PulseRifle&quot;); font-size: 32px; -unity-text-align: middle-center; color: rgb(255, 255, 255); flex-grow: 1; margin-right: 32px; margin-left: 32px; margin-top: 32px;" />
+            <ui:Label text="Speelcode bestaat niet &#10;of lobby zit vol!" style="margin: 0; padding: 0; -unity-font-definition: url(&quot;project://database/Assets/Art/Fonts/PulseRifle.ttf?fileID=12800000&amp;guid=67c88df0693e9e14d86c2ea179049521&amp;type=3#PulseRifle&quot;); font-size: 32px; -unity-text-align: middle-center; color: rgb(255, 255, 255); flex-grow: 1; margin-right: 32px; margin-left: 32px; margin-top: 32px;" />
             <ui:Button text="Oké" name="ok-button" class="menu-button" />
         </ui:VisualElement>
     </ui:VisualElement>

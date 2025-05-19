@@ -20,7 +20,7 @@ namespace PlayerGrid
         private float _gridScale => transform.localScale.x;
 
         public const byte gridSize = 10;
-        private const byte _maxShips = 2;
+        private const byte _maxShips = 5;
         private const byte _maxMines = 2;
 
         private int _mineCount;
