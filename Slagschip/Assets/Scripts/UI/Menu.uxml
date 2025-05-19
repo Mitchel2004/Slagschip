@@ -1,6 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/Scripts/UI/StyleSheets/Menu.uss?fileID=7433441132597879392&amp;guid=472b280304f275a45ad0f7de17ce8d08&amp;type=3#Menu" />
     <ui:VisualElement name="start-screen">
+        <ui:VisualElement style="background-image: url(&quot;project://database/Assets/Art/Project/Icons/SlagschipLogo.png?fileID=2800000&amp;guid=262f602317f60a946ab4f32c9f3c388f&amp;type=3#SlagschipLogo&quot;); width: 200px; height: 200px;" />
         <ui:VisualElement name="menu-buttons">
             <ui:Button text="Snel Spelen" name="quick-play-button" class="menu-button" />
             <ui:VisualElement style="flex-direction: row;">
