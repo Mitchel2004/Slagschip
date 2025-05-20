@@ -207,5 +207,5 @@
     position: absolute;
     flex-shrink: 0;
     flex-grow: 1;
-    height: 1130px;
+    height: 1080px;
 }
