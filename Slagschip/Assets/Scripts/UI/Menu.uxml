@@ -12,10 +12,28 @@
             <ui:Button text="Credits" name="credits-button" class="menu-button" />
             <ui:Button text="Afsluiten" name="quit-button" class="menu-button" />
         </ui:VisualElement>
-        <ui:VisualElement style="background-image: url(&quot;project://database/Assets/Art/Project/Steve/T_Steve_01.png?fileID=21300000&amp;guid=750d6269cd332cb4f8ca60690688b48e&amp;type=3#T_Steve_01&quot;); width: 200px; height: 200px;" />
+        <ui:VisualElement style="background-image: url(&quot;project://database/Assets/Art/Project/Steve/T_Steve_01.png?fileID=2800000&amp;guid=750d6269cd332cb4f8ca60690688b48e&amp;type=3#T_Steve_01&quot;); width: 200px; height: 200px;" />
     </ui:VisualElement>
     <ui:VisualElement name="credits-screen">
-        <ui:Button text="Terug" name="back-button" class="menu-button" />
+        <ui:Button text="Terug" name="back-button" class="back-button" />
+        <ui:VisualElement name="credits-panel">
+            <ui:VisualElement name="credits-holder" class="default">
+                <ui:VisualElement name="credits">
+                    <ui:VisualElement name="devs" style="flex-grow: 1; flex-shrink: 1;">
+                        <ui:Label text="Devs" class="credits-title" />
+                        <ui:Label text="Mitchel Klijn&#10;Daan Duits" class="names" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="artists">
+                        <ui:Label text="Artists" class="credits-title" />
+                        <ui:Label text="Lino Leckie&#10;Romy Willemstijn&#10;Fiona Pronk&#10;Levy Grooteman " class="names" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="end-credits">
+                    <ui:Label text="Bedankt voor het spelen!" class="credits-title" />
+                    <ui:VisualElement style="flex-grow: 0; background-image: url(&quot;project://database/Assets/Art/UI/Credits/SteveCredits.png?fileID=2800000&amp;guid=dd8c4e775c98be54cab26fb3125807be&amp;type=3#SteveCredits&quot;); width: 300px; height: 300px; position: relative; flex-shrink: 0; bottom: 0; margin-top: 48px;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
     </ui:VisualElement>
     <ui:VisualElement name="error-screen">
         <ui:VisualElement name="error-box">
