@@ -58,6 +58,9 @@ namespace UIHandlers
             _document.rootVisualElement.Query("play-code").First().RegisterCallback<ClickEvent>(CopyPlayCode);
             _document.rootVisualElement.Query("to-start-button").First().RegisterCallback<ClickEvent>(OnToStart);
 
+            UQueryBuilder<VisualElement> leaveButtons = _document.rootVisualElement.Query("leave-button");
+            leaveButtons.ForEach(button => button.RegisterCallback<ClickEvent>(OnLeave));
+
             GridHandler.instance.OnMove.AddListener(ShowRotateTutorial);
 
             foreach (VisualElement _button in _document.rootVisualElement.Query(className: "close-tutorial-button").ToList())
@@ -367,6 +370,10 @@ namespace UIHandlers
 
             LeaveSessionRpc();
         }
+        private void OnLeave(ClickEvent _event)
+        {
+            LoadMenu();
+        }
 
         [Rpc(SendTo.ClientsAndHost)]
         private void LeaveSessionRpc()
@@ -450,6 +457,7 @@ namespace UIHandlers
         {
             HideVisualElement(_document.rootVisualElement.Query("pregame-buttons").First());
             ShowVisualElement(_document.rootVisualElement.Query("game-buttons").First());
+            HideVisualElement(_document.rootVisualElement.Query("selection-container").First());
 
             onGameStart.Invoke();
             _inPregame = false;
@@ -528,6 +536,22 @@ namespace UIHandlers
             _visualElement.parent.style.display = DisplayStyle.None;
 
             OnTutorialClose?.Invoke(null);
+        }
+
+        public void LoseScreen()
+        {
+            ShowVisualElement(_document.rootVisualElement.Query("lose-screen").First());
+            _document.rootVisualElement.Query("lose-pop-up").First().AddToClassList("appear");
+            WinScreenRPC();
+            LeaveSessionRpc();
+        }
+
+        [Rpc(SendTo.NotMe)]
+        public void WinScreenRPC()
+        {
+            ShowVisualElement(_document.rootVisualElement.Query("win-screen").First());
+            _document.rootVisualElement.Query("win-pop-up").First().AddToClassList("appear");
+            LeaveSessionRpc();
         }
     }
 }

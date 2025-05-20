@@ -7,7 +7,7 @@ namespace Multiplayer
     public class GameData : NetworkBehaviour
     {
         public static GameData instance;
-        public NetworkVariable<ulong> currentPlayerTurn = new();
+        public NetworkVariable<ulong> currentPlayerTurn = new(); 
 
         private void Awake()
         {
@@ -24,13 +24,13 @@ namespace Multiplayer
         public override void OnNetworkSpawn()
         {
             base.OnNetworkSpawn();
-            
+
             if (IsServer)
             {
                 NetworkManager.OnServerStarted += InitializePlayerTurn;
             }
         }
-        
+
         private void InitializePlayerTurn()
         {
             currentPlayerTurn.Value = NetworkManager.ConnectedClientsIds[0];
