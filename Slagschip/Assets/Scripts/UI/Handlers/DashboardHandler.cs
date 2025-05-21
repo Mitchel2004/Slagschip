@@ -59,8 +59,6 @@ namespace UIHandlers
                 {"to-start-button", OnToStart},
                 {"leave-button", OnLeave}
             });
-
-            _gridHandler.OnMove.AddListener(ShowRotateTutorial);
             _gridHandler.OnIsReady.AddListener(IsReady);
 
             _shipPlacer.DonePlacing.AddListener(HideShipLabel);
@@ -120,7 +118,6 @@ namespace UIHandlers
                 _gridButtons[GridSize * (GridSize + 3) + i] = _verticalBTGridButton;
             }
         }
-
         public override void OnNetworkSpawn()
         {
             base.OnNetworkSpawn();
@@ -137,6 +134,12 @@ namespace UIHandlers
             Query("team-name").AddToClassList(teamClass);
             var teamName = IsHost ? "Alfa" : "Bravo";
             Query<Label>("team-name").text = teamName;
+
+            if (IsHost)
+            {
+                HidePregame();
+                AwaitPlayers();
+            }
         }
 
         private void RegisterCallbacks(Dictionary<string, Action> callbacks)
@@ -171,6 +174,34 @@ namespace UIHandlers
                     btn.clicked += callbacks[btn.parent.name];
                 }
             }
+        }
+
+        private void AwaitPlayers() => StartCoroutine(WaitForPlayersRoutine());
+        private IEnumerator WaitForPlayersRoutine()
+        {
+            while (NetworkManager.ConnectedClients.Count != PlayerCount)
+                yield return null;
+
+            ShowPregame();
+            BindRotateTutorialRpc();
+        }
+        private void ShowPregame()
+        {
+            ShowElement("pregame-buttons");
+            HideElement("awaiting-players");
+            ShowElement("selection-container");
+        }
+        private void HidePregame()
+        {
+            HideElement("pregame-buttons");
+            ShowElement("awaiting-players");
+            HideElement("selection-container");
+        }
+
+        [Rpc(SendTo.Everyone)]
+        private void BindRotateTutorialRpc()
+        {
+            _gridHandler.OnMove.AddListener(ShowRotateTutorial);
         }
 
         private void TryPlaceShip(EShip ship)
