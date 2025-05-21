@@ -1,6 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/Scripts/UI/StyleSheets/Menu.uss?fileID=7433441132597879392&amp;guid=472b280304f275a45ad0f7de17ce8d08&amp;type=3#Menu" />
     <ui:VisualElement name="start-screen">
+        <ui:VisualElement style="background-image: url(&quot;project://database/Assets/Art/Project/Icons/T_SlagschipLogo.png?fileID=2800000&amp;guid=262f602317f60a946ab4f32c9f3c388f&amp;type=3#T_SlagschipLogo&quot;); width: 200px; height: 200px;" />
         <ui:VisualElement name="menu-buttons">
             <ui:Button text="Snel Spelen" name="quick-play-button" class="menu-button" />
             <ui:VisualElement style="flex-direction: row;">
@@ -8,16 +9,35 @@
                 <ui:VisualElement style="width: 5px;" />
                 <ui:Button text="Speel" enabled="false" name="play-code-button" class="menu-button" />
             </ui:VisualElement>
-            <ui:Button text="CreditS" name="credits-button" class="menu-button" />
-            <ui:Button text="AfSluiten" name="quit-button" class="menu-button" />
+            <ui:Button text="Credits" name="credits-button" class="menu-button" />
+            <ui:Button text="Afsluiten" name="quit-button" class="menu-button" />
         </ui:VisualElement>
+        <ui:VisualElement style="background-image: url(&quot;project://database/Assets/Art/Project/Steve/T_Steve_01.png?fileID=2800000&amp;guid=750d6269cd332cb4f8ca60690688b48e&amp;type=3#T_Steve_01&quot;); width: 200px; height: 200px;" />
     </ui:VisualElement>
     <ui:VisualElement name="credits-screen">
-        <ui:Button text="Terug" name="back-button" class="menu-button" />
+        <ui:Button text="Terug" name="back-button" class="back-button" />
+        <ui:VisualElement name="credits-panel">
+            <ui:VisualElement name="credits-holder" class="default">
+                <ui:VisualElement name="credits">
+                    <ui:VisualElement name="devs" style="flex-grow: 1; flex-shrink: 1;">
+                        <ui:Label text="Devs" class="credits-title" />
+                        <ui:Label text="Mitchel Klijn&#10;Daan Duits" class="names" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="artists">
+                        <ui:Label text="Artists" class="credits-title" />
+                        <ui:Label text="Lino Leckie&#10;Romy Willemstijn&#10;Fiona Pronk&#10;Levy Grooteman " class="names" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="end-credits">
+                    <ui:Label text="Bedankt voor het spelen!" class="credits-title" />
+                    <ui:VisualElement style="flex-grow: 0; background-image: url(&quot;project://database/Assets/Art/UI/Credits/SteveCredits.png?fileID=2800000&amp;guid=dd8c4e775c98be54cab26fb3125807be&amp;type=3#SteveCredits&quot;); width: 300px; height: 300px; position: relative; flex-shrink: 0; bottom: 0; margin-top: 48px;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
     </ui:VisualElement>
     <ui:VisualElement name="error-screen">
         <ui:VisualElement name="error-box">
-            <ui:Label text="Speelcode beStAAt niet &#10;of lobby Zit vol!" style="margin: 0; padding: 0; -unity-font-definition: url(&quot;project://database/Assets/Art/Fonts/PulseRifle.ttf?fileID=12800000&amp;guid=67c88df0693e9e14d86c2ea179049521&amp;type=3#PulseRifle&quot;); font-size: 32px; -unity-text-align: middle-center; color: rgb(255, 255, 255); flex-grow: 1; margin-right: 32px; margin-left: 32px; margin-top: 32px;" />
+            <ui:Label text="Speelcode bestaat niet &#10;of lobby zit vol!" style="margin: 0; padding: 0; -unity-font-definition: url(&quot;project://database/Assets/Art/Fonts/PulseRifle.ttf?fileID=12800000&amp;guid=67c88df0693e9e14d86c2ea179049521&amp;type=3#PulseRifle&quot;); font-size: 32px; -unity-text-align: middle-center; color: rgb(255, 255, 255); flex-grow: 1; margin-right: 32px; margin-left: 32px; margin-top: 32px;" />
             <ui:Button text="Oké" name="ok-button" class="menu-button" />
         </ui:VisualElement>
     </ui:VisualElement>

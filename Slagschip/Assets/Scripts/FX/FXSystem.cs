@@ -35,6 +35,14 @@ namespace FX
             }
         }
 
+        public void Stop()
+        {
+            foreach (Effect effect in effects)
+            {
+                effect.Stop();
+            }
+        }
+
         private void FillQueue()
         {
             List<Effect> currentBatch = new List<Effect>();

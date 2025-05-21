@@ -270,6 +270,11 @@ namespace UIHandlers
             SceneLoader.instance.LoadScene(loadingScene);
         }
 
+        private void OnLeave(ClickEvent _event)
+        {
+            LoadMenu();
+        }
+
         [Rpc(SendTo.ClientsAndHost)]
         private void LeaveSessionRpc()
         {
@@ -314,6 +319,7 @@ namespace UIHandlers
         {
             HideElement("pregame-buttons");
             ShowElement("game-buttons");
+            HideElement("selection-container");
 
             onGameStart.Invoke();
             _inPregame = false;
@@ -477,6 +483,22 @@ namespace UIHandlers
         private void ToggleButton(string buttonName, bool enabled)
         {
             Query(buttonName).SetEnabled(enabled);
+        }
+
+        public void LoseScreen()
+        {
+            ShowVisualElement(_document.rootVisualElement.Query("lose-screen").First());
+            _document.rootVisualElement.Query("lose-pop-up").First().AddToClassList("appear");
+            WinScreenRPC();
+            LeaveSessionRpc();
+        }
+
+        [Rpc(SendTo.NotMe)]
+        public void WinScreenRPC()
+        {
+            ShowVisualElement(_document.rootVisualElement.Query("win-screen").First());
+            _document.rootVisualElement.Query("win-pop-up").First().AddToClassList("appear");
+            LeaveSessionRpc();
         }
     }
 }

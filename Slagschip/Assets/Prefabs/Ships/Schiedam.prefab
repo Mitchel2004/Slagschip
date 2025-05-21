@@ -194,6 +194,7 @@ MonoBehaviour:
   - {fileID: 5335585120564534510}
   - {fileID: 8991569075608987916}
   indicator: {fileID: 2448786228014959103}
+  animator: {fileID: -7549734477977867810}
 --- !u!95 &-7549734477977867810
 Animator:
   serializedVersion: 7

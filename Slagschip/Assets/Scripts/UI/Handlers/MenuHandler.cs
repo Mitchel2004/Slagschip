@@ -60,6 +60,7 @@ namespace UIHandlers
         {
             _document.rootVisualElement.Query("start-screen").First().style.visibility = Visibility.Hidden;
             _document.rootVisualElement.Query("credits-screen").First().style.visibility = Visibility.Visible;
+            _document.rootVisualElement.Query("credits-holder").First().AddToClassList("scroll");
         }
 
         private void OnQuit(ClickEvent _event)
@@ -71,6 +72,7 @@ namespace UIHandlers
         {
             _document.rootVisualElement.Query("credits-screen").First().style.visibility = Visibility.Hidden;
             _document.rootVisualElement.Query("start-screen").First().style.visibility = Visibility.Visible;
+            _document.rootVisualElement.Query("credits-holder").First().RemoveFromClassList("scroll");
         }
 
         public void TogglePlayCodeError(bool _isVisible)

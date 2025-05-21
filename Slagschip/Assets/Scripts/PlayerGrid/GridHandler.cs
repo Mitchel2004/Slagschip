@@ -24,6 +24,7 @@ namespace PlayerGrid
         private const byte _maxMines = 2;
 
         private int _mineCount;
+        private int _sunkenShipsCount;
 
         private GridCell[,] _grid;
         private GridCell _current;
@@ -202,7 +203,11 @@ namespace PlayerGrid
                 _grid[x, y].isTaken = true;
             }
 
-            _ships.Add(_ship);
+            if (_ships.Add(_ship))
+            {
+                _ship.OnSink.AddListener(WinLoseCheck);
+            }
+            
             _ship.position = _current.position;
             _ship.OnClear.AddListener(Clear);
 
@@ -211,6 +216,16 @@ namespace PlayerGrid
             _ship = null;
 
             CheckReadiness();
+        }
+
+        private void WinLoseCheck()
+        {
+            _sunkenShipsCount++;
+
+            if (_sunkenShipsCount == _maxShips)
+            {
+                _dashboardHandler.LoseScreen();
+            }
         }
 
         public void Clear(ShipBehaviour _requestedShip)
