@@ -638,7 +638,7 @@ Button:enabled {
     height: 90px;
 }
 
-.win-lose-screen {
+#win-lose-screen {
     position: absolute;
     top: 0;
     left: 0;
@@ -675,4 +675,8 @@ Button:enabled {
 
 .appear {
     opacity: 1;
+}
+
+.win-lose-holder {
+    align-items: center;
 }

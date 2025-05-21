@@ -57,6 +57,7 @@ namespace UIHandlers
                 {"ready-button", Ready},
                 {"play-code", CopyPlayCode},
                 {"to-start-button", OnToStart},
+                {"leave-button", OnLeave}
             });
 
             _gridHandler.OnMove.AddListener(ShowRotateTutorial);
@@ -270,7 +271,7 @@ namespace UIHandlers
             SceneLoader.instance.LoadScene(loadingScene);
         }
 
-        private void OnLeave(ClickEvent _event)
+        private void OnLeave()
         {
             LoadMenu();
         }
@@ -467,6 +468,28 @@ namespace UIHandlers
             ToggleButton("ready-button", false);
         }
 
+
+        public void LoseScreen()
+        {
+            WinLoseScreenStyle("lose-holder");
+            WinScreenRPC();
+            LeaveSessionRpc();
+        }
+
+        [Rpc(SendTo.NotMe)]
+        public void WinScreenRPC()
+        {
+            WinLoseScreenStyle("win-holder");
+            LeaveSessionRpc();
+        }
+
+        private void WinLoseScreenStyle(string name)
+        {
+            ShowElement("win-lose-screen");
+            Query(name).style.display = DisplayStyle.Flex;
+            Query(name).AddToClassList("appear");
+        }
+
         private void CopyPlayCode() => _copySessionCode.onClick.Invoke();
 
         private void OnToStart() => LoadMenu();
@@ -483,22 +506,6 @@ namespace UIHandlers
         private void ToggleButton(string buttonName, bool enabled)
         {
             Query(buttonName).SetEnabled(enabled);
-        }
-
-        public void LoseScreen()
-        {
-            ShowVisualElement(_document.rootVisualElement.Query("lose-screen").First());
-            _document.rootVisualElement.Query("lose-pop-up").First().AddToClassList("appear");
-            WinScreenRPC();
-            LeaveSessionRpc();
-        }
-
-        [Rpc(SendTo.NotMe)]
-        public void WinScreenRPC()
-        {
-            ShowVisualElement(_document.rootVisualElement.Query("win-screen").First());
-            _document.rootVisualElement.Query("win-pop-up").First().AddToClassList("appear");
-            LeaveSessionRpc();
         }
     }
 }
