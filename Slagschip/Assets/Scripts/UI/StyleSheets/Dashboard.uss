@@ -47,6 +47,7 @@ Button:enabled {
     left: 52px;
     top: 53px;
     position: absolute;
+    flex-direction: column-reverse;
 }
 
 #horizontal-rl-grid-container {
@@ -56,10 +57,7 @@ Button:enabled {
     left: 227px;
     top: 53px;
     position: absolute;
-}
-
-#horizontal-rl-grid-container:hover {
-    align-items: flex-end;
+    flex-direction: column-reverse;
 }
 
 #vertical-tb-grid-container {
@@ -82,8 +80,26 @@ Button:enabled {
     flex-direction: row;
 }
 
-#vertical-bt-grid-container:hover {
-    align-items: flex-end;
+.torpedo-button {
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    background-color: rgba(0, 0, 0, 0);
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    -unity-text-outline-color: rgba(0, 0, 0, 0);
+    overflow: visible;
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
 }
 
 .grid-button {
@@ -104,12 +120,20 @@ Button:enabled {
     background-color: rgba(255, 255, 255, 0);
 }
 
+.selected-torpedo-button {
+    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Grid%20Icons/Selected.png?fileID=2800000&guid=a3e7cabf2c21c5141aedda060e450f3c&type=3#Selected");
+    background-color: rgba(255, 255, 255, 0);
+    background-repeat: round round;
+    background-position-x: right 0;
+    background-position-y: bottom 0;
+    background-size: 10% 100%;
+}
+
 .horizontal-grid-button {
     margin: 0;
     padding: 0;
     width: 200%;
     border-width: 0;
-    background-color: rgba(255, 255, 255, 0);
 }
 
 .vertical-grid-button {
@@ -117,7 +141,6 @@ Button:enabled {
     padding: 0;
     height: 200%;
     border-width: 0;
-    background-color: rgba(255, 255, 255, 0);
 }
 
 .hitted-grid-button {
@@ -144,7 +167,27 @@ Button:enabled {
     background-color: rgba(255, 255, 255, 0);
 }
 
-#horizontal-lr-grid-container .horizontal-grid-button:hover {
+#horizontal-lr-grid-container .selected-torpedo-button {
+    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Grid%20Icons/HorizontalDirectionArrow.png?fileID=2800000&guid=9e55da53340740349bb4a48275f39326&type=3#HorizontalDirectionArrow");
+}
+
+#horizontal-rl-grid-container .selected-torpedo-button {
+    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Grid%20Icons/HorizontalDirectionArrow.png?fileID=2800000&guid=9e55da53340740349bb4a48275f39326&type=3#HorizontalDirectionArrow");
+    scale: -1 1;
+}
+
+#vertical-tb-grid-container .selected-torpedo-button {
+    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Grid%20Icons/VerticalDirectionArrow.png?fileID=2800000&guid=d0649e7a24ec7d14ab171594bd00ef70&type=3#VerticalDirectionArrow");
+    background-size: 100% 10%;
+}
+
+#vertical-bt-grid-container .selected-torpedo-button {
+    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Grid%20Icons/VerticalDirectionArrow.png?fileID=2800000&guid=d0649e7a24ec7d14ab171594bd00ef70&type=3#VerticalDirectionArrow");
+    scale: 1 -1;
+    background-size: 100% 10%;
+}
+
+#horizontal-lr-grid-container Button:hover .horizontal-grid-button {
     background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Grid%20Icons/HorizontalTorpedoSelected.png?fileID=2800000&guid=88eec7743382b084188f59899177f233&type=3#HorizontalTorpedoSelected");
     background-color: rgba(255, 255, 255, 0);
     background-repeat: round no-repeat;
@@ -152,16 +195,17 @@ Button:enabled {
     background-position-x: right 0;
 }
 
-#horizontal-rl-grid-container .horizontal-grid-button:hover {
+#horizontal-rl-grid-container Button:hover .horizontal-grid-button {
     background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Grid%20Icons/HorizontalTorpedoSelected.png?fileID=2800000&guid=88eec7743382b084188f59899177f233&type=3#HorizontalTorpedoSelected");
     background-color: rgba(255, 255, 255, 0);
     background-repeat: round no-repeat;
     background-size: contain;
     background-position-x: left 0;
     scale: -1 1;
+    align-items: flex-end;
 }
 
-#vertical-tb-grid-container .vertical-grid-button:hover {
+#vertical-tb-grid-container Button:hover .vertical-grid-button {
     background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Grid%20Icons/VerticalTorpedoSelected.png?fileID=2800000&guid=305418762b196ef4a83b8923084c5419&type=3#VerticalTorpedoSelected");
     background-color: rgba(255, 255, 255, 0);
     background-size: contain;
@@ -169,13 +213,17 @@ Button:enabled {
     background-repeat: no-repeat round;
 }
 
-#vertical-bt-grid-container .vertical-grid-button:hover {
+#vertical-bt-grid-container Button:hover .vertical-grid-button {
     background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Grid%20Icons/VerticalTorpedoSelected.png?fileID=2800000&guid=305418762b196ef4a83b8923084c5419&type=3#VerticalTorpedoSelected");
     background-color: rgba(255, 255, 255, 0);
     background-size: contain;
     background-position-y: bottom 0;
     background-repeat: no-repeat round;
     scale: 1 -1;
+}
+
+Button:hover .fired-torpedo-button {
+    -unity-background-image-tint-color: rgba(255, 255, 255, 0.5);
 }
 
 #menu-button {
@@ -268,15 +316,12 @@ Button:enabled {
     width: 100px;
     height: 109px;
     padding-bottom: 16px;
-    -unity-text-align: lower-left;
-    font-size: 16px;
     -unity-text-outline-color: rgba(0, 0, 0, 0);
     background-color: rgba(0, 0, 0, 0);
     border-left-color: rgba(0, 0, 0, 0);
     border-right-color: rgba(0, 0, 0, 0);
     border-top-color: rgba(0, 0, 0, 0);
     border-bottom-color: rgba(0, 0, 0, 0);
-    -unity-font-definition: url("project://database/Assets/Art/Fonts/SevenSegment.ttf?fileID=12800000&guid=554869fa8935f544bb407948d22dc3f9&type=3#SevenSegment");
     left: 15px;
 }
 
@@ -296,9 +341,6 @@ Button:enabled {
     background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Buttons/TorpedoButton.png?fileID=-10070716&guid=a88edb017e4319d4ea52144b339d0c19&type=3#TorpedoButton_0");
     width: 100px;
     height: 109px;
-    display: flex;
-    -unity-text-align: lower-left;
-    font-size: 16px;
     padding-bottom: 16px;
     background-color: rgba(0, 0, 0, 0);
     -unity-text-outline-color: rgba(0, 0, 0, 0);
@@ -306,10 +348,10 @@ Button:enabled {
     border-right-color: rgba(0, 0, 0, 0);
     border-top-color: rgba(0, 0, 0, 0);
     border-bottom-color: rgba(0, 0, 0, 0);
-    -unity-font-definition: url("project://database/Assets/Art/Fonts/SevenSegment.ttf?fileID=12800000&guid=554869fa8935f544bb407948d22dc3f9&type=3#SevenSegment");
+    overflow: visible;
 }
 
-#torpedo-button:active {
+#torpedo-button.selected-torpedo-button {
     background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Buttons/TorpedoButtonPressed.png?fileID=2004213573&guid=8dc5be68b75f09444a0faaf860bbbb71&type=3#TorpedoButtonPressed_0");
     padding-top: 3px;
     padding-bottom: 13px;
@@ -565,6 +607,26 @@ Button:enabled {
     margin-left: 0;
 }
 
+.number-counter {
+    -unity-font-definition: url("project://database/Assets/Art/Fonts/SevenSegment.ttf?fileID=12800000&guid=554869fa8935f544bb407948d22dc3f9&type=3#SevenSegment");
+    color: rgb(0, 255, 0);
+    -unity-text-align: upper-center;
+    font-size: 24px;
+    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Buttons/NumberDisplay.png?fileID=734419622&guid=de80b53d4ec0ffe43abf82d1e8c9380e&type=3#NumberDisplay_0");
+    position: absolute;
+    padding-top: 4px;
+    padding-right: 0;
+    padding-bottom: 7px;
+    padding-left: 0;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    width: 100%;
+    align-self: center;
+    bottom: -37px;
+}
+
 #selection-container {
     width: 500px;
     height: 140px;
@@ -590,7 +652,7 @@ Button:enabled {
 }
 
 #ship-label {
-    visibility: visible;
+    visibility: hidden;
     flex-grow: 1;
     flex-shrink: 1;
     font-size: 20px;
