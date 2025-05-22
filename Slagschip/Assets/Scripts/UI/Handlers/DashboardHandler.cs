@@ -421,23 +421,23 @@ namespace UIHandlers
         }
 
         [Rpc(SendTo.NotMe)]
-        public void OnHitRpc(byte _targetCell)
+        public void OnHitRpc(byte targetCell)
         {
-            StyleGridButton("hitted-grid-button");
+            StyleGridButton("hitted-grid-button", targetCell);
         }
 
         [Rpc(SendTo.NotMe)]
-        public void OnMissRpc(byte _targetCell)
+        public void OnMissRpc(byte targetCell)
         {
-            StyleGridButton("missed-grid-button");
+            StyleGridButton("missed-grid-button", targetCell);
         }
-        private void StyleGridButton(string styleClass)
+        private void StyleGridButton(string styleClass, byte targetCell)
         {
             if (IsClient)
             {
-                GetCellButton(_targetCell).AddToClassList(styleClass);
-                GetCellButton(_targetCell).RemoveFromClassList("grid-button");
-                GetCellButton(_targetCell).RemoveFromClassList("mine-grid-button");
+                GetCellButton(targetCell).AddToClassList(styleClass);
+                GetCellButton(targetCell).RemoveFromClassList("grid-button");
+                GetCellButton(targetCell).RemoveFromClassList("mine-grid-button");
             }
         }
 
