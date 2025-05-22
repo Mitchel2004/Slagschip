@@ -36,10 +36,7 @@ namespace ShipAttackers
                 _missFX = Instantiate(missFxPrefab, data.EndPosition, Quaternion.identity);
 
             if (useSpawnAudio)
-            {
-                AudioSource source = Instantiate(spawnAudio, data.StartPosition, Quaternion.identity);
-                source.Play();
-            }
+                Instantiate(spawnAudio, data.StartPosition, Quaternion.identity);
         }
 
         protected void Miss()

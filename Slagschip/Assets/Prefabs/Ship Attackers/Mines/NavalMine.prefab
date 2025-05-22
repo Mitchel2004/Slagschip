@@ -47,6 +47,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useMissFX: 1
   missFxPrefab: {fileID: 4557506055459805974, guid: fe3197ee9b0f1ee44a63348013505337, type: 3}
+  useSpawnAudio: 0
+  spawnAudio: {fileID: 0}
   startHeight: -2
   startDirection: 0
   floatCooldown: 2
