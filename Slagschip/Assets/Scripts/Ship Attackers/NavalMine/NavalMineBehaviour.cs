@@ -48,6 +48,11 @@ namespace ShipAttackers.Mine
                 if (Ship != null && Ship.dismantleMines && !_dismantled)
                 {
                     _dismantled = true;
+
+                    AttackPosition = data.GridPosition;
+                    if (Ship != null)
+                        Destroy(gameObject);
+
                     return;
                 }
                 startDirection = CompassDirections.RotateClockwise(startDirection);
