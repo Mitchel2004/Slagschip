@@ -222,11 +222,22 @@ Button:enabled {
 #pregame-buttons {
     bottom: -55px;
     position: absolute;
-    visibility: hidden;
     flex-direction: row;
     justify-content: space-evenly;
     align-self: center;
     width: 100%;
+}
+
+#awaiting-players {
+    background-image: url("project://database/Assets/Art/UI/PauzeScreen/PauseScreenBackground.png?fileID=-2096421328&guid=38aa389c1393d464ca18ff06bdffd634&type=3#PauseScreenBackground_0");
+    position: absolute;
+    bottom: -55px;
+    align-items: center;
+    justify-content: center;
+    left: 0;
+    right: 0;
+    top: 409px;
+    visibility: hidden;
 }
 
 #attack-button {
@@ -638,7 +649,7 @@ Button:enabled {
     height: 90px;
 }
 
-.win-lose-screen {
+#win-lose-screen {
     position: absolute;
     top: 0;
     left: 0;
@@ -675,4 +686,8 @@ Button:enabled {
 
 .appear {
     opacity: 1;
+}
+
+.win-lose-holder {
+    align-items: center;
 }

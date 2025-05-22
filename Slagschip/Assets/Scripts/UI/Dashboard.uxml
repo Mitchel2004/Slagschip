@@ -29,6 +29,9 @@
                 </ui:VisualElement>
                 <ui:Button text="Klaar" name="ready-button" enabled="false" style="-unity-text-align: middle-center;" />
             </ui:VisualElement>
+            <ui:VisualElement name="awaiting-players" style="flex-grow: 1;">
+                <ui:Label text="Wachten op speler..." style="-unity-font-definition: url(&quot;project://database/Assets/Art/Fonts/PulseRifle.ttf?fileID=12800000&amp;guid=67c88df0693e9e14d86c2ea179049521&amp;type=3#PulseRifle&quot;); font-size: 22px; color: rgb(255, 255, 255);" />
+            </ui:VisualElement>
         </ui:VisualElement>
         <ui:Label text="Druk op &apos;Q&apos; of &apos;E&apos; om een schip te draaien. &#10;Klik op een schip om het &#10;te plaatsen of op te pakken." name="rotate-tutorial" class="tutorial-pop-up" style="position: absolute; top: 128px; transition-delay: 10s;" />
         <ui:VisualElement name="torpedo-received-tutorial" class="tutorial-pop-up" style="position: absolute; right: 456px;">
@@ -52,7 +55,7 @@
     </ui:VisualElement>
     <ui:Button text="------" name="play-code" />
     <ui:VisualElement name="selection-container" style="flex-grow: 1;">
-        <ui:Label name="ship-label" text="Text" />
+        <ui:Label name="ship-label" text=" " enable-rich-text="false" />
         <ui:VisualElement name="fleet-selection" style="right: auto;">
             <ui:Button name="ship-button-schiedam" class="ship-button" />
             <ui:Button name="ship-button-vanamstel" class="ship-button" />
@@ -82,17 +85,16 @@
             <ui:Button text="Naar Start" name="to-start-button" class="pause-button" />
         </ui:VisualElement>
     </ui:VisualElement>
-    <ui:VisualElement name="win-screen" class="win-lose-screen" style="flex-grow: 1;">
-        <ui:VisualElement name="win-pop-up" class="win-lose-pop-up">
-            <ui:VisualElement name="win-steve" class="steve" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Art/Project/Steve/T_Steve_02.png?fileID=2800000&amp;guid=583e069c512894c4e8686242a46cf7f2&amp;type=3#T_Steve_02&quot;); top: -17%; width: 100px; height: 100px;" />
-            <ui:Label text="Gewonnen!" style="-unity-font-definition: url(&quot;project://database/Assets/Art/Fonts/PulseRifle.ttf?fileID=12800000&amp;guid=67c88df0693e9e14d86c2ea179049521&amp;type=3#PulseRifle&quot;); font-size: 32px; color: rgb(255, 255, 255); -unity-text-align: upper-center; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; margin-top: 8px; margin-right: 0; margin-bottom: 32px; margin-left: 0;" />
-            <ui:Button text="Verlaten" name="leave-button" class="pause-button" />
-        </ui:VisualElement>
-    </ui:VisualElement>
-    <ui:VisualElement name="lose-screen" class="win-lose-screen" style="flex-grow: 1;">
-        <ui:VisualElement name="lose-pop-up" class="win-lose-pop-up" style="align-items: center;">
-            <ui:VisualElement name="lose-steve" class="steve" style="background-image: url(&quot;project://database/Assets/Art/Project/Steve/T_Steve_03.png?fileID=2800000&amp;guid=9123b909139059548b6e54919afaf7a9&amp;type=3#T_Steve_03&quot;); rotate: 20deg;" />
-            <ui:Label text="Verloren!" style="-unity-font-definition: url(&quot;project://database/Assets/Art/Fonts/PulseRifle.ttf?fileID=12800000&amp;guid=67c88df0693e9e14d86c2ea179049521&amp;type=3#PulseRifle&quot;); font-size: 32px; color: rgb(255, 255, 255); -unity-text-align: upper-center; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; margin-top: 8px; margin-right: 0; margin-bottom: 32px; margin-left: 0;" />
+    <ui:VisualElement name="win-lose-screen" class="win-lose-screen" style="flex-grow: 1;">
+        <ui:VisualElement name="win-lose-pop-up" class="win-lose-pop-up">
+            <ui:VisualElement name="lose-holder" class="win-lose-holder" style="visibility: visible; display: none;">
+                <ui:VisualElement name="lose-steve" class="steve" style="background-image: url(&quot;project://database/Assets/Art/Project/Steve/T_Steve_03.png?fileID=2800000&amp;guid=9123b909139059548b6e54919afaf7a9&amp;type=3#T_Steve_03&quot;); rotate: 20deg; top: -150%;" />
+                <ui:Label text="Verloren!" style="-unity-font-definition: url(&quot;project://database/Assets/Art/Fonts/PulseRifle.ttf?fileID=12800000&amp;guid=67c88df0693e9e14d86c2ea179049521&amp;type=3#PulseRifle&quot;); font-size: 32px; color: rgb(255, 255, 255); -unity-text-align: upper-center; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; margin-top: 8px; margin-right: 0; margin-bottom: 32px; margin-left: 0;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="win-holder" class="win-lose-holder" style="display: none;">
+                <ui:VisualElement name="win-steve" class="steve" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Art/Project/Steve/T_Steve_02.png?fileID=2800000&amp;guid=583e069c512894c4e8686242a46cf7f2&amp;type=3#T_Steve_02&quot;); top: -100%; width: 100px; height: 100px;" />
+                <ui:Label text="Gewonnen!" style="-unity-font-definition: url(&quot;project://database/Assets/Art/Fonts/PulseRifle.ttf?fileID=12800000&amp;guid=67c88df0693e9e14d86c2ea179049521&amp;type=3#PulseRifle&quot;); font-size: 32px; color: rgb(255, 255, 255); -unity-text-align: upper-center; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; margin-top: 8px; margin-right: 0; margin-bottom: 32px; margin-left: 0;" />
+            </ui:VisualElement>
             <ui:Button text="Verlaten" name="leave-button" class="pause-button" />
         </ui:VisualElement>
     </ui:VisualElement>
