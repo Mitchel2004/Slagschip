@@ -8,6 +8,8 @@ using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using Utilities;
 using Utilities.Generic;
+using Utilities.CompassDirections;
+using System;
 
 namespace PlayerGrid
 {
@@ -20,7 +22,7 @@ namespace PlayerGrid
 
         public const byte gridSize = 10;
         private const byte _maxShips = 5;
-        private const byte _maxMines = 2;
+        public const byte _maxMines = 2;
 
         private int _mineCount;
 
@@ -43,6 +45,7 @@ namespace PlayerGrid
 
         public UnityEvent<GridCell> OnAttacked { get; private set; } = new UnityEvent<GridCell>();
         public UnityEvent<GridCell> OnMineSet { get; private set; } = new UnityEvent<GridCell>();
+        public UnityEvent<GridCell, ECompassDirection> OnTorpedoFire { get; private set; } = new UnityEvent<GridCell, ECompassDirection>();
 
         public ShipBehaviour Ship
         {
@@ -234,14 +237,10 @@ namespace PlayerGrid
             if (IsClient)
             {
                 bool isHit = false;
-                if (_targetCell <= 100)
-                {
-                    Vector2Int pos = CellUnpacker.CellPosition(_targetCell);
-                    isHit = Hit(pos);
-                    OnAttacked.Invoke(_grid[pos.x, pos.y]);
-                }
 
-                //TODO: Torpedo hit check with correct target cell
+                Vector2Int pos = CellUnpacker.CellPosition(_targetCell);
+                isHit = Hit(pos);
+                OnAttacked.Invoke(_grid[pos.x, pos.y]);
 
                 if (isHit)
                 {
@@ -256,10 +255,43 @@ namespace PlayerGrid
             }
         }
 
+        [Rpc(SendTo.NotMe)]
+        public void CheckTargetCellRpc(byte _targetCell, ECompassDirection _torpedoDirection)
+        {
+            if (IsClient)
+            {
+                Vector2Int pos = CellUnpacker.CellPosition(_targetCell);
+
+                OnTorpedoFire.Invoke(_grid[pos.x, pos.y], _torpedoDirection);
+            }
+        }
+
+        public void TorpedoCallback(Vector2Int _target, bool _hit = true)
+        {
+            byte target = CellUnpacker.PackCell(_target);
+
+            if (_hit)
+            {
+                _dashboardHandler.OnHitRpc(target);
+            }
+            else
+            {
+                GameData.instance.SwitchPlayerTurnRpc();
+            }
+        }
+
         public bool Hit(Vector2Int _position)
         {
-            return _grid[_position.x, _position.y].isTaken;
+            try
+            {
+                return _grid[_position.x, _position.y].isTaken;
+            }
+            catch (IndexOutOfRangeException)
+            {
+                return false;
+            }
         }
+
         public void MineCallback(Vector2Int _target, bool _hit = true)
         {
             byte target = CellUnpacker.PackCell(_target);
