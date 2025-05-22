@@ -1,5 +1,6 @@
 using FX;
 using PlayerGrid;
+using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
@@ -27,8 +28,10 @@ namespace Ships
 
         [SerializeField] private FXSystem[] effects;
         [SerializeField] private PlacingIndicator indicator;
-        
-        public UnityEvent<ShipBehaviour> OnClear { get; set; } = new UnityEvent<ShipBehaviour>();
+        [SerializeField] private Animator animator;
+
+        public UnityEvent<ShipBehaviour> OnClear { get; private set; } = new UnityEvent<ShipBehaviour>();
+        public UnityEvent OnSink { get; private set; } = new UnityEvent();
 
         private void Start()
         {
@@ -150,6 +153,17 @@ namespace Ships
         {
             _hits[shape[_attackPosition - position]] = true;
             FindEffectOnOffset(_attackPosition - position).Play();
+            CheckForSink();
+        }
+        private void CheckForSink()
+        {
+            if (_hits.All(b => b))
+            {
+                animator.GetBehaviour<ShipSink>().OnStartSink.AddListener(() => StopEffects());
+                animator.SetTrigger("Sink");
+                animator.GetBehaviour<ShipSink>().OnEndSink.AddListener(() => Destroy(gameObject));
+                OnSink.Invoke();
+            }
         }
 
         public bool IsHitAtPoint(Vector2Int _attackPosition)
@@ -165,6 +179,14 @@ namespace Ships
         public FXSystem FindEffectOnOffset(Vector2Int _offset)
         {
             return effects[shape[_offset]];
+        }
+
+        private void StopEffects()
+        {
+            foreach (FXSystem effect in effects)
+            {
+                effect.Stop();
+            }
         }
     }
 }

@@ -37,12 +37,11 @@ namespace UIHandlers
         private List<byte> _mineTargets = new();
         private bool _inPregame = true;
 
-        private const byte _gridSize = GridHandler.gridSize;
-        private const byte _playerCount = 2;
+        private const byte GridSize = GridHandler.gridSize;
+        private const byte PlayerCount = 2;
 
         private Button[] _gridButtons = new Button[2 * (int)Mathf.Pow(_gridSize, 2)];
         private Button[] _horizontalGridButtons = new Button[2 * (int)Mathf.Pow(_gridSize, 2)];
-        private Button[] _verticalGridButtons = new Button[2 * (int)Mathf.Pow(_gridSize, 2)];
 
         private byte _targetCell;
         private ECompassDirection _torpedoDirection = ECompassDirection.NorthEast;
@@ -50,53 +49,44 @@ namespace UIHandlers
 
         private InputAction _rotate;
 
-        Action<TransitionEndEvent> OnTutorialClose;
-
         private void Awake()
         {
             _document = GetComponent<UIDocument>();
 
             _rotate = InputSystem.actions.FindAction("Rotate");
-
-            _document.rootVisualElement.Query("turn-information").First().RegisterCallback<TransitionEndEvent>(OnTurnFadeEnd);
-            _document.rootVisualElement.Query("menu-button").First().RegisterCallback<ClickEvent>(OnMenu);
-            _document.rootVisualElement.Query("resume-button").First().RegisterCallback<ClickEvent>(OnResume);
-            _document.rootVisualElement.Query("give-up-button").First().RegisterCallback<ClickEvent>(OnGiveUp);
-            _document.rootVisualElement.Query("attack-button").First().RegisterCallback<ClickEvent>(OnAttack);
-            _document.rootVisualElement.Query("torpedo-button").First().RegisterCallback<ClickEvent>(OnTorpedo);
-            _document.rootVisualElement.Query("naval-mine-button").First().RegisterCallback<ClickEvent>(OnMine);
-            _document.rootVisualElement.Query("ready-button").First().RegisterCallback<ClickEvent>(Ready);
-            _document.rootVisualElement.Query("play-code").First().RegisterCallback<ClickEvent>(CopyPlayCode);
-            _document.rootVisualElement.Query("to-start-button").First().RegisterCallback<ClickEvent>(OnToStart);
-
-            GridHandler.instance.OnMove.AddListener(ShowRotateTutorial);
-
-            foreach (VisualElement _button in _document.rootVisualElement.Query(className: "close-tutorial-button").ToList())
-            {
-                _button.RegisterCallback<ClickEvent, VisualElement>(CloseTutorial, _button);
-            }
-
-            GridHandler.instance.OnIsReady.AddListener(IsReady);
             
-            for (int i = 0; i < shipIds.Length; i++)
-            {
-                _document.rootVisualElement.Query(shipIds[i]).First().RegisterCallback<ClickEvent, EShip>(PlaceShip, (EShip)i);
-                _document.rootVisualElement.Query(shipIds[i]).First().RegisterCallback<FocusEvent, EShip>(OnShipFocus, (EShip)i);
-                _document.rootVisualElement.Query(shipIds[i]).First().RegisterCallback<FocusOutEvent, EShip>(OnShipFocusLost, (EShip)i);
-                _document.rootVisualElement.Query(shipIds[i]).First().RegisterCallback<MouseOverEvent, EShip>(OnShipHover, (EShip)i);
-                _document.rootVisualElement.Query(shipIds[i]).First().RegisterCallback<MouseLeaveEvent, EShip>(OnShipHoverExit, (EShip)i);
-            }
+            Query("turn-information").RegisterCallback<TransitionEndEvent>(e => OnTurnFadeEnd());
 
+            RegisterCallbacks(new Dictionary<string, Action> {
+                {"menu-button", OnMenu},
+                {"resume-button", OnResume},
+                {"give-up-button", OnGiveUp},
+                {"attack-button", OnAttack},
+                {"torpedo-button", OnTorpedo},
+                {"naval-mine-button", OnMine},
+                {"ready-button", Ready},
+                {"play-code", CopyPlayCode},
+                {"to-start-button", OnToStart},
+                {"leave-button", OnLeave}
+            });
             _gridHandler.OnIsReady.AddListener(IsReady);
+
+            _shipPlacer.DonePlacing.AddListener(HideShipLabel);
+
+            BindTutorialCloseCallbacks(new Dictionary<string, Action> {
+                {"attack-tutorial", () => ShowTutorial("torpedo-tutorial") }
+            });
+
+            RegisterShipCallbacks();
             
-            for (byte i = 0; i < _gridSize * _gridSize; i++)
+            for (byte i = 0; i < GridSize * GridSize; i++)
             {
                 Button _gridButton = new();
 
                 _gridButton.AddToClassList("grid-button");
 
-                _gridButton.style.width = new StyleLength(new Length(100 / _gridSize, LengthUnit.Percent));
-                _gridButton.style.height = new StyleLength(new Length(100 / _gridSize, LengthUnit.Percent));
+                _gridButton.style.width = new StyleLength(new Length(100 / GridSize, LengthUnit.Percent));
+                _gridButton.style.height = new StyleLength(new Length(100 / GridSize, LengthUnit.Percent));
 
                 _gridButton.RegisterCallback<ClickEvent, byte>(SetTargetCell, i);
 
@@ -129,7 +119,6 @@ namespace UIHandlers
             {
                 _button.RegisterCallback<ClickEvent, KeyValuePair<byte, ECompassDirection>>(SetTargetCell, new KeyValuePair<byte, ECompassDirection>((byte)(_gridSize * _gridSize + _verticalTBGridButtons.IndexOf(_button) * 10 + 9), ECompassDirection.South));
                 _gridButtons[_gridSize * _gridSize + _verticalTBGridButtons.IndexOf(_button) * 10 + 9] = _button;
-                //_verticalGridButtons[_gridSize * _gridSize + _verticalTBGridButtons.IndexOf(_button) * 10 + 9] = _button;
             }
 
             List<Button> _verticalBTGridButtons = _document.rootVisualElement.Query("vertical-bt-grid-container").Children<Button>().ToList();
@@ -138,72 +127,6 @@ namespace UIHandlers
             {
                 _button.RegisterCallback<ClickEvent, KeyValuePair<byte, ECompassDirection>>(SetTargetCell, new KeyValuePair<byte, ECompassDirection>((byte)(_gridSize * _gridSize + _verticalBTGridButtons.IndexOf(_button) * 10), ECompassDirection.North));
                 _gridButtons[_gridSize * _gridSize + _verticalBTGridButtons.IndexOf(_button) * 10] = _button;
-                //_verticalGridButtons[_gridSize * _gridSize + _verticalBTGridButtons.IndexOf(_button) * 10] = _button;
-            }
-        }
-        private void PlaceShip(ClickEvent _event, EShip _ship)
-        {
-            if (_shipPlacer.IsPlacing)
-                return;
-                
-            _shipPlacer.PlaceShip(_ship);
-            _shipPlacer.DonePlacing.AddListener(StopPlacing);
-
-            _document.rootVisualElement.Query<Label>("ship-label").First().style.visibility = Visibility.Visible;
-            _document.rootVisualElement.Query<Label>("ship-label").First().text = ShipName(_ship);
-
-            Button button = (Button)_event.target;
-            button.SetEnabled(false);
-        }
-        private void StopPlacing()
-        {
-            _document.rootVisualElement.Query<Label>("ship-label").First().style.visibility = Visibility.Hidden;
-        }
-        private void OnShipHover(MouseOverEvent _event, EShip _ship)
-        {
-            if (_shipPlacer.IsPlacing)
-                return;
-            _document.rootVisualElement.Query<Label>("ship-label").First().style.visibility = Visibility.Visible;
-            _document.rootVisualElement.Query<Label>("ship-label").First().text = ShipName(_ship);
-        }
-        private void OnShipHoverExit(MouseLeaveEvent _event, EShip _ship)
-        {
-            if (_shipPlacer.IsPlacing)
-                return;
-            _document.rootVisualElement.Query<Label>("ship-label").First().style.visibility = Visibility.Hidden;
-        }
-
-        private void OnShipFocus(FocusEvent _event, EShip _ship)
-        {
-            if (_shipPlacer.IsPlacing)
-                return;
-
-            _document.rootVisualElement.Query<Label>("ship-label").First().style.visibility = Visibility.Visible;
-            _document.rootVisualElement.Query<Label>("ship-label").First().text = ShipName(_ship);
-        }
-        private void OnShipFocusLost(FocusOutEvent _event, EShip _ship)
-        {
-            if (_shipPlacer.IsPlacing)
-                return;
-            _document.rootVisualElement.Query<Label>("ship-label").First().style.visibility = Visibility.Hidden;
-        }
-
-        private string ShipName(EShip _ship)
-        {
-            switch (_ship)
-            {
-                case EShip.Schiedam:
-                    return "Zr.Ms. Schiedam";
-                case EShip.VanAmstel:
-                    return "Zr.Ms. Van Amstel";
-                case EShip.VanSpeijk:
-                    return "Zr.Ms. Van Speijk";
-                case EShip.DeRuyter:
-                    return "Zr.Ms. De Ruyter";
-                case EShip.JohanDeWitt:
-                    return "Zr.Ms. Johan De Witt";
-                default:
-                    return null;
             }
         }
 
@@ -217,47 +140,116 @@ namespace UIHandlers
 
             if (IsServer)
                 _readyPlayers.Value = 0;
-            
-            onGameStart.AddListener(StartTurn);
 
+            onGameStart.AddListener(StartTurn);
             SetPlayCode();
+
+            var teamClass = IsHost ? "team-alfa" : "team-bravo";
+            Query("team-name").AddToClassList(teamClass);
+            var teamName = IsHost ? "Alfa" : "Bravo";
+            Query<Label>("team-name").text = teamName;
 
             if (IsHost)
             {
-                _document.rootVisualElement.Query("team-name").First().AddToClassList("team-alfa");
-                _document.rootVisualElement.Query<Label>("team-name").First().text = "Alfa";
+                HidePregame();
+                AwaitPlayers();
             }
-            else
+        }
+
+        private void RegisterCallbacks(Dictionary<string, Action> callbacks)
+        {
+            foreach (var kv in callbacks)
             {
-                _document.rootVisualElement.Query("team-name").First().AddToClassList("team-bravo");
-                _document.rootVisualElement.Query<Label>("team-name").First().text = "Bravo";
+                var btn = Query<Button>(kv.Key);
+                btn.clicked += kv.Value;
+            }
+        }
+        private void RegisterShipCallbacks()
+        {
+            for (int i = 0; i < shipIds.Length; i++)
+            {
+                var shipType = (EShip)i;
+                var shipId = shipIds[i];
+                var element = Query(shipId);
+                element.RegisterCallback<ClickEvent>(e => TryPlaceShip(shipType));
+                element.RegisterCallback<FocusEvent>(e => ShowShipLabel(shipType));
+                element.RegisterCallback<FocusOutEvent>(e => HideShipLabel());
+                element.RegisterCallback<MouseOverEvent>(e => ShowShipLabel(shipType));
+                element.RegisterCallback<MouseLeaveEvent>(e => HideShipLabel());
+            }
+        }
+        private void BindTutorialCloseCallbacks(Dictionary<string, Action> callbacks)
+        {
+            foreach (var btn in FindElementsByClass<Button>("close-tutorial-button"))
+            {
+                btn.clicked += () => CloseTutorial(btn);
+                if (callbacks.ContainsKey(btn.parent.name))
+                {
+                    btn.clicked += callbacks[btn.parent.name];
+                }
             }
         }
 
-        private IEnumerator FadeOutTutorial(VisualElement _visualElement)
+        private void AwaitPlayers() => StartCoroutine(WaitForPlayersRoutine());
+        private IEnumerator WaitForPlayersRoutine()
         {
-            yield return null;
+            while (NetworkManager.ConnectedClients.Count != PlayerCount)
+                yield return null;
 
-            _visualElement.style.opacity = 0;
+            ShowPregame();
+            BindRotateTutorialRpc();
+        }
+        private void ShowPregame()
+        {
+            ShowElement("pregame-buttons");
+            HideElement("awaiting-players");
+            ShowElement("selection-container");
+        }
+        private void HidePregame()
+        {
+            HideElement("pregame-buttons");
+            ShowElement("awaiting-players");
+            HideElement("selection-container");
         }
 
-        private void ShowRotateTutorial(Vector3 _position)
+        [Rpc(SendTo.Everyone)]
+        private void BindRotateTutorialRpc()
         {
-            GridHandler.instance.OnMove.RemoveListener(ShowRotateTutorial);
-
-            ShowVisualElement(_document.rootVisualElement.Query("rotate-tutorial").First());
-            StartCoroutine(FadeOutTutorial(_document.rootVisualElement.Query("rotate-tutorial").First()));
+            _gridHandler.OnMove.AddListener(ShowRotateTutorial);
         }
 
-        private void ShowVisualElement(VisualElement _visualElement)
+        private void TryPlaceShip(EShip ship)
         {
-            _visualElement.style.visibility = Visibility.Visible;
-        }
+            if (_shipPlacer.IsPlacing)
+                return;
+                
+            _shipPlacer.PlaceShip(ship);
 
-        private void HideVisualElement(VisualElement _visualElement)
-        {
-            _visualElement.style.visibility = Visibility.Hidden;
+            ShowShipLabel(ship);
+            ToggleButton(shipIds[(int)ship], false);
         }
+        private void ShowShipLabel(EShip ship)
+        {
+            if (_shipPlacer.IsPlacing)
+                return;
+            ShowElement("ship-label");
+            Query<Label>("ship-label").text = ShipName(ship);
+        }
+        private void HideShipLabel()
+        {
+            if (_shipPlacer.IsPlacing)
+                return;
+            HideElement("ship-label");
+        }
+        private string ShipName(EShip ship) => ship switch
+        {
+            EShip.Schiedam => "Zr.Ms. Schiedam",
+            EShip.VanAmstel => "Zr.Ms. Van Amstel",
+            EShip.VanSpeijk => "Zr.Ms. Van Speijk",
+            EShip.DeRuyter => "Zr.Ms. De Ruyter",
+            EShip.JohanDeWitt => "Zr.Ms. Johan De Witt",
+            _ => string.Empty
+        };
 
         private void RotateTorpedoOrientation(InputAction.CallbackContext _context)
         {
@@ -333,108 +325,55 @@ namespace UIHandlers
         private void StartTurn()
         {
             if (!IsHost)
-                _document.rootVisualElement.Query("grid-cover").First().style.visibility = Visibility.Visible;
+                ShowElement("grid-cover");
         }
 
-        private async void SetPlayCode()
+        private void OnTurnFadeEnd()
         {
-            List<string> _joinedSessions = await MultiplayerService.Instance.GetJoinedSessionIdsAsync();
-
-            foreach (ISession _session in MultiplayerService.Instance.Sessions.Values)
-            {
-                if (_joinedSessions.Contains(_session.Id))
-                {
-                    _sessionCodeText.text = _session.Code;
-                    break;
-                }
-            }
-
-            _document.rootVisualElement.Query<Button>("play-code").First().text = _sessionCodeText.text;
-
-            if (IsHost)
-            {
-                ShowVisualElement(_document.rootVisualElement.Query("play-code-tutorial").First());
-                StartCoroutine(FadeOutTutorial(_document.rootVisualElement.Query("play-code-tutorial").First()));
-            }
-        }
-
-        private void CopyPlayCode(ClickEvent _event)
-        {
-            _copySessionCode.onClick.Invoke();
-        }
-
-        private void OnTurnFadeEnd(TransitionEndEvent _event)
-        {
-            VisualElement _turnInformation = _document.rootVisualElement.Query("turn-information").First();
+            VisualElement _turnInformation = Query("turn-information");
 
             if (_turnInformation.style.opacity == 0)
             {
-                HideVisualElement(_document.rootVisualElement.Query("turn-screen").First());
+                HideElement("turn-screen");
             }
             else
             {
-                VisualElement _turnTeamName = _document.rootVisualElement.Query("turn-team-name").First();
-
-                if (GameData.instance.currentPlayerTurn.Value == 0)
-                {
-                    _turnTeamName.AddToClassList("team-alfa");
-                    _turnTeamName.RemoveFromClassList("team-bravo");
-
-                    _document.rootVisualElement.Query<Label>("turn-team-name").First().text = "Alfa";
-                }
-                else
-                {
-                    _turnTeamName.AddToClassList("team-bravo");
-                    _turnTeamName.RemoveFromClassList("team-alfa");
-
-                    _document.rootVisualElement.Query<Label>("turn-team-name").First().text = "Bravo";
-                }
+                StyleTeamName(GameData.instance.currentPlayerTurn.Value, Query<Label>("turn-team-name"));
 
                 _turnInformation.style.opacity = 0;
             }
         }
 
-        private void OnPlayerTurnChange(ulong _previousValue, ulong _newValue)
+        private void OnPlayerTurnChange(ulong previousValue, ulong newValue)
         {
-            ShowVisualElement(_document.rootVisualElement.Query("turn-screen").First());
+            ShowElement("turn-screen");
 
-            if (NetworkManager.Singleton.LocalClientId == _newValue)
+            if (NetworkManager.Singleton.LocalClientId == newValue)
             {
-                HideVisualElement(_document.rootVisualElement.Query("grid-cover").First());
+                HideElement("grid-cover");
             }
             else
             {
-                ShowVisualElement(_document.rootVisualElement.Query("grid-cover").First());
+                ShowElement("grid-cover");
             }
 
             VisualElement _teamText = _document.rootVisualElement.Query("team-text").First();
 
-            if (_newValue == 0)
-            {
-                _teamText.AddToClassList("team-alfa");
-                _teamText.RemoveFromClassList("team-bravo");
+            StyleTeamName(newValue, Query<Label>("team-text"));
 
-                _document.rootVisualElement.Query<Label>("team-text").First().text = "Alfa";
-            }
-            else
-            {
-                _teamText.AddToClassList("team-bravo");
-                _teamText.RemoveFromClassList("team-alfa");
-
-                _document.rootVisualElement.Query<Label>("team-text").First().text = "Bravo";
-            }
-
-            _document.rootVisualElement.Query("turn-information").First().style.opacity = 1;
+            Query("turn-information").style.opacity = 1;
         }
 
-        private void OnMenu(ClickEvent _event)
+        private void StyleTeamName(ulong teamId, Label label)
         {
-            ShowVisualElement(_document.rootVisualElement.Query("pause-screen").First());
-        }
+            bool isAlfa = teamId == 0;
+            var currentTeam = isAlfa ? "team-alfa" : "team-bravo";
+            var otherTeam = !isAlfa ? "team-alfa" : "team-bravo";
 
-        private void OnResume(ClickEvent _event)
-        {
-            HideVisualElement(_document.rootVisualElement.Query("pause-screen").First());
+            label.AddToClassList(currentTeam);
+            label.RemoveFromClassList(otherTeam);
+
+            label.text = isAlfa ? "Alfa" : "Bravo";
         }
 
         private void LoadMenu()
@@ -448,13 +387,9 @@ namespace UIHandlers
             SceneLoader.instance.LoadScene(loadingScene);
         }
 
-        private void OnGiveUp(ClickEvent _event)
+        private void OnLeave()
         {
-            ShowDisconnectedScreenRpc();
-
-            NetworkManager.OnClientDisconnectCallback += LoadMenu;
-
-            LeaveSessionRpc();
+            LoadMenu();
         }
 
         [Rpc(SendTo.ClientsAndHost)]
@@ -466,12 +401,7 @@ namespace UIHandlers
         [Rpc(SendTo.NotMe)]
         private void ShowDisconnectedScreenRpc()
         {
-            ShowVisualElement(_document.rootVisualElement.Query("disconnected-screen").First());
-        }
-
-        private void OnToStart(ClickEvent _event)
-        {
-            LoadMenu();
+            ShowElement("disconnected-screen");
         }
 
         private void OnAttack(ClickEvent _event)
@@ -508,6 +438,7 @@ namespace UIHandlers
         {
             ToggleTorpedoMode(!_document.rootVisualElement.Query("torpedo-button").First().ClassListContains("selected-torpedo-button"));
         }
+
         private void OnMine(ClickEvent _event)
         {
             if (_mineTargets.Contains(_targetCell))
@@ -524,25 +455,25 @@ namespace UIHandlers
             }
         }
 
-        private void SetTargetCell(ClickEvent _event, byte _targetCell)
+        private void SetTargetCell(ClickEvent e, byte targetCell)
         {
-            GetCellButton(this._targetCell).RemoveFromClassList("selected-grid-button");
-            this._targetCell = _targetCell;
-            GetCellButton(_targetCell).AddToClassList("selected-grid-button");
-            
+            GetCellButton(_targetCell).RemoveFromClassList("selected-grid-button");
+            _targetCell = targetCell;
+            GetCellButton(targetCell).AddToClassList("selected-grid-button");
+
             if (_inPregame)
             {
-                _document.rootVisualElement.Query<Button>("naval-mine-button").First().SetEnabled(false);
-                if (_mineTargets.Contains(_targetCell))
+                ToggleButton("naval-mine-button", false);
+                if (_mineTargets.Contains(targetCell))
                     return;
                 if (!_gridHandler.MineAllowed())
                     return;
 
-                _document.rootVisualElement.Query<Button>("naval-mine-button").First().SetEnabled(true);
+                ToggleButton("naval-mine-button", true);
             }
             else 
             {
-                _document.rootVisualElement.Query("attack-button").First().SetEnabled(true);
+                ToggleButton("attack-button", true);
             }
         }
 
@@ -581,78 +512,96 @@ namespace UIHandlers
             return _gridButtons[_targetCell];
         }
 
-        private void Ready(ClickEvent _event)
-        {
-            onReady.Invoke();
-            SetPlayerReadyRpc();
-            Button readyButton = (Button)_document.rootVisualElement.Query("ready-button");
-            readyButton.SetEnabled(false);
-        }
-
         [Rpc(SendTo.Everyone)]
         private void StartGameRpc()
         {
-            HideVisualElement(_document.rootVisualElement.Query("pregame-buttons").First());
-            ShowVisualElement(_document.rootVisualElement.Query("game-buttons").First());
+            HideElement("pregame-buttons");
+            ShowElement("game-buttons");
+            HideElement("selection-container");
 
             onGameStart.Invoke();
             _inPregame = false;
 
-            ShowAttackTutorialRpc();
+            ShowTutorial("attack-tutorial", () => ShowTutorial("torpedo-tutorial"));
         }
 
-        [Rpc(SendTo.Me)]
-        private void ShowAttackTutorialRpc()
+        private void FadeOutTutorial(string tutorialName) => StartCoroutine(FadeOutTutorialRoutine(Query(tutorialName)));
+        private IEnumerator FadeOutTutorialRoutine(VisualElement _visualElement)
         {
-            _document.rootVisualElement.Query("attack-tutorial").First().RegisterCallbackOnce<TransitionEndEvent>(OnAttackTutorialFadeEnd);
+            yield return null;
 
-            OnTutorialClose += OnAttackTutorialFadeEnd;
-
-            ShowVisualElement(_document.rootVisualElement.Query("attack-tutorial").First());
-            StartCoroutine(FadeOutTutorial(_document.rootVisualElement.Query("attack-tutorial").First()));
+            _visualElement.style.opacity = 0;
         }
 
-        private void OnAttackTutorialFadeEnd(TransitionEndEvent _event)
+        private void ShowTutorial(string tutorialName)
         {
-            OnTutorialClose -= OnAttackTutorialFadeEnd;
+            ShowElement(tutorialName);
+            FadeOutTutorial(tutorialName);
+        }
+        private void ShowTutorial(string tutorialName, Action fadeEndCallback)
+        {
+            Query(tutorialName).RegisterCallbackOnce<TransitionEndEvent>(e => fadeEndCallback());
+            ShowTutorial(tutorialName);
+        }
 
-            ShowVisualElement(_document.rootVisualElement.Query("torpedo-tutorial").First());
-            StartCoroutine(FadeOutTutorial(_document.rootVisualElement.Query("torpedo-tutorial").First()));
+        private void CloseTutorial(VisualElement _visualElement)
+        {
+            _visualElement.parent.style.display = DisplayStyle.None;
+        }
+
+        private void ShowRotateTutorial(Vector3 _position)
+        {
+            _gridHandler.OnMove.RemoveListener(ShowRotateTutorial);
+
+            ShowTutorial("rotate-tutorial");
+        }
+        private async void SetPlayCode()
+        {
+            List<string> _joinedSessions = await MultiplayerService.Instance.GetJoinedSessionIdsAsync();
+
+            foreach (ISession _session in MultiplayerService.Instance.Sessions.Values)
+            {
+                if (_joinedSessions.Contains(_session.Id))
+                {
+                    _sessionCodeText.text = _session.Code;
+                    break;
+                }
+            }
+
+            Query<Button>("play-code").text = _sessionCodeText.text;
+
+            if (IsHost)
+                ShowTutorial("play-code-tutorial");
         }
 
         [Rpc(SendTo.Server)]
         private void SetPlayerReadyRpc()
         {
-            _readyPlayers.Value++;
-
-            if (_readyPlayers.Value == _playerCount)
+            if (++_readyPlayers.Value == PlayerCount)
                 StartGameRpc();
         }
 
         public void IsReady(bool _ready)
         {
-            Button readyButton = _document.rootVisualElement.Query<Button>("ready-button");
-
-            readyButton.SetEnabled(_ready);
+            ToggleButton("ready-button", _ready);
         }
 
         [Rpc(SendTo.NotMe)]
         public void OnHitRpc(byte _targetCell)
         {
-            if (IsClient)
-            {
-                GetCellButton(_targetCell).AddToClassList("hitted-grid-button");
-                GetCellButton(_targetCell).RemoveFromClassList("grid-button");
-                GetCellButton(_targetCell).RemoveFromClassList("mine-grid-button");
-            }
+            StyleGridButton("hitted-grid-button");
         }
 
         [Rpc(SendTo.NotMe)]
         public void OnMissRpc(byte _targetCell)
         {
+            StyleGridButton("missed-grid-button");
+        }
+        private void StyleGridButton(string styleClass)
+        {
             if (IsClient)
             {
-                GetCellButton(_targetCell).AddToClassList("missed-grid-button");
+                GetCellButton(_targetCell).AddToClassList(styleClass);
                 GetCellButton(_targetCell).RemoveFromClassList("grid-button");
                 GetCellButton(_targetCell).RemoveFromClassList("mine-grid-button");
             }
@@ -667,11 +616,93 @@ namespace UIHandlers
             }
         }
 
-        private void CloseTutorial(ClickEvent _event, VisualElement _visualElement)
+        private void OnMenu()
         {
-            _visualElement.parent.style.display = DisplayStyle.None;
+            ShowElement("pause-screen");
+        }
 
-            OnTutorialClose?.Invoke(null);
+        private void OnResume()
+        {
+            HideElement("pause-screen");
+        }
+
+        private void OnGiveUp()
+        {
+            ShowDisconnectedScreenRpc();
+            NetworkManager.OnClientDisconnectCallback += LoadMenu;
+            LeaveSessionRpc();
+        }
+
+        private void OnTorpedo()
+        {
+            throw new NotImplementedException();
+        }
+        private void OnMine()
+        {
+            if (_mineTargets.Contains(_targetCell))
+                return;
+
+            _mineTargets.Add(_targetCell);
+            _gridHandler.PlaceMineRpc(_targetCell);
+            ToggleButton("naval-mine-button", false);
+
+            if (IsClient)
+            {
+                GetCellButton(_targetCell).AddToClassList("mine-grid-button");
+            }
+        }
+
+        private void OnAttack()
+        {
+            _gridHandler.CheckTargetCellRpc(_targetCell);
+            ToggleButton("attack-button", false);
+            GetCellButton(_targetCell).UnregisterCallback<ClickEvent, byte>(SetTargetCell);
+        }
+        private void Ready()
+        {
+            onReady.Invoke();
+            SetPlayerReadyRpc();
+            ToggleButton("ready-button", false);
+        }
+
+
+        public void LoseScreen()
+        {
+            WinLoseScreenStyle("lose-holder");
+            WinScreenRPC();
+            LeaveSessionRpc();
+        }
+
+        [Rpc(SendTo.NotMe)]
+        public void WinScreenRPC()
+        {
+            WinLoseScreenStyle("win-holder");
+            LeaveSessionRpc();
+        }
+
+        private void WinLoseScreenStyle(string name)
+        {
+            ShowElement("win-lose-screen");
+            Query(name).style.display = DisplayStyle.Flex;
+            Query(name).AddToClassList("appear");
+        }
+
+        private void CopyPlayCode() => _copySessionCode.onClick.Invoke();
+
+        private void OnToStart() => LoadMenu();
+        
+        private T Query<T>(string name) where T : VisualElement => _document.rootVisualElement.Q<T>(name);
+        private VisualElement Query(string name) => _document.rootVisualElement.Q(name);
+        private List<T> FindElementsByClass<T>(string className) where T : VisualElement => _document.rootVisualElement.Query<T>(className: className).ToList();
+        private List<VisualElement> FindElementsByClass(string className) => _document.rootVisualElement.Query(className: className).ToList();
+
+        private void ShowElement(string name) => Query(name).style.visibility = Visibility.Visible;
+
+        private void HideElement(string name) => Query(name).style.visibility = Visibility.Hidden;
+
+        private void ToggleButton(string buttonName, bool enabled)
+        {
+            Query(buttonName).SetEnabled(enabled);
         }
     }
 }

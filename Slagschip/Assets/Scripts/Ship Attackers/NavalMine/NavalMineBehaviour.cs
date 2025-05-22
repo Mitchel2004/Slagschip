@@ -38,7 +38,7 @@ namespace ShipAttackers.Mine
             if (Ship != null && Ship.dismantleMines && !_dismantled)
             {
                 _dismantled = true;
-                Destroy(this);
+                Destroy(gameObject);
                 return;
             }
 
@@ -73,10 +73,10 @@ namespace ShipAttackers.Mine
                 GridHandler.instance.MineCallback(AttackPosition);
                 Ship.Hit(AttackPosition);
 
-                //TODO: SplashEffect
                 if (AttackPosition != data.GridPosition)
                 {
                     GridHandler.instance.MineCallback(data.GridPosition, false);
+                    Miss();
                 }
 
                 Destroy(gameObject);

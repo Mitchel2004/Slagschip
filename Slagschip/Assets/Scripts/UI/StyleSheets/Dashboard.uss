@@ -1,3 +1,7 @@
+Button:enabled {
+    cursor: url("project://database/Assets/Art/UI/Cursor/CursorOrange.png?fileID=2800000&guid=ac11c423ee2e64b4595e0d149628da5a&type=3#CursorOrange") 9 8;
+}
+
 #dashboard-holder {
     flex-grow: 1;
     justify-content: center;
@@ -266,11 +270,22 @@ Button:hover .fired-torpedo-button {
 #pregame-buttons {
     bottom: -55px;
     position: absolute;
-    visibility: visible;
     flex-direction: row;
     justify-content: space-evenly;
     align-self: center;
     width: 100%;
+}
+
+#awaiting-players {
+    background-image: url("project://database/Assets/Art/UI/PauzeScreen/PauseScreenBackground.png?fileID=-2096421328&guid=38aa389c1393d464ca18ff06bdffd634&type=3#PauseScreenBackground_0");
+    position: absolute;
+    bottom: -55px;
+    align-items: center;
+    justify-content: center;
+    left: 0;
+    right: 0;
+    top: 409px;
+    visibility: hidden;
 }
 
 #attack-button {
@@ -522,6 +537,12 @@ Button:hover .fired-torpedo-button {
     margin-left: 0;
 }
 
+.pause-button:active {
+    padding-top: 19px;
+    padding-bottom: 21px;
+    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Buttons/EmptyButtonPressed.png?fileID=-336603769&guid=15490286b6d453c47aee6c54b33fd5e7&type=3#EmptyButtonPressed_0");
+}
+
 #disconnected-screen {
     position: absolute;
     top: 0;
@@ -571,6 +592,11 @@ Button:hover .fired-torpedo-button {
     color: rgb(255, 255, 255);
     font-size: 16px;
     background-image: url("project://database/Assets/Art/UI/PauzeScreen/PauseScreenBackground.png?fileID=-2096421328&guid=38aa389c1393d464ca18ff06bdffd634&type=3#PauseScreenBackground_0");
+    transition-property: opacity;
+    transition-timing-function: linear;
+    transition-duration: 1s;
+    -unity-text-align: upper-center;
+    visibility: hidden;
     padding-top: 16px;
     padding-right: 16px;
     padding-bottom: 16px;
@@ -579,11 +605,6 @@ Button:hover .fired-torpedo-button {
     margin-right: 0;
     margin-bottom: 0;
     margin-left: 0;
-    transition-property: opacity;
-    transition-timing-function: linear;
-    transition-duration: 1s;
-    -unity-text-align: upper-center;
-    visibility: hidden;
 }
 
 .number-counter {
@@ -688,4 +709,47 @@ Button:hover .fired-torpedo-button {
 .ship-button {
     width: 90px;
     height: 90px;
+}
+
+#win-lose-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+}
+
+.win-lose-pop-up {
+    position: absolute;
+    background-image: url("project://database/Assets/Art/UI/PauzeScreen/PauseScreenBackground.png?fileID=-2096421328&guid=38aa389c1393d464ca18ff06bdffd634&type=3#PauseScreenBackground_0");
+    padding-top: 32px;
+    padding-right: 128px;
+    padding-bottom: 64px;
+    padding-left: 128px;
+    align-items: center;
+    opacity: 0;
+    transition-property: all, opacity;
+    transition-duration: 0s, 1s;
+    transition-timing-function: ease, linear;
+    transition-delay: 0s, 0s;
+}
+
+.steve {
+    rotate: 0;
+    position: absolute;
+    top: -30%;
+    flex-grow: 1;
+    width: 150px;
+    height: 150px;
+}
+
+.appear {
+    opacity: 1;
+}
+
+.win-lose-holder {
+    align-items: center;
 }

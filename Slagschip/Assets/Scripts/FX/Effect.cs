@@ -55,6 +55,19 @@ namespace FX
             _timer.Start();
         }
 
+        public void Stop()
+        {
+            switch (effectType)
+            {
+                case EEffectType.Particle:
+                    particleSystem.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+                    break;
+                case EEffectType.Audio:
+                    audioSource.Stop();
+                    break;
+            }
+        }
+
         private void PlayEffect()
         {
             switch (effectType)
