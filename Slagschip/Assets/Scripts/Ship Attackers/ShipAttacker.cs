@@ -10,6 +10,8 @@ namespace ShipAttackers
     public abstract class ShipAttacker : MonoBehaviour
     {
         [SerializeField] protected FXSystem missFxPrefab;
+        [SerializeField] private bool useSpawnAudio;
+        [SerializeField] private AudioSource spawnAudio;
 
         protected AttackerData data;
 
@@ -29,6 +31,11 @@ namespace ShipAttackers
         {
             transform.position = data.StartPosition;
             _missFX = Instantiate(missFxPrefab, data.EndPosition, Quaternion.identity);
+            if (useSpawnAudio)
+            {
+                AudioSource source = Instantiate(spawnAudio, data.StartPosition, Quaternion.identity);
+                source.Play();
+            }
         }
 
         protected void Miss()
