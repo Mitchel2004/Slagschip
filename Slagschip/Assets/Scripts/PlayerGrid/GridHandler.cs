@@ -224,6 +224,8 @@ namespace PlayerGrid
         {
             _sunkenShipsCount++;
 
+            _dashboardHandler.ReceiveTorpedo();
+
             if (_sunkenShipsCount == _maxShips)
             {
                 _dashboardHandler.LoseScreen();

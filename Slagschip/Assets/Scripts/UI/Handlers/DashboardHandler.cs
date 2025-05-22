@@ -47,6 +47,8 @@ namespace UIHandlers
         private ECompassDirection _torpedoDirection = ECompassDirection.NorthEast;
         private byte _mineCount = GridHandler._maxMines;
 
+        private byte _torpedoCount;
+
         private InputAction _rotate;
 
         private void Awake()
@@ -136,7 +138,8 @@ namespace UIHandlers
 
             GameData.instance.currentPlayerTurn.OnValueChanged += OnPlayerTurnChange;
 
-            _document.rootVisualElement.Query<Label>("naval-mine-counter").First().text = _mineCount.ToString();
+            Query<Label>("naval-mine-counter").text = _mineCount.ToString();
+            Query<Label>("torpedo-counter").text = _torpedoCount.ToString();
 
             if (IsServer)
                 _readyPlayers.Value = 0;
@@ -351,10 +354,14 @@ namespace UIHandlers
             if (NetworkManager.Singleton.LocalClientId == newValue)
             {
                 HideElement("grid-cover");
+
+                if (_torpedoCount > 0)
+                    ToggleButton("torpedo-button", true);
             }
             else
             {
                 ShowElement("grid-cover");
+                ToggleButton("torpedo-button", false);
             }
 
             VisualElement _teamText = _document.rootVisualElement.Query("team-text").First();
@@ -490,12 +497,17 @@ namespace UIHandlers
         private void ShowTutorial(string tutorialName, Action fadeEndCallback)
         {
             Query(tutorialName).RegisterCallbackOnce<TransitionEndEvent>(e => fadeEndCallback());
+            Query(tutorialName).RegisterCallbackOnce<TransitionEndEvent>(e => CloseTutorial(tutorialName));
             ShowTutorial(tutorialName);
         }
 
         private void CloseTutorial(VisualElement _visualElement)
         {
             _visualElement.parent.style.display = DisplayStyle.None;
+        }
+        private void CloseTutorial(string name)
+        {
+            Query(name).style.display = DisplayStyle.None;
         }
 
         private void ShowRotateTutorial(Vector3 _position)
@@ -582,6 +594,13 @@ namespace UIHandlers
             LeaveSessionRpc();
         }
 
+        public void ReceiveTorpedo()
+        {
+            Query<Label>("torpedo-counter").text = (++_torpedoCount).ToString();
+
+            ToggleButton("torpedo-button", true);
+        }
+
         private void OnTorpedo()
         {
             ToggleTorpedoMode(!_document.rootVisualElement.Query("torpedo-button").First().ClassListContains("selected-torpedo-button"));
@@ -621,6 +640,10 @@ namespace UIHandlers
                 }
 
                 _torpedoDirection = ECompassDirection.NorthEast;
+                Query<Label>("torpedo-counter").text = (--_torpedoCount).ToString();
+
+                if (_torpedoCount <= 0)
+                    ToggleButton("torpedo-button", false);
             }
             else
             {

@@ -139,7 +139,7 @@
                     <ui:Label text="Wanneer het jouw beurt is, &#10;kan je op het raster kiezen &#10;waar je wilt aanvallen. &#10;Klik op deze knop &#10;om een raket af te vuren." style="margin-right: 16px; margin-left: 16px;" />
                     <ui:Button text="×" class="close-tutorial-button" style="right: 10px; top: 10px;" />
                 </ui:VisualElement>
-                <ui:Button name="torpedo-button">
+                <ui:Button name="torpedo-button" enabled="false">
                     <ui:Label text="0" name="torpedo-counter" class="number-counter" />
                 </ui:Button>
                 <ui:VisualElement name="torpedo-tutorial" class="tutorial-pop-up" style="position: absolute; left: -80px; bottom: 120px; transition-delay: 15s;">
