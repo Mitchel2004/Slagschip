@@ -185,7 +185,6 @@ namespace UIHandlers
 
             ShowPregame();
             BindRotateTutorialRpc();
-            LoseScreen();
         }
         private void ShowPregame()
         {
@@ -521,8 +520,8 @@ namespace UIHandlers
         {
             ShowElement("win-lose-screen");
             Query(name).style.display = DisplayStyle.Flex;
-            Query(name).AddToClassList("appear");
-            Query(name).RegisterCallbackOnce<TransitionEndEvent>(e => appearEvent.Invoke());
+            Query("win-lose-pop-up").AddToClassList("appear");
+            Query("win-lose-pop-up").RegisterCallbackOnce<TransitionEndEvent>(e => appearEvent.Invoke());
         }
 
         private void CopyPlayCode() => _copySessionCode.onClick.Invoke();
