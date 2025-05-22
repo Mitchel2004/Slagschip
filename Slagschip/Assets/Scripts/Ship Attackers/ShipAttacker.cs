@@ -9,6 +9,7 @@ namespace ShipAttackers
 
     public abstract class ShipAttacker : MonoBehaviour
     {
+        [SerializeField] private bool useMissFX;
         [SerializeField] protected FXSystem missFxPrefab;
 
         protected AttackerData data;
@@ -28,7 +29,9 @@ namespace ShipAttackers
         public virtual void Initialize(GridCell _cell)
         {
             transform.position = data.StartPosition;
-            _missFX = Instantiate(missFxPrefab, data.EndPosition, Quaternion.identity);
+
+            if (useMissFX)
+                _missFX = Instantiate(missFxPrefab, data.EndPosition, Quaternion.identity);
         }
 
         protected void Miss()
