@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3853e15f9cfec1443aec37aa56d61c2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useMissFX: 1
   missFxPrefab: {fileID: 4557506055459805974, guid: fe3197ee9b0f1ee44a63348013505337, type: 3}
   useSpawnAudio: 1
   spawnAudio: {fileID: 2256968898037502218, guid: 5d3fc5f36f599a44fb66995f69aac50b, type: 3}

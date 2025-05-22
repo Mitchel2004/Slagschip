@@ -4,10 +4,134 @@
         <ui:VisualElement name="dashboard" style="position: relative; align-self: flex-end; top: 0;">
             <ui:Button text="Menu" name="menu-button" />
             <ui:VisualElement name="grid-container" />
-            <ui:VisualElement name="horizontal-lr-grid-container" />
-            <ui:VisualElement name="horizontal-rl-grid-container" />
-            <ui:VisualElement name="vertical-tb-grid-container" />
-            <ui:VisualElement name="vertical-bt-grid-container" />
+            <ui:VisualElement name="horizontal-lr-grid-container">
+                <ui:Button class="torpedo-button" style="height: 10%;">
+                    <ui:VisualElement picking-mode="Ignore" class="horizontal-grid-button" style="flex-grow: 1;" />
+                </ui:Button>
+                <ui:Button class="torpedo-button" style="height: 10%;">
+                    <ui:VisualElement picking-mode="Ignore" class="horizontal-grid-button" style="flex-grow: 1;" />
+                </ui:Button>
+                <ui:Button class="torpedo-button" style="height: 10%;">
+                    <ui:VisualElement picking-mode="Ignore" class="horizontal-grid-button" style="flex-grow: 1;" />
+                </ui:Button>
+                <ui:Button class="torpedo-button" style="height: 10%;">
+                    <ui:VisualElement picking-mode="Ignore" class="horizontal-grid-button" style="flex-grow: 1;" />
+                </ui:Button>
+                <ui:Button class="torpedo-button" style="height: 10%;">
+                    <ui:VisualElement picking-mode="Ignore" class="horizontal-grid-button" style="flex-grow: 1;" />
+                </ui:Button>
+                <ui:Button class="torpedo-button" style="height: 10%;">
+                    <ui:VisualElement picking-mode="Ignore" class="horizontal-grid-button" style="flex-grow: 1;" />
+                </ui:Button>
+                <ui:Button class="torpedo-button" style="height: 10%;">
+                    <ui:VisualElement picking-mode="Ignore" class="horizontal-grid-button" style="flex-grow: 1;" />
+                </ui:Button>
+                <ui:Button class="torpedo-button" style="height: 10%;">
+                    <ui:VisualElement picking-mode="Ignore" class="horizontal-grid-button" style="flex-grow: 1;" />
+                </ui:Button>
+                <ui:Button class="torpedo-button" style="height: 10%;">
+                    <ui:VisualElement picking-mode="Ignore" class="horizontal-grid-button" style="flex-grow: 1;" />
+                </ui:Button>
+                <ui:Button class="torpedo-button" style="height: 10%;">
+                    <ui:VisualElement picking-mode="Ignore" class="horizontal-grid-button" style="flex-grow: 1;" />
+                </ui:Button>
+            </ui:VisualElement>
+            <ui:VisualElement name="horizontal-rl-grid-container" focusable="false">
+                <ui:Button class="torpedo-button" style="height: 10%;">
+                    <ui:VisualElement picking-mode="Ignore" class="horizontal-grid-button" style="flex-grow: 1; align-self: flex-end;" />
+                </ui:Button>
+                <ui:Button class="torpedo-button" style="height: 10%;">
+                    <ui:VisualElement picking-mode="Ignore" class="horizontal-grid-button" style="flex-grow: 1; align-self: flex-end;" />
+                </ui:Button>
+                <ui:Button class="torpedo-button" style="height: 10%;">
+                    <ui:VisualElement picking-mode="Ignore" class="horizontal-grid-button" style="flex-grow: 1; align-self: flex-end;" />
+                </ui:Button>
+                <ui:Button class="torpedo-button" style="height: 10%;">
+                    <ui:VisualElement picking-mode="Ignore" class="horizontal-grid-button" style="flex-grow: 1; align-self: flex-end;" />
+                </ui:Button>
+                <ui:Button class="torpedo-button" style="height: 10%;">
+                    <ui:VisualElement picking-mode="Ignore" class="horizontal-grid-button" style="flex-grow: 1; align-self: flex-end;" />
+                </ui:Button>
+                <ui:Button class="torpedo-button" style="height: 10%;">
+                    <ui:VisualElement picking-mode="Ignore" class="horizontal-grid-button" style="flex-grow: 1; align-self: flex-end;" />
+                </ui:Button>
+                <ui:Button class="torpedo-button" style="height: 10%;">
+                    <ui:VisualElement picking-mode="Ignore" class="horizontal-grid-button" style="flex-grow: 1; align-self: flex-end;" />
+                </ui:Button>
+                <ui:Button class="torpedo-button" style="height: 10%;">
+                    <ui:VisualElement picking-mode="Ignore" class="horizontal-grid-button" style="flex-grow: 1; align-self: flex-end;" />
+                </ui:Button>
+                <ui:Button class="torpedo-button" style="height: 10%;">
+                    <ui:VisualElement picking-mode="Ignore" class="horizontal-grid-button" style="flex-grow: 1; align-self: flex-end;" />
+                </ui:Button>
+                <ui:Button class="torpedo-button" style="height: 10%;">
+                    <ui:VisualElement picking-mode="Ignore" class="horizontal-grid-button" style="flex-grow: 1; align-self: flex-end;" />
+                </ui:Button>
+            </ui:VisualElement>
+            <ui:VisualElement name="vertical-tb-grid-container">
+                <ui:Button class="torpedo-button" style="width: 10%; flex-direction: row;">
+                    <ui:VisualElement picking-mode="Ignore" class="vertical-grid-button" style="flex-grow: 1;" />
+                </ui:Button>
+                <ui:Button class="torpedo-button" style="width: 10%; flex-direction: row;">
+                    <ui:VisualElement picking-mode="Ignore" class="vertical-grid-button" style="flex-grow: 1;" />
+                </ui:Button>
+                <ui:Button class="torpedo-button" style="width: 10%; flex-direction: row;">
+                    <ui:VisualElement picking-mode="Ignore" class="vertical-grid-button" style="flex-grow: 1;" />
+                </ui:Button>
+                <ui:Button class="torpedo-button" style="width: 10%; flex-direction: row;">
+                    <ui:VisualElement picking-mode="Ignore" class="vertical-grid-button" style="flex-grow: 1;" />
+                </ui:Button>
+                <ui:Button class="torpedo-button" style="width: 10%; flex-direction: row;">
+                    <ui:VisualElement picking-mode="Ignore" class="vertical-grid-button" style="flex-grow: 1;" />
+                </ui:Button>
+                <ui:Button class="torpedo-button" style="width: 10%; flex-direction: row;">
+                    <ui:VisualElement picking-mode="Ignore" class="vertical-grid-button" style="flex-grow: 1;" />
+                </ui:Button>
+                <ui:Button class="torpedo-button" style="width: 10%; flex-direction: row;">
+                    <ui:VisualElement picking-mode="Ignore" class="vertical-grid-button" style="flex-grow: 1;" />
+                </ui:Button>
+                <ui:Button class="torpedo-button" style="width: 10%; flex-direction: row;">
+                    <ui:VisualElement picking-mode="Ignore" class="vertical-grid-button" style="flex-grow: 1;" />
+                </ui:Button>
+                <ui:Button class="torpedo-button" style="width: 10%; flex-direction: row;">
+                    <ui:VisualElement picking-mode="Ignore" class="vertical-grid-button" style="flex-grow: 1;" />
+                </ui:Button>
+                <ui:Button class="torpedo-button" style="width: 10%; flex-direction: row;">
+                    <ui:VisualElement picking-mode="Ignore" class="vertical-grid-button" style="flex-grow: 1;" />
+                </ui:Button>
+            </ui:VisualElement>
+            <ui:VisualElement name="vertical-bt-grid-container">
+                <ui:Button class="torpedo-button" style="width: 10%; flex-direction: row;">
+                    <ui:VisualElement picking-mode="Ignore" class="vertical-grid-button" style="flex-grow: 1; align-self: flex-end;" />
+                </ui:Button>
+                <ui:Button class="torpedo-button" style="width: 10%; flex-direction: row;">
+                    <ui:VisualElement picking-mode="Ignore" class="vertical-grid-button" style="flex-grow: 1; align-self: flex-end;" />
+                </ui:Button>
+                <ui:Button class="torpedo-button" style="width: 10%; flex-direction: row;">
+                    <ui:VisualElement picking-mode="Ignore" class="vertical-grid-button" style="flex-grow: 1; align-self: flex-end;" />
+                </ui:Button>
+                <ui:Button class="torpedo-button" style="width: 10%; flex-direction: row;">
+                    <ui:VisualElement picking-mode="Ignore" class="vertical-grid-button" style="flex-grow: 1; align-self: flex-end;" />
+                </ui:Button>
+                <ui:Button class="torpedo-button" style="width: 10%; flex-direction: row;">
+                    <ui:VisualElement picking-mode="Ignore" class="vertical-grid-button" style="flex-grow: 1; align-self: flex-end;" />
+                </ui:Button>
+                <ui:Button class="torpedo-button" style="width: 10%; flex-direction: row;">
+                    <ui:VisualElement picking-mode="Ignore" class="vertical-grid-button" style="flex-grow: 1; align-self: flex-end;" />
+                </ui:Button>
+                <ui:Button class="torpedo-button" style="width: 10%; flex-direction: row;">
+                    <ui:VisualElement picking-mode="Ignore" class="vertical-grid-button" style="flex-grow: 1; align-self: flex-end;" />
+                </ui:Button>
+                <ui:Button class="torpedo-button" style="width: 10%; flex-direction: row;">
+                    <ui:VisualElement picking-mode="Ignore" class="vertical-grid-button" style="flex-grow: 1; align-self: flex-end;" />
+                </ui:Button>
+                <ui:Button class="torpedo-button" style="width: 10%; flex-direction: row;">
+                    <ui:VisualElement picking-mode="Ignore" class="vertical-grid-button" style="flex-grow: 1; align-self: flex-end;" />
+                </ui:Button>
+                <ui:Button class="torpedo-button" style="width: 10%; flex-direction: row;">
+                    <ui:VisualElement picking-mode="Ignore" class="vertical-grid-button" style="flex-grow: 1; align-self: flex-end;" />
+                </ui:Button>
+            </ui:VisualElement>
             <ui:VisualElement name="grid-cover" />
             <ui:VisualElement name="game-buttons">
                 <ui:Button name="attack-button" enabled="false" />
@@ -15,14 +139,18 @@
                     <ui:Label text="Wanneer het jouw beurt is, &#10;kan je op het raster kiezen &#10;waar je wilt aanvallen. &#10;Klik op deze knop &#10;om een raket af te vuren." style="margin-right: 16px; margin-left: 16px;" />
                     <ui:Button text="×" class="close-tutorial-button" style="right: 10px; top: 10px;" />
                 </ui:VisualElement>
-                <ui:Button text="0" name="torpedo-button" />
+                <ui:Button name="torpedo-button" enabled="false">
+                    <ui:Label text="0" name="torpedo-counter" class="number-counter" />
+                </ui:Button>
                 <ui:VisualElement name="torpedo-tutorial" class="tutorial-pop-up" style="position: absolute; left: -80px; bottom: 120px; transition-delay: 15s;">
                     <ui:Label text="Torpedo&apos;s ontvang je wanneer &#10;je een schip verliest. &#10;Deze kan je gebruiken in plaats van &#10;een normale aanval." />
                     <ui:Button text="×" class="close-tutorial-button" style="right: 10px; top: 10px;" />
                 </ui:VisualElement>
             </ui:VisualElement>
-            <ui:VisualElement name="pregame-buttons" style="visibility: visible;">
-                <ui:Button text="0" name="naval-mine-button" enabled="false" />
+            <ui:VisualElement name="pregame-buttons">
+                <ui:Button name="naval-mine-button" enabled="false">
+                    <ui:Label text="0" name="naval-mine-counter" class="number-counter" />
+                </ui:Button>
                 <ui:VisualElement name="naval-mine-tutorial" class="tutorial-pop-up" style="position: absolute; bottom: 7px; left: -349px;">
                     <ui:Label text="Met zeemijnen kan je &#10;schepen raken als ze niet &#10;ontschadelijk worden gemaakt. &#10;Plaats ze tactisch op het raster." />
                     <ui:Button text="×" class="close-tutorial-button" style="right: 10px; top: 10px;" />
@@ -50,12 +178,10 @@
             <ui:Label text="aan zet" class="team-information" style="font-size: 24px; margin-right: 0;" />
         </ui:VisualElement>
     </ui:VisualElement>
-    <ui:VisualElement name="turn-screen">
-        <ui:VisualElement name="turn-information" />
-    </ui:VisualElement>
     <ui:Button text="------" name="play-code" />
+    <ui:Label text="Klik op de code &#10;om het te kopiëren." name="play-code-tutorial" class="tutorial-pop-up" style="left: 32px; top: 128px; transition-delay: 5s; position: absolute;" />
     <ui:VisualElement name="selection-container" style="flex-grow: 1;">
-        <ui:Label name="ship-label" text=" " enable-rich-text="false" />
+        <ui:Label name="ship-label" text="Schipnaam" />
         <ui:VisualElement name="fleet-selection" style="right: auto;">
             <ui:Button name="ship-button-schiedam" class="ship-button" />
             <ui:Button name="ship-button-vanamstel" class="ship-button" />
@@ -64,7 +190,6 @@
             <ui:Button name="ship-button-johandewitt" class="ship-button" />
         </ui:VisualElement>
     </ui:VisualElement>
-    <ui:Label text="Klik op de code &#10;om het te kopiëren." name="play-code-tutorial" class="tutorial-pop-up" style="left: 32px; top: 128px; transition-delay: 5s; position: absolute;" />
     <ui:VisualElement name="turn-screen">
         <ui:VisualElement name="turn-information">
             <ui:Label text="Team" class="turn-text" />

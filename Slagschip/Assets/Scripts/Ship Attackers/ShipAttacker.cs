@@ -9,6 +9,7 @@ namespace ShipAttackers
 
     public abstract class ShipAttacker : MonoBehaviour
     {
+        [SerializeField] private bool useMissFX;
         [SerializeField] protected FXSystem missFxPrefab;
         [SerializeField] private bool useSpawnAudio;
         [SerializeField] private AudioSource spawnAudio;
@@ -30,7 +31,10 @@ namespace ShipAttackers
         public virtual void Initialize(GridCell _cell)
         {
             transform.position = data.StartPosition;
-            _missFX = Instantiate(missFxPrefab, data.EndPosition, Quaternion.identity);
+
+            if (useMissFX)
+                _missFX = Instantiate(missFxPrefab, data.EndPosition, Quaternion.identity);
+
             if (useSpawnAudio)
             {
                 AudioSource source = Instantiate(spawnAudio, data.StartPosition, Quaternion.identity);

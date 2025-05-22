@@ -11,6 +11,9 @@ using TMPro;
 using Ships;
 using SceneManagement;
 using System.Collections;
+using System.Linq;
+using UnityEngine.InputSystem;
+using Utilities.CompassDirections;
 
 namespace UIHandlers
 {
@@ -38,14 +41,23 @@ namespace UIHandlers
         private const byte GridSize = GridHandler.gridSize;
         private const byte PlayerCount = 2;
 
-        private Button[] _gridButtons = new Button[GridSize * (GridSize + 4)];
+        private Button[] _gridButtons = new Button[2 * (int)Mathf.Pow(GridSize, 2)];
+        private Button[] _horizontalGridButtons = new Button[2 * (int)Mathf.Pow(GridSize, 2)];
 
         private byte _targetCell;
+        private ECompassDirection _torpedoDirection = ECompassDirection.NorthEast;
+        private byte _mineCount = GridHandler._maxMines;
+
+        private byte _torpedoCount;
+
+        private InputAction _rotate;
 
         private void Awake()
         {
             _document = GetComponent<UIDocument>();
 
+            _rotate = InputSystem.actions.FindAction("Rotate");
+            
             Query("turn-information").RegisterCallback<TransitionEndEvent>(e => OnTurnFadeEnd());
 
             RegisterCallbacks(new Dictionary<string, Action> {
@@ -86,44 +98,49 @@ namespace UIHandlers
                 _gridButtons[i] = _gridButton;
             }
 
-            for (byte i = 0; i < GridSize; i++)
+            List<Button> _horizontalLRGridButtons = _document.rootVisualElement.Query("horizontal-lr-grid-container").Children<Button>().ToList();
+
+            foreach (Button _button in _horizontalLRGridButtons)
             {
-                Button _horizontalLRGridButton = new();
-                Button _horizontalRLGridButton = new();
-                Button _verticalTBGridButton = new();
-                Button _verticalBTGridButton = new();
+                _button.RegisterCallback<ClickEvent, KeyValuePair<byte, ECompassDirection>>(SetTargetCell, new KeyValuePair<byte, ECompassDirection>((byte)(GridSize * GridSize + _horizontalLRGridButtons.IndexOf(_button)), ECompassDirection.East));
+                _gridButtons[GridSize * GridSize + _horizontalLRGridButtons.IndexOf(_button)] = _button;
+                _horizontalGridButtons[GridSize * GridSize + _horizontalLRGridButtons.IndexOf(_button)] = _button;
+            }
 
-                _horizontalLRGridButton.AddToClassList("horizontal-grid-button");
-                _horizontalRLGridButton.AddToClassList("horizontal-grid-button");
-                _verticalTBGridButton.AddToClassList("vertical-grid-button");
-                _verticalBTGridButton.AddToClassList("vertical-grid-button");
+            List<Button> _horizontalRLGridButtons = _document.rootVisualElement.Query("horizontal-rl-grid-container").Children<Button>().ToList();
 
-                _horizontalLRGridButton.style.height = new StyleLength(new Length(100 / GridSize, LengthUnit.Percent));
-                _horizontalRLGridButton.style.height = new StyleLength(new Length(100 / GridSize, LengthUnit.Percent));
-                _verticalTBGridButton.style.width = new StyleLength(new Length(100 / GridSize, LengthUnit.Percent));
-                _verticalBTGridButton.style.width = new StyleLength(new Length(100 / GridSize, LengthUnit.Percent));
+            foreach (Button _button in _horizontalRLGridButtons)
+            {
+                _button.RegisterCallback<ClickEvent, KeyValuePair<byte, ECompassDirection>>(SetTargetCell, new KeyValuePair<byte, ECompassDirection>((byte)(GridSize * GridSize + _horizontalRLGridButtons.IndexOf(_button) + 90), ECompassDirection.West));
+                _gridButtons[GridSize * GridSize + _horizontalRLGridButtons.IndexOf(_button) + 90] = _button;
+                _horizontalGridButtons[GridSize * GridSize + _horizontalRLGridButtons.IndexOf(_button) + 90] = _button;
+            }
+            
+            List<Button> _verticalTBGridButtons = _document.rootVisualElement.Query("vertical-tb-grid-container").Children<Button>().ToList();
 
-                _horizontalLRGridButton.RegisterCallback<ClickEvent, byte>(SetTargetCell, (byte)(GridSize * GridSize + i));
-                _horizontalRLGridButton.RegisterCallback<ClickEvent, byte>(SetTargetCell, (byte)(GridSize * (GridSize + 1) + i));
-                _verticalTBGridButton.RegisterCallback<ClickEvent, byte>(SetTargetCell, (byte)(GridSize * (GridSize + 2) + i));
-                _verticalBTGridButton.RegisterCallback<ClickEvent, byte>(SetTargetCell, (byte)(GridSize * (GridSize + 3) + i));
+            foreach (Button _button in _verticalTBGridButtons)
+            {
+                _button.RegisterCallback<ClickEvent, KeyValuePair<byte, ECompassDirection>>(SetTargetCell, new KeyValuePair<byte, ECompassDirection>((byte)(GridSize * GridSize + _verticalTBGridButtons.IndexOf(_button) * 10 + 9), ECompassDirection.South));
+                _gridButtons[GridSize * GridSize + _verticalTBGridButtons.IndexOf(_button) * 10 + 9] = _button;
+            }
 
-                _document.rootVisualElement.Query("horizontal-lr-grid-container").First().Add(_horizontalLRGridButton);
-                _document.rootVisualElement.Query("horizontal-rl-grid-container").First().Add(_horizontalRLGridButton);
-                _document.rootVisualElement.Query("vertical-tb-grid-container").First().Add(_verticalTBGridButton);
-                _document.rootVisualElement.Query("vertical-bt-grid-container").First().Add(_verticalBTGridButton);
+            List<Button> _verticalBTGridButtons = _document.rootVisualElement.Query("vertical-bt-grid-container").Children<Button>().ToList();
 
-                _gridButtons[GridSize * GridSize + i] = _horizontalLRGridButton;
-                _gridButtons[GridSize * (GridSize + 1) + i] = _horizontalRLGridButton;
-                _gridButtons[GridSize * (GridSize + 2) + i] = _verticalTBGridButton;
-                _gridButtons[GridSize * (GridSize + 3) + i] = _verticalBTGridButton;
+            foreach (Button _button in _verticalBTGridButtons)
+            {
+                _button.RegisterCallback<ClickEvent, KeyValuePair<byte, ECompassDirection>>(SetTargetCell, new KeyValuePair<byte, ECompassDirection>((byte)(GridSize * GridSize + _verticalBTGridButtons.IndexOf(_button) * 10), ECompassDirection.North));
+                _gridButtons[GridSize * GridSize + _verticalBTGridButtons.IndexOf(_button) * 10] = _button;
             }
         }
+
         public override void OnNetworkSpawn()
         {
             base.OnNetworkSpawn();
 
             GameData.instance.currentPlayerTurn.OnValueChanged += OnPlayerTurnChange;
+
+            Query<Label>("naval-mine-counter").text = _mineCount.ToString();
+            Query<Label>("torpedo-counter").text = _torpedoCount.ToString();
 
             if (IsServer)
                 _readyPlayers.Value = 0;
@@ -238,6 +255,77 @@ namespace UIHandlers
             _ => string.Empty
         };
 
+        private void RotateTorpedoOrientation(InputAction.CallbackContext _context)
+        {
+            if (_document.rootVisualElement.Query("horizontal-lr-grid-container").First().style.visibility == Visibility.Visible)
+            {
+                HideElement("horizontal-lr-grid-container");
+                HideElement("horizontal-rl-grid-container");
+                ShowElement("vertical-tb-grid-container");
+                ShowElement("vertical-bt-grid-container");
+            }
+            else
+            {
+                ShowElement("horizontal-lr-grid-container");
+                ShowElement("horizontal-rl-grid-container");
+                HideElement("vertical-tb-grid-container");
+                HideElement("vertical-bt-grid-container");
+            }
+
+            _document.rootVisualElement.Query("attack-button").First().SetEnabled(false);
+
+            if (_targetCell >= 100)
+            {
+                if (_torpedoDirection == ECompassDirection.East || _torpedoDirection == ECompassDirection.West)
+                {
+                    _horizontalGridButtons[_targetCell].Children().First().RemoveFromClassList("selected-torpedo-button");
+                }
+                else
+                {
+                    GetCellButton(_targetCell).Children().First().RemoveFromClassList("selected-torpedo-button");
+                }
+            }
+        }
+
+        private void ToggleTorpedoMode(bool _toggle)
+        {
+            if (_toggle)
+            {
+                _document.rootVisualElement.Query("torpedo-button").First().AddToClassList("selected-torpedo-button");
+
+                ShowElement("horizontal-lr-grid-container");
+                ShowElement("horizontal-rl-grid-container");
+
+                _rotate.started += RotateTorpedoOrientation;
+                GetCellButton(_targetCell).RemoveFromClassList("selected-grid-button");
+            }
+            else
+            {
+                _document.rootVisualElement.Query("torpedo-button").First().RemoveFromClassList("selected-torpedo-button");
+
+                HideElement("horizontal-lr-grid-container");
+                HideElement("horizontal-rl-grid-container");
+                HideElement("vertical-tb-grid-container");
+                HideElement("vertical-bt-grid-container");
+
+                _rotate.started -= RotateTorpedoOrientation;
+
+                if (_targetCell >= 100)
+                {
+                    if (_torpedoDirection == ECompassDirection.East || _torpedoDirection == ECompassDirection.West)
+                    {
+                        _horizontalGridButtons[_targetCell].Children().First().RemoveFromClassList("selected-torpedo-button");
+                    }
+                    else
+                    {
+                        GetCellButton(_targetCell).Children().First().RemoveFromClassList("selected-torpedo-button");
+                    }
+                }
+            }
+
+            _document.rootVisualElement.Query("attack-button").First().SetEnabled(false);
+        }
+
         private void StartTurn()
         {
             if (!IsHost)
@@ -267,10 +355,14 @@ namespace UIHandlers
             if (NetworkManager.Singleton.LocalClientId == newValue)
             {
                 HideElement("grid-cover");
+
+                if (_torpedoCount > 0)
+                    ToggleButton("torpedo-button", true);
             }
             else
             {
                 ShowElement("grid-cover");
+                ToggleButton("torpedo-button", false);
             }
 
             VisualElement _teamText = _document.rootVisualElement.Query("team-text").First();
@@ -342,6 +434,36 @@ namespace UIHandlers
             }
         }
 
+        private void SetTargetCell(ClickEvent _event, KeyValuePair<byte, ECompassDirection> _targetCell)
+        {
+            _torpedoDirection = _targetCell.Value;
+
+            if (this._targetCell >= 100)
+            {
+                if (_torpedoDirection == ECompassDirection.East || _torpedoDirection == ECompassDirection.West)
+                {
+                    _horizontalGridButtons[this._targetCell].Children().First().RemoveFromClassList("selected-torpedo-button");
+                }
+                else
+                {
+                    GetCellButton(this._targetCell).Children().First().RemoveFromClassList("selected-torpedo-button");
+                }
+            }
+
+            this._targetCell = _targetCell.Key;
+
+            if (_torpedoDirection == ECompassDirection.East || _torpedoDirection == ECompassDirection.West)
+            {
+                _horizontalGridButtons[_targetCell.Key].Children().First().AddToClassList("selected-torpedo-button");
+            }
+            else
+            {
+                GetCellButton(_targetCell.Key).Children().First().AddToClassList("selected-torpedo-button");
+            }
+
+            _document.rootVisualElement.Query("attack-button").First().SetEnabled(true);
+        }
+
         private Button GetCellButton(byte _targetCell)
         {
             return _gridButtons[_targetCell];
@@ -376,12 +498,17 @@ namespace UIHandlers
         private void ShowTutorial(string tutorialName, Action fadeEndCallback)
         {
             Query(tutorialName).RegisterCallbackOnce<TransitionEndEvent>(e => fadeEndCallback());
+            Query(tutorialName).RegisterCallbackOnce<TransitionEndEvent>(e => CloseTutorial(tutorialName));
             ShowTutorial(tutorialName);
         }
 
         private void CloseTutorial(VisualElement _visualElement)
         {
             _visualElement.parent.style.display = DisplayStyle.None;
+        }
+        private void CloseTutorial(string name)
+        {
+            Query(name).style.display = DisplayStyle.None;
         }
 
         private void ShowRotateTutorial(Vector3 _position)
@@ -422,23 +549,23 @@ namespace UIHandlers
         }
 
         [Rpc(SendTo.NotMe)]
-        public void OnHitRpc(byte _targetCell)
+        public void OnHitRpc(byte targetCell)
         {
-            StyleGridButton("hitted-grid-button");
+            StyleGridButton("hitted-grid-button", targetCell);
         }
 
         [Rpc(SendTo.NotMe)]
-        public void OnMissRpc(byte _targetCell)
+        public void OnMissRpc(byte targetCell)
         {
-            StyleGridButton("missed-grid-button");
+            StyleGridButton("missed-grid-button", targetCell);
         }
-        private void StyleGridButton(string styleClass)
+        private void StyleGridButton(string styleClass, byte targetCell)
         {
             if (IsClient)
             {
-                GetCellButton(_targetCell).AddToClassList(styleClass);
-                GetCellButton(_targetCell).RemoveFromClassList("grid-button");
-                GetCellButton(_targetCell).RemoveFromClassList("mine-grid-button");
+                GetCellButton(targetCell).AddToClassList(styleClass);
+                GetCellButton(targetCell).RemoveFromClassList("grid-button");
+                GetCellButton(targetCell).RemoveFromClassList("mine-grid-button");
             }
         }
 
@@ -468,10 +595,18 @@ namespace UIHandlers
             LeaveSessionRpc();
         }
 
+        public void ReceiveTorpedo()
+        {
+            Query<Label>("torpedo-counter").text = (++_torpedoCount).ToString();
+
+            ToggleButton("torpedo-button", true);
+        }
+
         private void OnTorpedo()
         {
-            throw new NotImplementedException();
+            ToggleTorpedoMode(!_document.rootVisualElement.Query("torpedo-button").First().ClassListContains("selected-torpedo-button"));
         }
+
         private void OnMine()
         {
             if (_mineTargets.Contains(_targetCell))
@@ -479,6 +614,7 @@ namespace UIHandlers
 
             _mineTargets.Add(_targetCell);
             _gridHandler.PlaceMineRpc(_targetCell);
+            Query<Label>("naval-mine-counter").text = (--_mineCount).ToString();
             ToggleButton("naval-mine-button", false);
 
             if (IsClient)
@@ -489,10 +625,38 @@ namespace UIHandlers
 
         private void OnAttack()
         {
-            _gridHandler.CheckTargetCellRpc(_targetCell);
+            if (_torpedoDirection != ECompassDirection.NorthEast)
+            {
+                _gridHandler.CheckTargetCellRpc(_targetCell, _torpedoDirection);
+
+                if (_torpedoDirection == ECompassDirection.East || _torpedoDirection == ECompassDirection.West)
+                {
+                    _horizontalGridButtons[_targetCell].Children().First().AddToClassList("fired-torpedo-button");
+                    _horizontalGridButtons[_targetCell].UnregisterCallback<ClickEvent, KeyValuePair<byte, ECompassDirection>>(SetTargetCell);
+                }
+                else
+                {
+                    GetCellButton(_targetCell).Children().First().AddToClassList("fired-torpedo-button");
+                    GetCellButton(_targetCell).UnregisterCallback<ClickEvent, KeyValuePair<byte, ECompassDirection>>(SetTargetCell);
+                }
+
+                _torpedoDirection = ECompassDirection.NorthEast;
+                Query<Label>("torpedo-counter").text = (--_torpedoCount).ToString();
+
+                if (_torpedoCount <= 0)
+                    ToggleButton("torpedo-button", false);
+            }
+            else
+            {
+                _gridHandler.CheckTargetCellRpc(_targetCell);
+                GetCellButton(_targetCell).UnregisterCallback<ClickEvent, byte>(SetTargetCell);
+            }
+
             ToggleButton("attack-button", false);
-            GetCellButton(_targetCell).UnregisterCallback<ClickEvent, byte>(SetTargetCell);
+
+            ToggleTorpedoMode(false);
         }
+
         private void Ready()
         {
             onReady.Invoke();
