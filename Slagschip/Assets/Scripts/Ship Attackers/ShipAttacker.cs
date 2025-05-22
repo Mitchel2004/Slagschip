@@ -11,6 +11,8 @@ namespace ShipAttackers
     {
         [SerializeField] private bool useMissFX;
         [SerializeField] protected FXSystem missFxPrefab;
+        [SerializeField] private bool useSpawnAudio;
+        [SerializeField] private AudioSource spawnAudio;
 
         protected AttackerData data;
 
@@ -32,6 +34,9 @@ namespace ShipAttackers
 
             if (useMissFX)
                 _missFX = Instantiate(missFxPrefab, data.EndPosition, Quaternion.identity);
+
+            if (useSpawnAudio)
+                Instantiate(spawnAudio, data.StartPosition, Quaternion.identity);
         }
 
         protected void Miss()

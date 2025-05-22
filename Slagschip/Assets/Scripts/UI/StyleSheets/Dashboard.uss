@@ -730,11 +730,11 @@ Button:hover .fired-torpedo-button {
     padding-bottom: 64px;
     padding-left: 128px;
     align-items: center;
-    opacity: 0;
     transition-property: all, opacity;
     transition-duration: 0s, 1s;
     transition-timing-function: ease, linear;
     transition-delay: 0s, 0s;
+    opacity: 0;
 }
 
 .steve {
@@ -752,4 +752,5 @@ Button:hover .fired-torpedo-button {
 
 .win-lose-holder {
     align-items: center;
+    display: none;
 }

@@ -45,7 +45,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d7b24356478866479635628989269aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  missFX: {fileID: 0}
+  useMissFX: 0
+  missFxPrefab: {fileID: 0}
+  useSpawnAudio: 1
+  spawnAudio: {fileID: 2256968898037502218, guid: 8e14a44905f08384fabe6e790978376d, type: 3}
   GridOffset: 7
   speed: 0.3
 --- !u!1001 &7278198733140663307

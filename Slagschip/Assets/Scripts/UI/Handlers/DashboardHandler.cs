@@ -32,6 +32,7 @@ namespace UIHandlers
         [SerializeField] private UnityEngine.UI.Button _copySessionCode;
         [SerializeField] private string[] shipIds;
         [SerializeField] private UnityEngine.UI.Button _leaveSessionButton;
+        [SerializeField] private AudioSource winSource, loseSource;
 
         private NetworkVariable<byte> _readyPlayers = new();
         private List<byte> _mineTargets = new();
@@ -666,23 +667,25 @@ namespace UIHandlers
 
         public void LoseScreen()
         {
-            WinLoseScreenStyle("lose-holder");
+            WinLoseScreenStyle("lose-holder", () => loseSource.Play());
             WinScreenRPC();
+
             LeaveSessionRpc();
         }
 
         [Rpc(SendTo.NotMe)]
         public void WinScreenRPC()
         {
-            WinLoseScreenStyle("win-holder");
+            WinLoseScreenStyle("win-holder", () => winSource.Play());
             LeaveSessionRpc();
         }
 
-        private void WinLoseScreenStyle(string name)
+        private void WinLoseScreenStyle(string name, Action appearEvent)
         {
             ShowElement("win-lose-screen");
             Query(name).style.display = DisplayStyle.Flex;
-            Query(name).AddToClassList("appear");
+            Query("win-lose-pop-up").AddToClassList("appear");
+            Query("win-lose-pop-up").RegisterCallbackOnce<TransitionEndEvent>(e => appearEvent.Invoke());
         }
 
         private void CopyPlayCode() => _copySessionCode.onClick.Invoke();
