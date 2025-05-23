@@ -1,0 +1,756 @@
+Button:enabled {
+    cursor: url("project://database/Assets/Art/UI/Cursor/CursorOrange.png?fileID=2800000&guid=ac11c423ee2e64b4595e0d149628da5a&type=3#CursorOrange") 9 8;
+}
+
+#dashboard-holder {
+    flex-grow: 1;
+    justify-content: center;
+    align-self: auto;
+}
+
+#dashboard {
+    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Opponent%20Dashboard%20and%20grid/OpponentGridDashboard.png?fileID=1881719252&guid=21aeff29aa88b20468c3854f01d3ee09&type=3#OpponentGridDashboard_0");
+    position: absolute;
+    width: 424px;
+    height: 471px;
+    right: 0;
+    top: 95px;
+}
+
+#grid-cover {
+    width: 350px;
+    height: 350px;
+    top: 53px;
+    position: absolute;
+    right: 22px;
+    visibility: hidden;
+}
+
+#grid-container {
+    overflow: hidden;
+    flex-direction: column-reverse;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    width: 350px;
+    height: 350px;
+    top: 53px;
+    position: absolute;
+    right: 22px;
+    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Radar%20Animation/Radar.renderTexture?fileID=8400000&guid=c77ddc032ea85ee4cb0e58e741e3cfe8&type=2#Radar");
+    -unity-background-image-tint-color: rgba(255, 255, 255, 0.5);
+}
+
+#horizontal-lr-grid-container {
+    visibility: hidden;
+    width: 175px;
+    height: 350px;
+    left: 52px;
+    top: 53px;
+    position: absolute;
+    flex-direction: column-reverse;
+}
+
+#horizontal-rl-grid-container {
+    visibility: hidden;
+    width: 175px;
+    height: 350px;
+    left: 227px;
+    top: 53px;
+    position: absolute;
+    flex-direction: column-reverse;
+}
+
+#vertical-tb-grid-container {
+    visibility: hidden;
+    width: 350px;
+    height: 175px;
+    left: 52px;
+    top: 53px;
+    position: absolute;
+    flex-direction: row;
+}
+
+#vertical-bt-grid-container {
+    visibility: hidden;
+    width: 350px;
+    height: 175px;
+    left: 52px;
+    top: 228px;
+    position: absolute;
+    flex-direction: row;
+}
+
+.torpedo-button {
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    background-color: rgba(0, 0, 0, 0);
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    -unity-text-outline-color: rgba(0, 0, 0, 0);
+    overflow: visible;
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+}
+
+.grid-button {
+    margin: 0;
+    padding: 0;
+    border-width: 0;
+    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Opponent%20Dashboard%20and%20grid/OpponentGridTiles.png?fileID=2800000&guid=c39ac4ea74bb2a6459321d700228c3a9&type=3#OpponentGridTiles");
+    background-color: rgba(255, 255, 255, 0);
+}
+
+.grid-button:hover {
+    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Grid%20Icons/Selected.png?fileID=2800000&guid=a3e7cabf2c21c5141aedda060e450f3c&type=3#Selected");
+    background-color: rgba(255, 255, 255, 0);
+}
+
+.selected-grid-button {
+    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Grid%20Icons/Selected.png?fileID=2800000&guid=a3e7cabf2c21c5141aedda060e450f3c&type=3#Selected");
+    background-color: rgba(255, 255, 255, 0);
+}
+
+.selected-torpedo-button {
+    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Grid%20Icons/Selected.png?fileID=2800000&guid=a3e7cabf2c21c5141aedda060e450f3c&type=3#Selected");
+    background-color: rgba(255, 255, 255, 0);
+    background-repeat: round round;
+    background-position-x: right 0;
+    background-position-y: bottom 0;
+    background-size: 10% 100%;
+}
+
+.horizontal-grid-button {
+    margin: 0;
+    padding: 0;
+    width: 200%;
+    border-width: 0;
+}
+
+.vertical-grid-button {
+    margin: 0;
+    padding: 0;
+    height: 200%;
+    border-width: 0;
+}
+
+.hitted-grid-button {
+    margin: 0;
+    padding: 0;
+    border-width: 0;
+    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Grid%20Icons/HitMarker.png?fileID=2800000&guid=6d8e8acd3c2af9141a0ca61b739211e6&type=3#HitMarker");
+    background-color: rgba(255, 255, 255, 0);
+}
+
+.missed-grid-button {
+    margin: 0;
+    padding: 0;
+    border-width: 0;
+    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Grid%20Icons/MissMarker.png?fileID=2800000&guid=0e56800226aec7d44a849b0322278d7c&type=3#MissMarker");
+    background-color: rgba(255, 255, 255, 0);
+}
+
+.mine-grid-button {
+    margin: 0;
+    padding: 0;
+    border-width: 0;
+    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Grid%20Icons/NavalMineMarker.png?fileID=2800000&guid=ba7c2a4219d3e7148b7a1753220a99df&type=3#NavalMineMarker");
+    background-color: rgba(255, 255, 255, 0);
+}
+
+#horizontal-lr-grid-container .selected-torpedo-button {
+    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Grid%20Icons/HorizontalDirectionArrow.png?fileID=2800000&guid=9e55da53340740349bb4a48275f39326&type=3#HorizontalDirectionArrow");
+}
+
+#horizontal-rl-grid-container .selected-torpedo-button {
+    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Grid%20Icons/HorizontalDirectionArrow.png?fileID=2800000&guid=9e55da53340740349bb4a48275f39326&type=3#HorizontalDirectionArrow");
+    scale: -1 1;
+}
+
+#vertical-tb-grid-container .selected-torpedo-button {
+    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Grid%20Icons/VerticalDirectionArrow.png?fileID=2800000&guid=d0649e7a24ec7d14ab171594bd00ef70&type=3#VerticalDirectionArrow");
+    background-size: 100% 10%;
+}
+
+#vertical-bt-grid-container .selected-torpedo-button {
+    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Grid%20Icons/VerticalDirectionArrow.png?fileID=2800000&guid=d0649e7a24ec7d14ab171594bd00ef70&type=3#VerticalDirectionArrow");
+    scale: 1 -1;
+    background-size: 100% 10%;
+}
+
+#horizontal-lr-grid-container Button:hover .horizontal-grid-button {
+    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Grid%20Icons/HorizontalTorpedoSelected.png?fileID=2800000&guid=88eec7743382b084188f59899177f233&type=3#HorizontalTorpedoSelected");
+    background-color: rgba(255, 255, 255, 0);
+    background-repeat: round no-repeat;
+    background-size: contain;
+    background-position-x: right 0;
+}
+
+#horizontal-rl-grid-container Button:hover .horizontal-grid-button {
+    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Grid%20Icons/HorizontalTorpedoSelected.png?fileID=2800000&guid=88eec7743382b084188f59899177f233&type=3#HorizontalTorpedoSelected");
+    background-color: rgba(255, 255, 255, 0);
+    background-repeat: round no-repeat;
+    background-size: contain;
+    background-position-x: left 0;
+    scale: -1 1;
+    align-items: flex-end;
+}
+
+#vertical-tb-grid-container Button:hover .vertical-grid-button {
+    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Grid%20Icons/VerticalTorpedoSelected.png?fileID=2800000&guid=305418762b196ef4a83b8923084c5419&type=3#VerticalTorpedoSelected");
+    background-color: rgba(255, 255, 255, 0);
+    background-size: contain;
+    background-position-y: bottom 0;
+    background-repeat: no-repeat round;
+}
+
+#vertical-bt-grid-container Button:hover .vertical-grid-button {
+    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Grid%20Icons/VerticalTorpedoSelected.png?fileID=2800000&guid=305418762b196ef4a83b8923084c5419&type=3#VerticalTorpedoSelected");
+    background-color: rgba(255, 255, 255, 0);
+    background-size: contain;
+    background-position-y: bottom 0;
+    background-repeat: no-repeat round;
+    scale: 1 -1;
+}
+
+Button:hover .fired-torpedo-button {
+    -unity-background-image-tint-color: rgba(255, 255, 255, 0.5);
+}
+
+#menu-button {
+    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Buttons/MenuButton.png?fileID=1063743818&guid=814066d230b5e5d4aafd4062b1957ce3&type=3#MenuButton_5");
+    background-color: rgba(0, 0, 0, 0);
+    -unity-text-outline-color: rgba(0, 0, 0, 0);
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    font-size: 32px;
+    -unity-font-definition: url("project://database/Assets/Art/Fonts/PulseRifle.ttf?fileID=12800000&guid=67c88df0693e9e14d86c2ea179049521&type=3#PulseRifle");
+    top: -34px;
+    align-self: center;
+    padding-right: 32px;
+    padding-left: 32px;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    position: absolute;
+}
+
+#menu-button:active {
+    padding-top: 19px;
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    -unity-text-outline-color: rgba(0, 0, 0, 0);
+    background-color: rgba(0, 0, 0, 0);
+    padding-bottom: 13px;
+    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Buttons/MenuButtonPressed.png?fileID=-105710934&guid=9525cda0323c688479c89948c18df623&type=3#MenuButtonPressed_5");
+}
+
+#game-buttons {
+    bottom: -55px;
+    position: absolute;
+    visibility: hidden;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-self: center;
+    width: 100%;
+}
+
+#pregame-buttons {
+    bottom: -55px;
+    position: absolute;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-self: center;
+    width: 100%;
+}
+
+#awaiting-players {
+    background-image: url("project://database/Assets/Art/UI/PauzeScreen/PauseScreenBackground.png?fileID=-2096421328&guid=38aa389c1393d464ca18ff06bdffd634&type=3#PauseScreenBackground_0");
+    position: absolute;
+    bottom: -55px;
+    align-items: center;
+    justify-content: center;
+    left: 0;
+    right: 0;
+    top: 409px;
+    visibility: hidden;
+}
+
+#attack-button {
+    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Buttons/AttackButton.png?fileID=367398710&guid=4dd918dd566a2cc4eb326b769c124f46&type=3#AttackButton_0");
+    width: 100px;
+    height: 109px;
+    display: flex;
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    background-color: rgba(0, 0, 0, 0);
+    -unity-text-outline-color: rgba(0, 0, 0, 0);
+}
+
+#attack-button:active {
+    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Buttons/AttackButtonPressed.png?fileID=1102495899&guid=25d44e4de6fdfa9468ac72b1b92f4d7b&type=3#AttackButtonPressed_0");
+    -unity-text-outline-color: rgba(0, 0, 0, 0);
+    background-color: rgba(0, 0, 0, 0);
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+}
+
+#naval-mine-button {
+    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Buttons/NavalMineButton.png?fileID=-1748097259&guid=3acf8cd83bf90c74a81a23c19a6cf09a&type=3#NavalMineButton_0");
+    width: 100px;
+    height: 109px;
+    padding-bottom: 16px;
+    -unity-text-outline-color: rgba(0, 0, 0, 0);
+    background-color: rgba(0, 0, 0, 0);
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    left: 15px;
+}
+
+#naval-mine-button:active {
+    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Buttons/NavalMineButtonPressed.png?fileID=760942414&guid=7e5552311fba8d14097ac9b96117faf5&type=3#NavalMineButtonPressed_0");
+    padding-top: 3px;
+    padding-bottom: 13px;
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    -unity-text-outline-color: rgba(0, 0, 0, 0);
+    background-color: rgba(0, 0, 0, 0);
+}
+
+#torpedo-button {
+    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Buttons/TorpedoButton.png?fileID=-10070716&guid=a88edb017e4319d4ea52144b339d0c19&type=3#TorpedoButton_0");
+    width: 100px;
+    height: 109px;
+    padding-bottom: 16px;
+    background-color: rgba(0, 0, 0, 0);
+    -unity-text-outline-color: rgba(0, 0, 0, 0);
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    overflow: visible;
+}
+
+#torpedo-button.selected-torpedo-button {
+    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Buttons/TorpedoButtonPressed.png?fileID=2004213573&guid=8dc5be68b75f09444a0faaf860bbbb71&type=3#TorpedoButtonPressed_0");
+    padding-top: 3px;
+    padding-bottom: 13px;
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    background-color: rgba(0, 0, 0, 0);
+    -unity-text-outline-color: rgba(0, 0, 0, 0);
+}
+
+#naval-mine-button {
+    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Buttons/NavalMineButton.png?fileID=-1748097259&guid=3acf8cd83bf90c74a81a23c19a6cf09a&type=3#NavalMineButton_0");
+    width: 100px;
+    height: 109px;
+    padding-bottom: 16px;
+    -unity-text-align: lower-left;
+    font-size: 16px;
+    -unity-text-outline-color: rgba(0, 0, 0, 0);
+    background-color: rgba(0, 0, 0, 0);
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    -unity-font-definition: url("project://database/Assets/Art/Fonts/SevenSegment.ttf?fileID=12800000&guid=554869fa8935f544bb407948d22dc3f9&type=3#SevenSegment");
+    left: 15px;
+    overflow: visible;
+}
+
+#naval-mine-button:active {
+    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Buttons/NavalMineButtonPressed.png?fileID=760942414&guid=7e5552311fba8d14097ac9b96117faf5&type=3#NavalMineButtonPressed_0");
+    padding-top: 3px;
+    padding-bottom: 13px;
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    -unity-text-outline-color: rgba(0, 0, 0, 0);
+    background-color: rgba(0, 0, 0, 0);
+}
+
+#ready-button {
+    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Buttons/EmptyButton.png?fileID=430277337&guid=ff7992968b1f57a488a3532787968185&type=3#EmptyButton_0");
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    background-color: rgba(0, 0, 0, 0);
+    -unity-font-definition: url("project://database/Assets/Art/Fonts/PulseRifle.ttf?fileID=12800000&guid=67c88df0693e9e14d86c2ea179049521&type=3#PulseRifle");
+    background-size: 100% 100%;
+    font-size: 25px;
+    padding-right: 16px;
+    padding-left: 16px;
+}
+
+#ready-button:active {
+    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Buttons/EmptyButtonPressed.png?fileID=-336603769&guid=15490286b6d453c47aee6c54b33fd5e7&type=3#EmptyButtonPressed_0");
+    padding-top: 19px;
+    padding-bottom: 13px;
+}
+
+#turn-screen {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: absolute;
+    visibility: hidden;
+    justify-content: center;
+}
+
+#turn-information {
+    position: absolute;
+    left: 0;
+    right: 0;
+    transition-property: opacity;
+    transition-timing-function: linear;
+    transition-duration: 1s;
+    opacity: 0;
+    transition-delay: 4s;
+    background-image: url("project://database/Assets/Art/UI/Information/Turn%20Indication/TurnIndication.png?fileID=468747298&guid=993e2418c306c1244ba30fd37071f106&type=3#TurnIndication_0");
+    height: 250px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+#team-name {
+    margin-right: 0;
+}
+
+#turn-team-name {
+    font-size: 24px;
+}
+
+#play-code {
+    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Buttons/PlayCodeButton.png?fileID=1782324807&guid=11b57b2a8662bb54fbdcbd70fdde81f3&type=3#PlayCodeButton_0");
+    -unity-font-definition: url("project://database/Assets/Art/Fonts/SevenSegment.ttf?fileID=12800000&guid=554869fa8935f544bb407948d22dc3f9&type=3#SevenSegment");
+    position: absolute;
+    font-size: 32px;
+    color: rgb(0, 255, 0);
+    padding-right: 24px;
+    padding-left: 24px;
+    padding-bottom: 24px;
+    padding-top: 24px;
+    margin-top: 32px;
+    margin-left: 32px;
+    -unity-text-outline-color: rgba(0, 0, 0, 0);
+    background-color: rgba(0, 0, 0, 0);
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+}
+
+.turn-text {
+    font-size: 32px;
+    -unity-font-definition: url("project://database/Assets/Art/Fonts/PulseRifle.ttf?fileID=12800000&guid=67c88df0693e9e14d86c2ea179049521&type=3#PulseRifle");
+    -unity-text-align: upper-center;
+    color: rgb(255, 255, 255);
+    margin-top: 0;
+    margin-right: 10px;
+    margin-bottom: 0;
+    margin-left: 0;
+}
+
+.team-information {
+    margin-top: 0;
+    margin-right: 10px;
+    margin-bottom: 0;
+    margin-left: 0;
+    -unity-font-definition: url("project://database/Assets/Art/Fonts/PulseRifle.ttf?fileID=12800000&guid=67c88df0693e9e14d86c2ea179049521&type=3#PulseRifle");
+    font-size: 32px;
+    -unity-text-align: upper-center;
+    color: rgb(255, 255, 255);
+}
+
+.team-alfa {
+    color: rgb(255, 0, 0);
+}
+
+.team-bravo {
+    color: rgb(0, 64, 255);
+}
+
+#pause-screen {
+    position: absolute;
+    visibility: hidden;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    align-items: center;
+    justify-content: center;
+}
+
+#pause-pop-up {
+    background-image: url("project://database/Assets/Art/UI/PauzeScreen/PauseScreenBackground.png?fileID=-2096421328&guid=38aa389c1393d464ca18ff06bdffd634&type=3#PauseScreenBackground_0");
+    position: absolute;
+    padding-top: 32px;
+    padding-right: 128px;
+    padding-bottom: 64px;
+    padding-left: 128px;
+}
+
+.pause-button {
+    margin: 32px;
+    -unity-font-definition: url("project://database/Assets/Art/Fonts/PulseRifle.ttf?fileID=12800000&guid=67c88df0693e9e14d86c2ea179049521&type=3#PulseRifle");
+    font-size: 32px;
+    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Buttons/EmptyButton.png?fileID=430277337&guid=ff7992968b1f57a488a3532787968185&type=3#EmptyButton_0");
+    padding-top: 16px;
+    padding-bottom: 24px;
+    background-color: rgba(0, 0, 0, 0);
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    -unity-text-outline-color: rgba(0, 0, 0, 0);
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+}
+
+.pause-button:active {
+    padding-top: 19px;
+    padding-bottom: 21px;
+    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Buttons/EmptyButtonPressed.png?fileID=-336603769&guid=15490286b6d453c47aee6c54b33fd5e7&type=3#EmptyButtonPressed_0");
+}
+
+#disconnected-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    align-items: center;
+    justify-content: center;
+    visibility: hidden;
+}
+
+#disconnected-pup-up {
+    position: absolute;
+    background-image: url("project://database/Assets/Art/UI/PauzeScreen/PauseScreenBackground.png?fileID=-2096421328&guid=38aa389c1393d464ca18ff06bdffd634&type=3#PauseScreenBackground_0");
+    padding-top: 32px;
+    padding-right: 32px;
+    padding-bottom: 32px;
+    padding-left: 32px;
+}
+
+.close-tutorial-button {
+    position: absolute;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    -unity-font-definition: url("project://database/Assets/Art/Fonts/PulseRifle.ttf?fileID=12800000&guid=67c88df0693e9e14d86c2ea179049521&type=3#PulseRifle");
+    font-size: 16px;
+    padding-top: 2px;
+    padding-right: 4px;
+    padding-bottom: 3px;
+    padding-left: 5px;
+    background-image: url("project://database/Assets/Art/UI/PauzeScreen/PauseScreenBackground.png?fileID=-2096421328&guid=38aa389c1393d464ca18ff06bdffd634&type=3#PauseScreenBackground_0");
+    -unity-background-image-tint-color: rgb(255, 0, 0);
+    background-color: rgba(0, 0, 0, 0);
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    -unity-text-outline-color: rgba(0, 0, 0, 0);
+    color: rgb(255, 255, 255);
+    -unity-text-align: upper-center;
+}
+
+.tutorial-pop-up {
+    -unity-font-definition: url("project://database/Assets/Art/Fonts/PulseRifle.ttf?fileID=12800000&guid=67c88df0693e9e14d86c2ea179049521&type=3#PulseRifle");
+    color: rgb(255, 255, 255);
+    font-size: 16px;
+    background-image: url("project://database/Assets/Art/UI/PauzeScreen/PauseScreenBackground.png?fileID=-2096421328&guid=38aa389c1393d464ca18ff06bdffd634&type=3#PauseScreenBackground_0");
+    transition-property: opacity;
+    transition-timing-function: linear;
+    transition-duration: 1s;
+    -unity-text-align: upper-center;
+    visibility: hidden;
+    padding-top: 16px;
+    padding-right: 16px;
+    padding-bottom: 16px;
+    padding-left: 16px;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+}
+
+.number-counter {
+    -unity-font-definition: url("project://database/Assets/Art/Fonts/SevenSegment.ttf?fileID=12800000&guid=554869fa8935f544bb407948d22dc3f9&type=3#SevenSegment");
+    color: rgb(0, 255, 0);
+    -unity-text-align: upper-center;
+    font-size: 24px;
+    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Buttons/NumberDisplay.png?fileID=734419622&guid=de80b53d4ec0ffe43abf82d1e8c9380e&type=3#NumberDisplay_0");
+    position: absolute;
+    padding-top: 4px;
+    padding-right: 0;
+    padding-bottom: 7px;
+    padding-left: 0;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    width: 100%;
+    align-self: center;
+    bottom: -37px;
+}
+
+#selection-container {
+    width: 500px;
+    height: 140px;
+    flex-grow: 1;
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 48px;
+    margin-left: 148px;
+}
+
+#fleet-selection {
+    background-image: url("project://database/Assets/Art/UI/Fleet%20Selection/FleetSelectionBackground.png?fileID=1003578706&guid=76289cf1c86a4944b864dec5aa9a3de8&type=3#FleetSelectionBackground_0");
+    bottom: auto;
+    left: auto;
+    flex-grow: 1;
+    height: 90px;
+    width: auto;
+    position: relative;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    align-self: auto;
+}
+
+#ship-label {
+    visibility: hidden;
+    flex-grow: 1;
+    flex-shrink: 1;
+    font-size: 20px;
+    color: rgb(255, 255, 255);
+    -unity-font-definition: url("project://database/Assets/Art/Fonts/PulseRifle.ttf?fileID=12800000&guid=67c88df0693e9e14d86c2ea179049521&type=3#PulseRifle");
+    -unity-text-align: middle-center;
+}
+
+#ship-button-schiedam {
+    background-image: url("project://database/Assets/Art/UI/Fleet%20Selection/SchiedamSelectionIcon.png?fileID=2800000&guid=d63c3228f7694384f96cd623af18424b&type=3#SchiedamSelectionIcon");
+    background-color: rgba(0, 0, 0, 0);
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+}
+
+#ship-button-vanamstel {
+    background-image: url("project://database/Assets/Art/UI/Fleet%20Selection/VanAmstelSelectionIcon.png?fileID=2800000&guid=1c7f129b0c422604a9ff7ea0df42fbbf&type=3#VanAmstelSelectionIcon");
+    background-color: rgba(0, 0, 0, 0);
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+}
+
+#ship-button-vanspeijk {
+    background-image: url("project://database/Assets/Art/UI/Fleet%20Selection/VanSpeijkSelectionIcon.png?fileID=2800000&guid=0208cea448889d7408bec48198ed0bc3&type=3#VanSpeijkSelectionIcon");
+    background-color: rgba(0, 0, 0, 0);
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+}
+
+#ship-button-deruyter {
+    background-image: url("project://database/Assets/Art/UI/Fleet%20Selection/DeRuyterSelectionIcon.png?fileID=2800000&guid=597ce17cf4f63d34b843e15cddcbe844&type=3#DeRuyterSelectionIcon");
+    background-color: rgba(0, 0, 0, 0);
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+}
+
+#ship-button-johandewitt {
+    background-image: url("project://database/Assets/Art/UI/Fleet%20Selection/JohanDeWittSelectionIcon.png?fileID=2800000&guid=bbf37cd6c673e504bb567e8a7608f33d&type=3#JohanDeWittSelectionIcon");
+    background-color: rgba(0, 0, 0, 0);
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+}
+
+.ship-button {
+    width: 90px;
+    height: 90px;
+}
+
+#win-lose-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+}
+
+.win-lose-pop-up {
+    position: absolute;
+    background-image: url("project://database/Assets/Art/UI/PauzeScreen/PauseScreenBackground.png?fileID=-2096421328&guid=38aa389c1393d464ca18ff06bdffd634&type=3#PauseScreenBackground_0");
+    padding-top: 32px;
+    padding-right: 128px;
+    padding-bottom: 64px;
+    padding-left: 128px;
+    align-items: center;
+    transition-property: all, opacity;
+    transition-duration: 0s, 1s;
+    transition-timing-function: ease, linear;
+    transition-delay: 0s, 0s;
+    opacity: 0;
+}
+
+.steve {
+    rotate: 0;
+    position: absolute;
+    top: -30%;
+    flex-grow: 1;
+    width: 150px;
+    height: 150px;
+}
+
+.appear {
+    opacity: 1;
+}
+
+.win-lose-holder {
+    align-items: center;
+    display: none;
+}

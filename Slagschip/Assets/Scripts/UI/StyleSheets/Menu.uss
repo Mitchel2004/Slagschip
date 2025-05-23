@@ -1,0 +1,215 @@
+Button:enabled, TextInput, TextElement {
+    cursor: url("project://database/Assets/Art/UI/Cursor/CursorOrange.png?fileID=2800000&guid=ac11c423ee2e64b4595e0d149628da5a&type=3#CursorOrange") 9 8;
+}
+
+#start-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: row;
+}
+
+#menu-buttons {
+    width: 40%;
+    display: flex;
+}
+
+#play-code-input {
+    margin: 0;
+    width: 50%;
+    -unity-font-definition: url("project://database/Assets/Art/Fonts/SevenSegment.ttf?fileID=12800000&guid=554869fa8935f544bb407948d22dc3f9&type=3#SevenSegment");
+    font-size: 32px;
+    margin-bottom: 5px;
+    color: rgb(0, 255, 0);
+    -unity-font-style: normal;
+    flex-shrink: 2;
+}
+
+#play-code-input > #unity-text-input {
+    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Buttons/PlayCodeButton.png?fileID=1782324807&guid=11b57b2a8662bb54fbdcbd70fdde81f3&type=3#PlayCodeButton_0");
+    padding-top: 25px;
+    padding-right: 25px;
+    padding-bottom: 25px;
+    padding-left: 25px;
+    -unity-text-outline-color: rgba(0, 0, 0, 0);
+    background-color: rgba(0, 0, 0, 0);
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+}
+
+#play-code-input > .unity-base-text-field__input--placeholder {
+    color: rgb(0, 192, 0);
+}
+
+#play-code-button {
+    width: 50%;
+    flex-shrink: 2;
+}
+
+.menu-button {
+    margin: 0;
+    -unity-font-definition: url("project://database/Assets/Art/Fonts/PulseRifle.ttf?fileID=12800000&guid=67c88df0693e9e14d86c2ea179049521&type=3#PulseRifle");
+    font-size: 32px;
+    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Buttons/EmptyButton.png?fileID=430277337&guid=ff7992968b1f57a488a3532787968185&type=3#EmptyButton_0");
+    padding-top: 16px;
+    padding-bottom: 24px;
+    background-color: rgba(0, 0, 0, 0);
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    -unity-text-outline-color: rgba(0, 0, 0, 0);
+    margin-bottom: 5px;
+}
+
+.menu-button:active {
+    background-image: url("project://database/Assets/Art/UI/Opponent%20Grid/Buttons/EmptyButtonPressed.png?fileID=-336603769&guid=15490286b6d453c47aee6c54b33fd5e7&type=3#EmptyButtonPressed_0");
+    padding-top: 19px;
+    padding-bottom: 21px;
+    background-color: rgba(0, 0, 0, 0);
+    -unity-text-outline-color: rgba(0, 0, 0, 0);
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+}
+
+#credits-screen {
+    visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: rgb(47, 47, 47);
+    display: flex;
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+    align-items: center;
+}
+
+#error-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    justify-content: center;
+    visibility: hidden;
+}
+
+#error-box {
+    position: absolute;
+    justify-content: space-between;
+    align-self: center;
+    background-image: url("project://database/Assets/Art/UI/PauzeScreen/PauseScreenBackground.png?fileID=-2096421328&guid=38aa389c1393d464ca18ff06bdffd634&type=3#PauseScreenBackground_0");
+}
+
+#ok-button {
+    margin-bottom: 32px;
+    margin-left: 32px;
+    margin-right: 32px;
+    margin-top: 32px;
+}
+
+.back-button {
+    background-image: url("project://database/Assets/Art/UI/PauzeScreen/PauseScreenBackground.png?fileID=-2096421328&guid=38aa389c1393d464ca18ff06bdffd634&type=3#PauseScreenBackground_0");
+    -unity-background-image-tint-color: rgb(255, 0, 0);
+    -unity-font-definition: url("project://database/Assets/Art/Fonts/PulseRifle.ttf?fileID=12800000&guid=67c88df0693e9e14d86c2ea179049521&type=3#PulseRifle");
+    color: rgb(255, 255, 255);
+    background-color: rgba(0, 0, 0, 0);
+    font-size: 24px;
+    width: 120px;
+    height: 45px;
+    margin-top: 20px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    margin-left: 20px;
+    position: absolute;
+    left: 0;
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    top: auto;
+}
+
+#credits-holder {
+    align-self: center;
+    align-content: auto;
+    height: 1300px;
+    flex-shrink: 0;
+    width: 800px;
+}
+
+.default {
+    bottom: -100%;
+    position: relative;
+}
+
+.scroll {
+    bottom: 0;
+    position: relative;
+    transition-property: all, bottom;
+    transition-duration: 0s, 15s;
+    transition-timing-function: ease, linear;
+    transition-delay: 0s, 0s;
+}
+
+#credits {
+    width: 100%;
+    flex-direction: row;
+    align-content: flex-start;
+    height: auto;
+    flex-shrink: 0;
+    flex-grow: 0;
+    margin-bottom: 417px;
+    bottom: 0;
+    position: relative;
+}
+
+.credits-title {
+    color: rgb(255, 255, 255);
+    font-size: 48px;
+    -unity-font-definition: url("project://database/Assets/Art/Fonts/PulseRifle.ttf?fileID=12800000&guid=67c88df0693e9e14d86c2ea179049521&type=3#PulseRifle");
+    -unity-text-align: middle-center;
+    margin-bottom: 20px;
+    flex-shrink: 0;
+}
+
+.names {
+    -unity-font-definition: url("project://database/Assets/Art/Fonts/PulseRifle.ttf?fileID=12800000&guid=67c88df0693e9e14d86c2ea179049521&type=3#PulseRifle");
+    color: rgb(255, 255, 255);
+    font-size: 32px;
+    flex-shrink: 0;
+}
+
+#devs {
+    width: 50%;
+}
+
+#artists {
+    width: 50%;
+}
+
+#end-credits {
+    width: 100%;
+    align-items: center;
+    margin-top: 39px;
+    height: auto;
+    flex-shrink: 0;
+    justify-content: space-between;
+}
+
+#credits-panel {
+    bottom: 0;
+    position: absolute;
+    flex-shrink: 0;
+    flex-grow: 1;
+    height: 1080px;
+}
