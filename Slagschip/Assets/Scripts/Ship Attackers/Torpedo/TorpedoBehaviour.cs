@@ -42,7 +42,7 @@ namespace ShipAttackers.Torpedo
 
         private void Update()
         {
-            if (_time < 1 && !GridHandler.instance.Hit(_position))
+            if (_time < 1 && !GridHandler.instance.Hit(_position) && !GridHandler.instance.IsAlreadyHit(_position))
             {
                 Move();
             }

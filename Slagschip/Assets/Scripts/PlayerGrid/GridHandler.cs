@@ -10,6 +10,7 @@ using Utilities;
 using Utilities.Generic;
 using Utilities.CompassDirections;
 using System;
+using static UnityEditor.PlayerSettings;
 
 namespace PlayerGrid
 {
@@ -269,6 +270,8 @@ namespace PlayerGrid
 
                     GameData.instance.SwitchPlayerTurnRpc();
                 }
+
+                SetIsHitRpc(pos, isHit);
             }
         }
 
@@ -283,6 +286,12 @@ namespace PlayerGrid
             }
         }
 
+        [Rpc(SendTo.NotMe)]
+        private void SetIsHitRpc(Vector2Int _position, bool _isHit)
+        {
+            _grid[_position.x, _position.y].isHit = _isHit;
+        }
+
         public void TorpedoCallback(Vector2Int _target, bool _hit = true)
         {
             byte target = CellUnpacker.PackCell(_target);
@@ -294,6 +303,20 @@ namespace PlayerGrid
             else
             {
                 GameData.instance.SwitchPlayerTurnRpc();
+            }
+
+            SetIsHitRpc(_target, _hit);
+        }
+
+        public bool IsAlreadyHit(Vector2Int _position)
+        {
+            try
+            {
+                return _grid[_position.x, _position.y].isHit;
+            }
+            catch(IndexOutOfRangeException)
+            {
+                return false;
             }
         }
 
@@ -322,6 +345,8 @@ namespace PlayerGrid
                 _dashboardHandler.OnMissRpc(target);
                 _dashboardHandler.LockGridButtonRpc(target);
             }
+
+            SetIsHitRpc(_target, _hit);
         }
 
         [Rpc(SendTo.NotMe)]

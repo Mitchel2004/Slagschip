@@ -49,6 +49,7 @@ namespace UIHandlers
         private byte _mineCount = GridHandler._maxMines;
 
         private byte _torpedoCount;
+        private bool _showTorpedoReceivedTutorial = true;
 
         private InputAction _rotate;
 
@@ -194,7 +195,11 @@ namespace UIHandlers
             }
         }
 
+        [Rpc(SendTo.Everyone)]
+        private void ShowNavalMineTutorialRpc() => ShowTutorial("naval-mine-tutorial");
+
         private void AwaitPlayers() => StartCoroutine(WaitForPlayersRoutine());
+
         private IEnumerator WaitForPlayersRoutine()
         {
             while (NetworkManager.ConnectedClients.Count != PlayerCount)
@@ -208,6 +213,8 @@ namespace UIHandlers
             ShowElement("pregame-buttons");
             HideElement("awaiting-players");
             ShowElement("selection-container");
+
+            ShowNavalMineTutorialRpc();
         }
         private void HidePregame()
         {
@@ -476,6 +483,8 @@ namespace UIHandlers
             ShowElement("game-buttons");
             HideElement("selection-container");
 
+            Camera.main.transform.position += Vector3.forward;
+
             onGameStart.Invoke();
             _inPregame = false;
 
@@ -483,6 +492,7 @@ namespace UIHandlers
         }
 
         private void FadeOutTutorial(string tutorialName) => StartCoroutine(FadeOutTutorialRoutine(Query(tutorialName)));
+
         private IEnumerator FadeOutTutorialRoutine(VisualElement _visualElement)
         {
             yield return null;
@@ -497,8 +507,10 @@ namespace UIHandlers
         }
         private void ShowTutorial(string tutorialName, Action fadeEndCallback)
         {
-            Query(tutorialName).RegisterCallbackOnce<TransitionEndEvent>(e => fadeEndCallback());
-            Query(tutorialName).RegisterCallbackOnce<TransitionEndEvent>(e => CloseTutorial(tutorialName));
+            Query(tutorialName).RegisterCallbackOnce<TransitionEndEvent>(e => {
+                fadeEndCallback();
+                CloseTutorial(tutorialName);
+            });
             ShowTutorial(tutorialName);
         }
 
@@ -597,6 +609,12 @@ namespace UIHandlers
 
         public void ReceiveTorpedo()
         {
+            if (_showTorpedoReceivedTutorial)
+            {
+                _showTorpedoReceivedTutorial = false;
+                ShowTutorial("torpedo-received-tutorial");
+            }
+
             Query<Label>("torpedo-counter").text = (++_torpedoCount).ToString();
 
             ToggleButton("torpedo-button", true);
