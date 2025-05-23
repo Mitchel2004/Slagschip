@@ -10,7 +10,6 @@ using Utilities;
 using Utilities.Generic;
 using Utilities.CompassDirections;
 using System;
-using static UnityEditor.PlayerSettings;
 
 namespace PlayerGrid
 {
