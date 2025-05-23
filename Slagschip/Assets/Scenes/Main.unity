@@ -2833,12 +2833,6 @@ MonoBehaviour:
   _shipPlacer: {fileID: 68810865}
   _sessionCodeText: {fileID: 1057508723}
   _copySessionCode: {fileID: 1829504318}
-  shipIds:
-  - ship-button-schiedam
-  - ship-button-vanamstel
-  - ship-button-vanspeijk
-  - ship-button-deruyter
-  - ship-button-johandewitt
   _leaveSessionButton: {fileID: 673736867}
   winSource: {fileID: 29870803}
   loseSource: {fileID: 514199567}
@@ -4173,7 +4167,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 0.8
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
