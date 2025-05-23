@@ -432,7 +432,7 @@ Button:hover .fired-torpedo-button {
     transition-timing-function: linear;
     transition-duration: 1s;
     opacity: 0;
-    transition-delay: 2s;
+    transition-delay: 4s;
     background-image: url("project://database/Assets/Art/UI/Information/Turn%20Indication/TurnIndication.png?fileID=468747298&guid=993e2418c306c1244ba30fd37071f106&type=3#TurnIndication_0");
     height: 250px;
     flex-direction: row;

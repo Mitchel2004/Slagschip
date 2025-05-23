@@ -2,6 +2,7 @@ using UnityEditor;
 using UnityEngine;
 using Ships;
 
+#if UNITY_EDITOR
 namespace Editors
 {
     [CustomEditor(typeof(PlacingIndicator))]
@@ -26,3 +27,4 @@ namespace Editors
         }
     }
 }
+#endif

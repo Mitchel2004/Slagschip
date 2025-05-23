@@ -7,6 +7,7 @@ namespace PlayerGrid
         public Vector2Int position;
         public Vector3 worldPosition;
         public bool isTaken;
+        public bool isHit;
 
         public GridCell(Vector2Int _position, Vector3 _worldPosition)
         {

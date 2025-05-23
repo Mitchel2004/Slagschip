@@ -154,6 +154,7 @@ namespace Ships
             FindEffectOnOffset(_attackPosition - position).Play();
             CheckForSink();
         }
+
         private void CheckForSink()
         {
             if (_hits.All(b => b))
